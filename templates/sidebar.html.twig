@@ -1,0 +1,42 @@
+<nav id="sidebar">
+    <div class="sidebar-header">
+        <a href="{{ path('admin_dashboard') }}" class="text-decoration-none">
+            <h3 class="fw-bold m-0 text-white">DEEN-SHOP <span style="color: var(--admin-theme)">administrateur</span></h3>
+        </a>
+    </div>
+
+    <ul class="list-unstyled mt-4">
+        <li>
+            <a href="{{ path('admin_dashboard') }}" class="{{ app.request.get('_route') == 'admin_dashboard' ? 'active' : '' }}">
+                <i class="fa-solid fa-gauge me-2"></i> Dashboard
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('admin_categories') }}" class="{{ app.request.get('_route') == 'admin_orders' ? 'active' : '' }}">
+                <i class="fa-solid fa-cart-shopping me-2"></i> Categorie
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('admin_products') }}" class="{{ app.request.get('_route') == 'admin_products' ? 'active' : '' }}">
+                <i class="fa-solid fa-box me-2"></i> Produits
+            </a>
+        </li>
+                <li>
+            <a href="{{ path('admin_users') }}" class="{{ app.request.get('_route') == 'admin_users' ? 'active' : '' }}">
+                <i class="fa-solid fa-users me-2"></i> Utilisateurs
+            </a>
+        </li> 
+        <div class="sidebar-divider my-4" style="border-top: 1px solid rgba(255,255,255,0.1);"></div>
+        
+        <li>
+            <a href="{{ path('app_home') }}">
+                <i class="fa-solid fa-house me-2"></i> Voir le Site
+            </a>
+        </li>
+        <li>
+            <a href="{{ path('logout') }}" class="text-danger">
+                <i class="fa-solid fa-power-off me-2"></i> Déconnexion
+            </a>
+        </li>
+    </ul>
+</nav>

@@ -1,0 +1,301 @@
+{{ include('navbar.html.twig') }}
+
+
+<body>
+  <!--[if lte IE 9]>
+    	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <!--********************************
+   		Code Start From Here 
+	******************************** -->
+  <!--==============================
+	Preloader
+	==============================-->
+
+  <!--==============================
+    Breadcrumb
+============================== -->
+  <div class="breadcumb-wrapper" data-bg-src="/assets/img/hero/paiment.jpeg">
+    <div class="container z-index-common">
+      <div class="breadcumb-content">
+        <h1 class="breadcumb-title ">Confirmez Votre Paiement</h1>
+      </div>
+    </div>
+  </div>
+  <!--======== Checkout Section ========-->
+<div class="container py-5 mb-5 pb-5">
+    <div class="row g-4">
+
+        <!-- LEFT -->
+        <div class="col-lg-7">
+
+            <!-- BILLING -->
+            <div class="card border-0 shadow-sm p-4 mb-4">
+                <h4 class="mb-4 fw-bold">Information Personnel </h4>
+
+                {% if app.user %}
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label small text-muted">Nom complet</label>
+                            <input type="text" id="checkout-name" class="form-control bg-light border-0"
+                                   value="{{ app.user.nom }} {{ app.user.prenom }}" readonly>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label small text-muted">Téléphone</label>
+                                    <input type="text"  id="checkout-phone" class="form-control bg-light border-0"
+                                        value="{{ app.user.telephone }}" readonly>
+                                </div>
+
+                                <div class="col-12 mb-3">
+                                    <label class="form-label small text-muted">Adresse</label>
+                                    <input type="text" id="checkout-address" class="form-control bg-light border-0"
+                                        value="{{ app.user.adresse }}" readonly>
+                                </div>
+                            </div>
+
+                        {% else %}
+
+                        <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <input type="text"
+                            name="name"
+                            class="form-control shadow-none"
+                            placeholder="Nom complet"
+                            style="border:1px solid #D16655; background:#fff; color:#131313; border-radius:8px;">
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <input type="text"
+                            name="phone"
+                            class="form-control shadow-none"
+                            placeholder="Téléphone"
+                            style="border:1px solid #D16655; background:#fff; color:#131313; border-radius:8px;">
+                    </div>
+
+                    <div class="col-12 mb-3">
+                        <input type="text"
+                            name="address"
+                            class="form-control shadow-none"
+                            placeholder="Adresse complète"
+                            style="border:1px solid #D16655; background:#fff; color:#131313; border-radius:8px;">
+                    </div>
+
+        </div>
+
+                {% endif %}
+            </div>
+
+            <!-- PAYMENT -->
+            <div class="row row-cols-1 row-cols-md-2 g-3">
+                    <div class="col">
+                        <div class="payment-option card h-100 text-center p-3 shadow-none border" style="cursor: pointer;">
+                            <div class="form-check p-0">
+                                <input class="form-check-input float-none shadow-none mb-2" type="radio" name="payment" id="wave" value="wave" style="width: 20px; height: 20px; border-color: #D16655;">
+                                <label class="form-check-label d-block fw-bold small" for="wave">
+                                    <div class="mb-2">
+                                        <img src="https://goamobile.com/logosent/wave@221@-L-2021-06-30_00-11-11wave_logo_1.jpg" alt="Wave" style="height: 25px;">
+                                    </div>
+                                    Wave <br>
+                                    <i class="fas fa-mobile-alt mt-2 text-muted"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="payment-option card h-100 text-center p-3 shadow-none border" style="cursor: pointer;">
+                            <div class="form-check p-0">
+                                <input class="form-check-input float-none shadow-none mb-2" type="radio" name="payment" id="orange" value="orange_money" style="width: 20px; height: 20px; border-color: #D16655;">
+                                <label class="form-check-label d-block fw-bold small" for="orange">
+                                    <div class="mb-2">
+                                        <img src="https://logos-marques.com/wp-content/uploads/2021/07/Orange-Money-emblem.png" alt="Orange" style="height: 25px;">
+                                    </div>
+                                    Orange Money <br>
+                                    <i class="fas fa-mobile-alt mt-2 text-muted"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="payment-option card h-100 text-center p-3 shadow-none border" style="cursor: pointer;">
+                            <div class="form-check p-0">
+                                <input class="form-check-input float-none shadow-none mb-2" type="radio" name="payment" id="card" value="card" style="width: 20px; height: 20px; border-color: #D16655;">
+                                <label class="form-check-label d-block fw-bold small" for="card">
+                                    <div class="mb-2 fs-4"><i class="fas fa-credit-card"></i></div>
+                                    Carte bancaire <br>
+                                    <i class="fas fa-lock mt-2 text-muted"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="payment-option card h-100 text-center p-3 shadow-none border" style="cursor: pointer; border-color: #D16655 !important;">
+                            <div class="form-check p-0">
+                                <input class="form-check-input float-none shadow-none mb-2" type="radio" name="payment" id="cash" value="cash_on_delivery" checked style="width: 20px; height: 20px; border-color: #D16655; background-color: #D16655;">
+                                <label class="form-check-label d-block fw-bold small" for="cash">
+                                    <div class="mb-2 fs-4">💵</div>
+                                    À la livraison <br>
+                                    <i class="fas fa-truck mt-2 text-muted"></i>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-lg-5">
+
+            <div class="card border-0 shadow-sm p-4">
+                <h4 class="mb-4 fw-bold">Detail de la commande </h4>
+
+                <!-- CART DYNAMIC -->
+                <ul class="list-group list-group-flush mb-4" id="checkout-cart"></ul>
+                <div id="lot-box" style="display:none; margin-top:10px;"></div>
+                <!-- TOTAL -->
+                <div class="p-3 bg-light rounded mb-4">
+                    <div class="d-flex justify-content-between">
+                        <span>Sous-total</span>
+                        <span id="sub-total">0 FCFA</span>
+                    </div>
+
+                    <div class="d-flex justify-content-between">
+                        <span>Livraison</span>
+                        <span id="shipping">2000 FCFA</span>
+                    </div>
+
+                    <hr>
+
+                    <div class="d-flex justify-content-between">
+                        <strong>Total</strong>
+                        <strong id="total">0 FCFA</strong>
+                    </div>
+                </div>
+
+                <!-- BUTTON -->
+                <button id="confirm-order"
+                        class="btn w-100 text-white fw-bold"
+                        style="background:var(--theme-color);">
+                    CONFIRMER LA COMMANDE
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<!-- SUCCESS MODAL -->
+<div id="successModal" class="success-modal">
+    <div class="success-box">
+        <div class="success-icon">✔️</div>
+
+        <h3>Merci !</h3>
+        <p style="color:#000">Votre commande a été effectuée avec succès.</p>
+
+        <button onclick="goHome()" class="success-btn">
+            Retour à l'accueil
+        </button>
+    </div>
+</div>
+    <!--======== / Checkout Section ========-->
+  <!-- Cta Area -->
+{{ include('footer.html.twig') }}
+
+  <!--********************************
+			Code End  Here 
+	******************************** -->
+  <!--==============================
+        All Js File
+    ============================== -->
+  <!-- Jquery -->
+  <script>
+    window.USER_CHECKOUT = {
+        logged: {{ app.user ? 'true' : 'false' }},
+        name: "{{ app.user ? (app.user.nom ~ ' ' ~ app.user.prenom) : '' }}",
+        phone: "{{ app.user ? app.user.telephone : '' }}",
+        address: "{{ app.user ? app.user.adresse : '' }}"
+    };
+</script>
+  <script src="/assets/js/vendor/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- Slick Slider -->
+  <script src="/assets/js/slick.min.js"></script>
+  <!-- Magnific Popup -->
+  <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+  <!-- imagesloaded -->
+  <script src="/assets/js/imagesloaded.pkgd.min.js"></script>
+  <!-- Isotope Filter -->
+  <script src="/assets/js/isotope.pkgd.min.js"></script>
+  <!-- Gsap -->
+  <script src="/assets/js/gsap.min.js"></script>
+  <!-- ScrollTrigger -->
+  <script src="/assets/js/ScrollTrigger.min.js"></script>
+  <!-- Gsap ScrollTo Plugin -->
+  <script src="/assets/js/gsap-scroll-to-plugin.js"></script>
+  <!-- Split Text -->
+  <script src="/assets/js/SplitText.js"></script>
+  <!-- lenis -->
+  <script src="/assets/js/lenis.min.js"></script>
+  <!-- wow js -->
+  <script src="/assets/js/wow.min.js"></script>
+  <!-- nice-select -->
+  <script src="/assets/js/jquery.nice-select.min.js"></script>
+  <!-- nouislider -->
+  <script src="/assets/js/nouislider.min.js"></script>
+  <!-- Main Js File -->
+  <script src="/assets/js/main.js"></script>
+<script src="/assets/js/index.js"></script>
+<style>
+.success-modal{
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background:rgba(0,0,0,0.6);
+    justify-content:center;
+    align-items:center;
+    text:black;
+    z-index:9999;
+}
+
+.success-box{
+    background:#fff;
+    padding:30px;
+    border-radius:12px;
+    text-align:center;
+    width:300px;
+    animation: pop 0.3s ease;
+}
+
+.success-icon{
+    font-size:50px;
+    color:green;
+    margin-bottom:10px;
+}
+
+.success-btn{
+    margin-top:15px;
+    padding:10px 20px;
+    background:#D16655;
+    color:#fff;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+@keyframes pop {
+    from {transform:scale(0.7); opacity:0;}
+    to {transform:scale(1); opacity:1;}
+}
+</style>
+
+</body>
+
+</html>

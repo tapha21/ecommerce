@@ -1,0 +1,64 @@
+<section class="categories-layout1 space" style="background: #f8f9fa; padding: 60px 0;">
+  <div class="container">
+
+    <!-- TITLE -->
+    <div class="title-area text-center mb-5">
+      <h2 class="sec-title fw-bold mb-3" style="color: #2c3e50; font-size: 2.5rem;">
+        Nos Catégories
+      </h2>
+      <div class="mt-3 mx-auto" style="width: 80px; height: 4px; background: var(--theme-color); border-radius: 2px;"></div>
+    </div>
+
+    <!-- CAROUSEL -->
+    <div class="slider-container">
+      <div class="slider-track">
+
+        {% for category in categories %}
+
+          {% set icons = {
+            'Corans': 'fa-book-quran',
+            'Livres': 'fa-book-open',
+            'Tapis': 'fa-person-praying',
+            'Chapelets': 'fa-ring',
+            'Vêtements': 'fa-shirt',
+            'Parfums': 'fa-spray-can-sparkles',
+            'Romans': 'fa-book',
+            'Livres Islamiques': 'fa-mosque',
+            'Science': 'fa-flask',
+            'Développement Personnel': 'fa-brain',
+            'Enfants': 'fa-child',
+            'Fantasy': 'fa-book-open',
+            'Histoire': 'fa-landmark',
+            'Box Cadeaux': 'fa-gift'
+          } %}
+
+          {% set icon = icons[category.nom] ?? 'fa-box' %}
+
+          <div class="category-card-wrapper">
+            <div class="card h-100 border-0 shadow-sm text-center p-4"
+                 style="border-radius: 15px;">
+
+              <div class="cat-icon mb-3 d-flex align-items-center justify-content-center"
+                   style="height: 80px; color: var(--theme-color);">
+
+                <i class="fa-solid {{ icon }} fa-3x"></i>
+
+              </div>
+
+              <h5 class="fw-semibold mt-auto" style="color:#333;">
+                {{ category.nom }}
+              </h5>
+
+              <a href="{{ path('app_shop', { 'cat': category.id }) }}"
+                 class="stretched-link"></a>
+
+            </div>
+          </div>
+
+        {% endfor %}
+
+      </div>
+    </div>
+
+  </div>
+</section>

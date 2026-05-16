@@ -1,0 +1,308 @@
+{{ include('navbar.html.twig') }}
+
+<style>
+    :root {
+        --profile-bg: #F8EBE5;
+        --card-radius: 20px;
+    }
+    body { background-color: var(--profile-bg); min-height: 100vh; }
+    
+    .profile-card { border-radius: var(--card-radius); transition: all 0.3s ease; }
+    .status-badge { padding: 5px 12px; border-radius: 50px; font-size: 0.8rem; font-weight: bold; text-transform: capitalize; }
+    
+    /* Couleurs de statuts */
+    .status-en-cours { background: #fff3cd; color: #856404; }
+    .status-termine { background: #d4edda; color: #155724; }
+    .status-annule { background: #f8d7da; color: #721c24; }
+
+    .icon-box { 
+        width: 40px; height: 40px; 
+        background: rgba(243, 155, 191, 0.1); 
+        color: var(--theme-color); 
+        display: flex; align-items: center; justify-content: center; 
+        border-radius: 12px; margin-right: 15px;
+    }
+
+    /* Barre de recherche */
+    .search-container {
+        background: white;
+        border-radius: 50px;
+        padding: 5px 15px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    .search-container input {
+        border: none;
+        outline: none;
+        padding: 8px;
+        width: 100%;
+    }
+
+    /* Pagination */
+    .pagination .page-link {
+        border: none;
+        background: white;
+        margin: 0 3px;
+        border-radius: 8px !important;
+        color: var(--title-color);
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .pagination .page-item.active .page-link {
+        background-color: var(--theme-color);
+        color: white;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row g-4">
+        
+        <div class="col-lg-4">
+            <div class="card profile-card border-0 shadow-sm mb-4">
+                <div class="card-body p-4 text-center">
+                    <div class="bg-light d-inline-block p-4 rounded-circle mb-3 border">
+                        <i class="fa-solid fa-user-tie fa-3x text-muted"></i>
+                    </div>
+                    <h4 class="fw-bold mb-0" style="color: var(--title-color);">{{ user.prenom }} {{ user.nom }}</h4>
+                    <p class="text-muted small">Client depuis le {{ user.createdAt|date('Y') }}</p>
+                    
+                    <div class="text-start mt-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="icon-box"><i class="fa-regular fa-envelope"></i></div>
+                            <div>
+                                <small class="text-muted d-block">Email</small>
+                                <span class="fw-bold">{{ user.email }}</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="icon-box"><i class="fa-solid fa-phone"></i></div>
+                            <div>
+                                <small class="text-muted d-block">Téléphone</small>
+                                <span class="fw-bold">{{ user.telephone }}</span>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center">
+                            <div class="icon-box"><i class="fa-solid fa-location-dot"></i></div>
+                            <div>
+                                <small class="text-muted d-block">Adresse</small>
+                                <span class="fw-bold">{{ user.adresse }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a href="{{ path('admin_dashboard') }}"
+                           class="btn w-100 text-white fw-bold mt-4 py-2"
+                           style="border-radius: 12px; background-color: var(--theme-color);">
+                            <i class="fa-solid fa-gauge-high me-2"></i>
+                            Accéder au dashboard
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="card profile-card border-0 shadow-sm">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Sécurité</h5>
+                    <form method="post" action="{{ path('change_password') }}">
+                        <input type="password" name="old_password" class="form-control border-0 bg-light mb-2" placeholder="Ancien mot de passe" required>
+                        <input type="password" name="new_password" class="form-control border-0 bg-light mb-3" placeholder="Nouveau mot de passe" required>
+                        <button class="btn btn-dark w-100 fw-bold py-2" style="border-radius: 10px; background-color: var(--title-color);">
+                            Mettre à jour
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-8">
+            <div class="d-md-flex align-items-center justify-content-between mb-4">
+                <h4 class="fw-bold d-flex align-items-center mb-3 mb-md-0" style="color: var(--title-color);">
+                    <span class="icon-box"><i class="fa-solid fa-box-open"></i></span>
+                    Historique des commandes
+                </h4>
+                
+                <div class="search-container" style="min-width: 280px;">
+                    <i class="fa-solid fa-magnifying-glass text-muted me-2"></i>
+                    <input type="text" id="orderSearch" placeholder="Rechercher une commande...">
+                </div>
+            </div>
+
+            <div id="ordersList">
+                {% for order in orders %}
+                    <div class="card profile-card border-0 shadow-sm mb-3 order-item" data-id="{{ order.id }}">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <div>
+                                    <span class="text-muted small fw-bold">COMMANDE #{{ order.id }}</span>
+                                    <div class="fw-bold h5 mb-0" style="color: var(--theme-color);">{{ order.total }} FCFA</div>
+                                    <div class="text-muted small mt-1">
+                                        <i class="fa-regular fa-calendar me-1"></i> {{ order.createdAt|date('d/m/Y') }}
+                                    </div>
+                                </div>
+                                <span class="status-badge status-{{ order.status.value|lower|replace({' ': '-'}) }}">
+                                    {{ order.status.value }}
+                                </span>
+                            </div>
+
+                            <div class="bg-light p-3 rounded-3 mt-3">
+                                <div class="row">
+                                    {% for item in order.items %}
+                                        <div class="col-md-6 mb-1 small">
+                                            <i class="fa-solid fa-circle-check text-success me-2" style="font-size: 10px;"></i>
+                                            {{ item.productName }} <strong class="ms-1">x{{ item.quantity }}</strong>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5 bg-white rounded-5 shadow-sm">
+                        <i class="fa-solid fa-cart-shopping fa-3x mb-3 opacity-25"></i>
+                        <p class="text-muted">Aucune commande trouvée.</p>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <nav class="mt-4">
+                            <ul class="pagination justify-content-center" id="paginationContainer"></ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('orderSearch');
+        const orderItems = document.querySelectorAll('.order-item');
+
+        // 1. Logique de Recherche instantanée
+        searchInput.addEventListener('input', function(e) {
+            const term = e.target.value.toLowerCase();
+            
+            orderItems.forEach(item => {
+                const orderId = item.getAttribute('data-id').toLowerCase();
+                // On cherche dans l'ID ou dans le texte de la carte
+                const content = item.textContent.toLowerCase();
+                
+                if(orderId.includes(term) || content.includes(term)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+       
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+    const ordersPerPage = 3;
+    let currentPage = 1;
+    
+    const ordersList = document.getElementById('ordersList');
+    const orders = Array.from(ordersList.getElementsByClassName('order-item'));
+    const paginationContainer = document.getElementById('paginationContainer');
+
+    function displayPage(page) {
+        currentPage = page;
+        
+        // 1. Calcul des index de début et de fin
+        const start = (page - 1) * ordersPerPage;
+        const end = start + ordersPerPage;
+
+        // 2. Afficher/Masquer les commandes
+        orders.forEach((order, index) => {
+            if (index >= start && index < end) {
+                order.style.display = 'block';
+                order.classList.add('animate__animated', 'animate__fadeIn'); // Optionnel: petit effet
+            } else {
+                order.style.display = 'none';
+            }
+        });
+
+        // 3. Mettre à jour les boutons de pagination
+        renderPagination();
+    }
+
+    function renderPagination() {
+        const pageCount = Math.ceil(orders.length / ordersPerPage);
+        paginationContainer.innerHTML = '';
+
+        if (pageCount <= 1) return; // Pas besoin de pagination s'il y a moins de 3 commandes
+
+        // Bouton Précédent
+        createPageButton('<i class="fa-solid fa-chevron-left"></i>', currentPage > 1, () => displayPage(currentPage - 1));
+
+        // Boutons numériques
+        for (let i = 1; i <= pageCount; i++) {
+            const btn = createPageButton(i, true, () => displayPage(i));
+            if (i === currentPage) btn.classList.add('active');
+        }
+
+        // Bouton Suivant
+        createPageButton('<i class="fa-solid fa-chevron-right"></i>', currentPage < pageCount, () => displayPage(currentPage + 1));
+    }
+
+    function createPageButton(text, enabled, onClick) {
+        const li = document.createElement('li');
+        li.className = `page-item ${!enabled ? 'disabled' : ''}`;
+        
+        const a = document.createElement('a');
+        a.className = 'page-link';
+        a.innerHTML = text;
+        a.href = '#';
+        
+        if (enabled) {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                onClick();
+                // Scroll fluide vers le haut de la liste
+                window.scrollTo({ top: ordersList.offsetTop - 100, behavior: 'smooth' });
+            });
+        }
+        
+        li.appendChild(a);
+        paginationContainer.appendChild(li);
+        return li;
+    }
+
+    // Initialisation : Afficher la première page
+    if (orders.length > 0) {
+        displayPage(1);
+    }
+});
+</script>
+
+  <script src="/assets/js/vendor/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- Slick Slider -->
+  <script src="/assets/js/slick.min.js"></script>
+  <!-- Magnific Popup -->
+  <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+  <!-- imagesloaded -->
+  <script src="/assets/js/imagesloaded.pkgd.min.js"></script>
+  <!-- Isotope Filter -->
+  <script src="/assets/js/isotope.pkgd.min.js"></script>
+  <!-- Gsap -->
+  <script src="/assets/js/gsap.min.js"></script>
+  <!-- ScrollTrigger -->
+  <script src="/assets/js/ScrollTrigger.min.js"></script>
+  <!-- Gsap ScrollTo Plugin -->
+  <script src="/assets/js/gsap-scroll-to-plugin.js"></script>
+  <!-- Split Text -->
+  <script src="/assets/js/SplitText.js"></script>
+  <!-- lenis -->
+  <script src="/assets/js/lenis.min.js"></script>
+  <!-- wow js -->
+  <script src="/assets/js/wow.min.js"></script>
+  <!-- nice-select -->
+  <script src="/assets/js/jquery.nice-select.min.js"></script>
+  <!-- nouislider -->
+  <script src="/assets/js/nouislider.min.js"></script>
+  <!-- Main Js File -->
+  <script src="/assets/js/main.js"></script>
+
+</body>
+</html>

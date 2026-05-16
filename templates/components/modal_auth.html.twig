@@ -1,0 +1,141 @@
+{# templates/components/modal_auth.html.twig #}
+
+<div class="modal fade" id="authModal" tabindex="-1" aria-hidden="true">
+    <!-- modal-dialog-scrollable permet de scroller à l'intérieur du modal si l'écran est trop petit (ex: inscription sur mobile) -->
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable shadow-lg">
+        <div class="modal-content border-0 rounded-4 rounded-md-5 overflow-hidden">
+
+            <!-- Ligne décorative supérieure -->
+            <div style="height: 5px; background: linear-gradient(90deg, var(--theme-color), #BD7579);"></div>
+
+            <div class="modal-body p-3 p-sm-4 p-md-5 position-relative">
+
+                <!-- Bouton fermer optimisé pour éviter les chevauchements sur mobile -->
+                <button type="button"
+                        class="btn-close shadow-none position-absolute end-0 top-0 m-3 m-md-4"
+                        data-bs-dismiss="modal"
+                        aria-label="Fermer">
+                </button>
+
+                <!-- Onglets de Navigation (Connexion / Inscription) -->
+                <div class="d-flex justify-content-center mb-4 mb-md-5 mt-2 mt-md-0">
+                    <ul class="nav nav-pills bg-light rounded-pill p-1 border shadow-sm flex-nowrap">
+                        <li class="nav-item">
+                            <button class="nav-link active rounded-pill px-3 px-sm-4 py-2 fw-bold text-nowrap small-mobile-text"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#login-pane">
+                                <i class="fa-solid fa-right-to-bracket me-1 me-sm-2"></i>Connexion
+                            </button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link rounded-pill px-3 px-sm-4 py-2 fw-bold text-nowrap small-mobile-text"
+                                    data-bs-toggle="tab"
+                                    data-bs-target="#register-pane">
+                                <i class="fa-solid fa-user-plus me-1 me-sm-2"></i>S'inscrire
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="tab-content">
+
+                    <!-- ONGLET : CONNEXION -->
+                    <div class="tab-pane fade show active" id="login-pane" role="tabpanel">
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold h3">Bon retour !</h2>
+                            <p class="text-muted small">
+                                Heureux de vous revoir parmi nous.
+                            </p>
+                        </div>
+
+                        {% for message in app.flashes('login_error') %}
+                            <div class="alert alert-danger alert-dismissible fade show mb-3 p-2 small">
+                                {{ message }}
+                                <button type="button" class="btn-close p-2" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+
+                        <form method="post" action="{{ path('login_form') }}">
+                            <div class="form-floating mb-3">
+                                <input type="email"
+                                       name="email"
+                                       class="form-control border-0 bg-light rounded-3 shadow-none"
+                                       placeholder="Email"
+                                       required>
+                                <label>Adresse email</label>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input type="password"
+                                       name="password"
+                                       class="form-control border-0 bg-light rounded-3 shadow-none"
+                                       placeholder="Password"
+                                       required>
+                                <label>Mot de passe</label>
+                            </div>
+
+                            <button type="submit"
+                                    class="btn btn-lg w-100 text-white fw-bold py-2 py-sm-3 shadow backend-btn"
+                                    style="background-color: var(--theme-color); border-radius: 12px; font-size: 0.95rem;">
+                                SE CONNECTER
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- ONGLET : INSCRIPTION -->
+                    <div class="tab-pane fade" id="register-pane" role="tabpanel">
+                        <div class="text-center mb-4">
+                            <h2 class="fw-bold h3">Créer un compte</h2>
+                            <p class="text-muted small">
+                                Rejoignez l'aventure en quelques secondes.
+                            </p>
+                        </div>
+
+                        <form method="post" action="{{ path('register') }}">
+                            <!-- Rangement en ligne sur PC, empilé sur Mobile grâce à g-3 et col-12 -->
+                            <div class="row g-3 mb-3">
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-floating">
+                                        <input type="text" name="nom" class="form-control border-0 bg-light rounded-3 shadow-none" id="regNom" placeholder="Nom" required>
+                                        <label for="regNom">Nom</label>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-6">
+                                    <div class="form-floating">
+                                        <input type="text" name="prenom" class="form-control border-0 bg-light rounded-3 shadow-none" id="regPrenom" placeholder="Prénom" required>
+                                        <label for="regPrenom">Prénom</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-floating mb-3">
+                                <input type="tel" name="telephone" class="form-control border-0 bg-light rounded-3 shadow-none" id="regTel" placeholder="77..." required>
+                                <label for="regTel">Téléphone</label>
+                            </div>
+                            
+                            <div class="form-floating mb-3">
+                                <input type="email" name="email" class="form-control border-0 bg-light rounded-3 shadow-none" id="regEmail" placeholder="email" required>
+                                <label for="regEmail">Email</label>
+                            </div>
+                            
+                            <div class="form-floating mb-3">
+                                <input type="password" name="password" class="form-control border-0 bg-light rounded-3 shadow-none" id="regPass" placeholder="Mot de passe" required>
+                                <label for="regPass">Mot de passe</label>
+                            </div>
+                            
+                            <div class="form-floating mb-4">
+                                <input type="text" name="adresse" class="form-control border-0 bg-light rounded-3 shadow-none" id="regAdd" placeholder="Adresse" >
+                                <label for="regAdd">Adresse</label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-lg w-100 text-white fw-bold py-2 py-sm-3 shadow backend-btn" style="background-color: var(--theme-color); border-radius: 12px; letter-spacing: 1px; font-size: 0.95rem;">
+                                CRÉER MON COMPTE
+                            </button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

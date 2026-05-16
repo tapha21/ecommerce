@@ -1,0 +1,613 @@
+{{ include('navbar.html.twig') }}
+
+<body class="home-page">
+  <!--[if lte IE 9]>
+    	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <!--********************************
+   		Code Start From Here 
+	******************************** -->
+  <!--==============================
+	Preloader
+	==============================-->
+  <!--==============================
+  Hero Area
+  ==============================-->
+<section class="hero-layout1 home-hero d-flex align-items-center" 
+         style="background: url('assets/img/hero/headerNoir.png') no-repeat center center; background-size: cover; width: 100%; min-height: 85vh; position: relative;">
+    
+    <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0, 0, 0, 0.42); z-index: 1;"></div>
+
+    <div class="container position-relative z-index-2">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="hero-content text-white">
+                    
+                    <!-- TITRE PRINCIPAL (H1) -->
+                     <h1 class="display-3 fw-bold mb-2 text-white wow animate__fadeInUp" data-wow-delay="0.50s">
+                      <span style="color: var(--theme-color);">Deen</span>Shop
+                  </h1>
+
+                    <!-- SOUS-TITRE (H2) -->
+                    <h2 class="h4 mb-4 wow animate__fadeInUp text-white" data-wow-delay="0.70s" style="opacity: 0.9;" >
+                        Votre Boutique Islamique de Référence
+                    </h2>
+                    
+                    <p class="lead mb-5 fw-bold  wow animate__fadeInUp" data-wow-delay="0.85s" style="max-width: 500px;">
+                        Une sélection rigoureuse de Corans, livres et accessoires pour accompagner votre quotidien spirituel.
+                    </p>
+
+                    <div class="wow animate__flipInX" data-wow-delay="1s">
+                        <a class="vs-btn" href="{{ path('app_shop') }}">
+                            Acheter maintenant
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+{{ include('components/category_cards.html.twig', {
+    categories: categories
+}) }}
+
+<section class="romance-layout1 space-top">
+    <div class="container space-bottom">
+        <div class="row g-4">
+
+            <!-- SIDEBAR -->
+            <div class="col-xl-4 col-lg-5 order-lg-1 order-2">
+
+                {{ include('components/last_products.html.twig', {
+                    lastProducts: lastProducts
+                }) }}
+
+            </div>
+
+            <!-- PRODUITS -->
+            <div class="col-xl-8 col-lg-7 order-lg-2 order-1">
+
+                <div class="title-area2 home-section-title d-flex justify-content-between align-items-center mb-4">
+                    <h2 class="sec-title">Produits phares</h2>
+                    <a class="vs-btn" href="{{ path('app_shop', { section: 'phares' }) }}">
+                        Voir tout
+                    </a>
+                </div>
+
+                <div class="row g-4">
+
+                    {% for product in featuredProducts %}
+
+                            {{ include('components/product_card.html.twig', {
+                                product: product
+                            }) }}
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="Kids-layout1 space" style="background-color: #fdfaf8;">
+    <div class="container">
+
+        <div class="title-area2 home-section-title animation-style1 title-anime d-flex align-items-center justify-content-between">
+            <div>
+                <span class="sec-subtitle" style="color:var(--theme-color);;">Pour nos petits coeurs</span>
+                <h2 class="sec-title title-anime__title">Éveil & Éducation Islamique</h2>
+            </div>
+            <a class="vs-btn d-none d-md-inline-block" href="{{ path('app_shop', { category_name: 'Livres Islamiques' }) }}">
+                Voir toute la collection Kids
+            </a>
+        </div>
+
+        <div class="row vs-carousel book-carousel g-4"
+             data-slide-show="6"
+             data-xl-slide-show="5"
+             data-ml-slide-show="4"
+             data-lg-slide-show="4"
+             data-md-slide-show="3"
+             data-sm-slide-show="2"
+             data-autoplay="true"
+             data-speed="1200"
+             data-infinite="true"
+             id="kids-carousel">
+
+            {% for product in islamicBooks %}
+                 {% include 'components/product_card.html.twig' with { product: product } %}
+
+
+            {% else %}
+
+                <div class="col-12 text-center py-5">
+                    <p>Aucun produit disponible dans cette catégorie.</p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="arraw-area mt-40">
+            <div class="d-flex justify-content-center gap-2">
+                <button class="icon-btn" data-slick-prev="#kids-carousel">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+                <button class="icon-btn" data-slick-next="#kids-carousel">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="romance-layout1 space" style="background-color: #ffffff;">
+    <div class="container">
+
+        <div class="title-area2 home-section-title animation-style1 title-anime d-flex align-items-center justify-content-between mb-5">
+            <div>
+                <span class="sec-subtitle" style="color:var(--theme-color);;">Nourrir l'esprit</span>
+                <h2 class="sec-title title-anime__title">Science, Foi & Spiritualité</h2>
+            </div>
+            <a class="vs-btn d-none d-md-inline-block" href="{{ path('app_shop', { category_name: 'Science' }) }}">
+                Explorer la Bibliothèque
+            </a>
+        </div>
+
+        <div class="row vs-carousel book-carousel g-4"
+             data-slide-show="6"
+             data-xl-slide-show="5"
+             data-ml-slide-show="4"
+             data-lg-slide-show="4"
+             data-md-slide-show="3"
+             data-sm-slide-show="2"
+             data-autoplay="true"
+             data-speed="1200"
+             data-infinite="true"
+             id="spiritual-carousel">
+
+            {% for product in scienceBooks %}
+
+                    {% include 'components/product_card.html.twig' with { product: product } %}
+
+            {% else %}
+
+                <div class="col-12 text-center py-5">
+                    <p>Aucun produit disponible dans cette catégorie.</p>
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="arraw-area mt-40">
+            <div class="d-flex justify-content-center gap-2">
+
+                <button class="icon-btn" data-slick-prev="#spiritual-carousel">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <button class="icon-btn" data-slick-next="#spiritual-carousel">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<section class="trending-layout1 space">
+  <div class="container">
+
+    <div class="title-area2 home-section-title animation-style1 title-anime">
+        <span class="border-line d-xxl-block d-none"></span>
+
+        <h2 class="sec-title title-anime__title">
+            Nos Packs Cadeaux
+        </h2>
+
+        <a class="vs-btn" href="{{ path('app_shop', { category_name: 'Box Cadeaux' }) }}">
+            Voir plus
+        </a>
+    </div>
+
+    <div class="row vs-carousel g-4"
+         data-slide-show="6"
+         data-xl-slide-show="5"
+         data-ml-slide-show="4"
+         data-lg-slide-show="4"
+         data-md-slide-show="3"
+         data-sm-slide-show="2"
+         data-autoplay="true"
+         data-speed="1200"
+         data-infinite="true">
+
+        {% for product in boxCadeaux %}
+
+                {% include 'components/product_card.html.twig' with { product: product } %}
+
+        {% else %}
+
+            <div class="col-12 text-center py-5">
+                <p>Aucune box disponible pour le moment.</p>
+            </div>
+
+        {% endfor %}
+
+    </div>
+
+    <div class="arraw-area mt-40">
+      <div class="d-flex justify-content-center gap-2">
+
+        <button class="icon-btn" data-slick-prev=".vs-carousel">
+          <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <button class="icon-btn" data-slick-next=".vs-carousel">
+          <i class="fa-solid fa-arrow-right"></i>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+  <!-- Trending Product End -->
+  <!-- Book Of The Month End -->
+{% if promoProducts is not empty %}
+
+<section class="books-layout1 space" data-bg-src="assets/img/bg/hero-bg2.jpg">
+    <div class="container">
+
+        <div class="title-area2 home-section-title animation-style1 title-anime">
+            <span class="border-line d-xxl-block d-none"></span>
+
+            <h2 class="sec-title title-anime__title">
+                Promotions du moment chez Deen Shop
+            </h2>
+
+            <a class="vs-btn" href="{{ path('app_shop', { section: 'promotions' }) }}">
+                Voir plus
+            </a>
+        </div>
+
+        <div class="row vs-carousel book-carousel g-4"
+             data-slide-show="6"
+             data-xl-slide-show="5"
+             data-ml-slide-show="4"
+             data-lg-slide-show="4"
+             data-md-slide-show="3"
+             data-sm-slide-show="2"
+             data-autoplay="true"
+             data-speed="1200"
+             data-infinite="true">
+
+            {% for product in promoProducts %}
+
+
+            {% include 'components/product_card.html.twig' with { product: product } %}
+
+
+            {% endfor %}
+
+        </div>
+
+        <div class="arraw-area mt-40">
+            <div class="d-flex justify-content-center gap-2">
+
+                <button class="icon-btn" data-slick-prev=".book-carousel">
+                    <i class="fa-solid fa-arrow-left"></i>
+                </button>
+
+                <button class="icon-btn" data-slick-next=".book-carousel">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </button>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+{% endif %}
+<div class="feature-layout1 space-top">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- Livraison -->
+      <div class="col-lg-4 col-md-6 text-center wow animate__fadeInUp" data-wow-delay="0.20s">
+        <div class="feature-style1">
+          
+          <span class="feature-icon">
+            <img class="icon-1" src="assets/img/feature/feature-icon-1-1.png" alt="icon">
+            <img class="icon-2" src="assets/img/feature/feature-icon-2-1.png" alt="icon">
+          </span>
+
+          <div class="feature-body">
+            <h2 class="feature-title"><a href="#">Livraison gratuite</a></h2>
+            <p class="feature-text">Recevez vos commandes rapidement partout dans le monde</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Paiement sécurisé -->
+      <div class="col-lg-4 col-md-6 text-center wow animate__fadeInUp" data-wow-delay="0.45s">
+        <div class="feature-style1">
+
+          <span class="feature-icon">
+            <img class="icon-1" src="assets/img/feature/feature-icon-1-2.png" alt="icon">
+            <img class="icon-2" src="assets/img/feature/feature-icon-2-2.png" alt="icon">
+          </span>
+
+          <div class="feature-body">
+            <h2 class="feature-title"><a href="#">Paiement sécurisé</a></h2>
+            <p class="feature-text">Vos transactions sont protégées et fiables</p>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Support -->
+      <div class="col-lg-4 col-md-6 text-center wow animate__fadeInUp" data-wow-delay="0.65s">
+        <div class="feature-style1">
+
+          <span class="feature-icon">
+            <img class="icon-1" src="assets/img/feature/feature-icon-1-3.png" alt="icon">
+            <img class="icon-2" src="assets/img/feature/feature-icon-2-3.png" alt="icon">
+          </span>
+
+          <div class="feature-body">
+            <h2 class="feature-title"><a href="#">Support 24h/24 - 7j/7</a></h2>
+            <p class="feature-text">Nous sommes disponibles pour vous aider à tout moment</p>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+    <!-- Since Product End -->
+    <!-- Testimonial Area  -->
+<section class="vs-testi__layout2 space">
+    <div class="container">
+
+      <div class="title-area2 home-section-title justify-content-center animation-style1 title-anime">
+        <h2 class="sec-title title-anime__title">Avis de nos clients</h2>
+        <p>Ce que nos clients du Sénégal disent de nous</p>
+      </div>
+
+      <div class="row vs-carousel g-5 align-items-center"
+          data-autoplay="true"
+          data-slide-show="3"
+          data-ml-slide-show="2"
+          data-lg-slide-show="2">
+
+        <!-- 1 -->
+        <div class="col-xl-4">
+          <div class="vs-testi__style1">
+            <div class="vs-testi__top">
+              <div class="vs-testi__image">
+                <img class="img1" src="assets/img/testimonial/testi-2-1.jpg" alt="testimonials">
+              </div>
+              <div class="vs-testi__author">
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <h3 class="vs-testi__title">Moussa Diop</h3>
+                <span class="vs-testi__desi">Client fidèle, Dakar</span>
+              </div>
+            </div>
+            <div class="vs-testi__content">
+              <p class="vs-testi__text">
+                “J’ai commandé plusieurs livres islamiques, la qualité est excellente et la livraison très rapide à Dakar.”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2 -->
+        <div class="col-xl-4">
+          <div class="vs-testi__style1">
+            <div class="vs-testi__top">
+              <div class="vs-testi__image">
+                <img class="img1" src="assets/img/testimonial/testi-1-1.jpg" alt="testimonials">
+              </div>
+              <div class="vs-testi__author">
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+                <h3 class="vs-testi__title">Aminata Ba</h3>
+                <span class="vs-testi__desi">Cliente, Thiès</span>
+              </div>
+            </div>
+            <div class="vs-testi__content">
+              <p class="vs-testi__text">
+                “Très bon service client. J’ai acheté un tapis de prière, il est encore plus beau que sur les photos.”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 -->
+        <div class="col-xl-4">
+          <div class="vs-testi__style1">
+            <div class="vs-testi__top">
+              <div class="vs-testi__image">
+                <img class="img1" src="assets/img/testimonial/testi-2-2.jpg" alt="testimonials">
+              </div>
+              <div class="vs-testi__author">
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                </div>
+                <h3 class="vs-testi__title">Ibrahima Sow</h3>
+                <span class="vs-testi__desi">Client, Saint-Louis</span>
+              </div>
+            </div>
+            <div class="vs-testi__content">
+              <p class="vs-testi__text">
+                “Les prix sont abordables et les produits sont authentiques. Je recommande fortement cette boutique.”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4 -->
+        <div class="col-xl-4">
+          <div class="vs-testi__style1">
+            <div class="vs-testi__top">
+              <div class="vs-testi__image">
+                <img class="img1" src="assets/img/testimonial/testi-2-3.jpg" alt="testimonials">
+              </div>
+              <div class="vs-testi__author">
+                <div class="star-rating">
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-solid fa-star"></i>
+                  <i class="fa-regular fa-star"></i>
+                </div>
+                <h3 class="vs-testi__title">Fatou Ndiaye</h3>
+                <span class="vs-testi__desi">Cliente, Kaolack</span>
+              </div>
+            </div>
+            <div class="vs-testi__content">
+              <p class="vs-testi__text">
+                “J’aime beaucoup la variété des produits, surtout les parfums et les livres religieux.”
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+</section>
+
+<section class="vs-map-wrapper position-relative  ">
+    <div class="container-fluid p-0">
+        <div class="vs-map" style="line-height: 0; border-top: 4px solid var(--theme-color);;">
+           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d574.1505770777792!2d-17.456361069645027!3d14.736395547849316!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xec10d007ed1fd61%3A0xc28375cfe9e7815!2sDeen%20shop!5e1!3m2!1sfr!2ssn!4v1777034849652!5m2!1sfr!2ssn" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="contact-info-card bg-white p-4 shadow-lg rounded-4 position-absolute d-none d-md-block" 
+     style="top: -50px; z-index: 10; border-bottom: 5px solid var(--theme-color);;">
+    
+    <h4 class="fw-bold mb-3" style="color: #333;">Deen Shop</h4>
+    
+    <div class="d-flex mb-3">
+        <i class="fas fa-map-marker-alt mt-1 me-3" style="color: var(--theme-color);;"></i>
+        <p class="mb-0" style="color: #0a0a0a; font-weight: 500;">Scat Urbam, Dakar, Sénégal</p>
+    </div>
+    
+    <div class="d-flex mb-3">
+        <i class="fas fa-phone-alt mt-1 me-3" style="color: var(--theme-color);;"></i>
+        <p class="mb-0" style="color: #0a0a0a; font-weight: 500;">+221 77 818 12 59</p>
+    </div>
+    
+    <div class="d-flex mb-3">
+        <i class="fas fa-clock mt-1 me-3" style="color: var(--theme-color);;"></i>
+        <div>
+            <p class="mb-0 small fw-bold" style="color: #0a0a0a;">Lun - Sam : 10:00 - 20:00</p>
+            <p class="mb-0 small" style="color: #444;">Dimanche : Fermé</p>
+        </div>
+    </div>
+    
+    <a href="https://www.google.com/maps/search/?api=1&query=Deen+Shop+Scat+Urbam" target="_blank" 
+       class="btn w-100 text-white mt-2" style="background-color: var(--theme-color);; border-radius: 8px; font-weight: 600;">
+        <i class="fas fa-route me-2"></i>Obtenir l'itinéraire
+    </a>
+  </div>
+                    <a href="https://www.google.com/maps/dir//Deen+shop+Scat+urbam+Dakar" target="_blank" class="btn w-100 text-white mt-2" style="background-color: var(--theme-color);; border-radius: 8px;">
+                        <i class="fas fa-route me-2"></i>Obtenir l'itinéraire
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container d-md-none py-4">
+    <div class="bg-light p-4 rounded-4 text-center">
+        <h4 class="fw-bold mb-2">Deen Shop</h4>
+        <p class="mb-1">Scat Urbam, Dakar</p>
+        <p class="fw-bold" style="color: var(--theme-color);;">+221 77 818 12 59</p>
+    </div>
+</div>
+
+  <!-- Testimonial Area End  -->
+  <!--==============================
+	  Footer Area
+	============================== -->
+{{ include('footer.html.twig') }}
+
+  <!--********************************
+			Code End  Here 
+	******************************** -->
+  <!--==============================
+        All Js File
+    ============================== -->
+  <!-- Jquery -->
+  
+<script>
+window.USER_LOGGED_IN = {{ app.user ? 'true' : 'false' }};
+</script>
+  <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="assets/js/bootstrap.min.js"></script>
+  <!-- Slick Slider -->
+  <script src="assets/js/slick.min.js"></script>
+  <!-- Magnific Popup -->
+  <script src="assets/js/jquery.magnific-popup.min.js"></script>
+  <!-- imagesloaded -->
+  <script src="assets/js/imagesloaded.pkgd.min.js"></script>
+  <!-- Isotope Filter -->
+  <script src="assets/js/isotope.pkgd.min.js"></script>
+  <!-- Gsap -->
+  <script src="assets/js/gsap.min.js"></script>
+  <!-- ScrollTrigger -->
+  <script src="assets/js/ScrollTrigger.min.js"></script>
+  <!-- Gsap ScrollTo Plugin -->
+  <script src="assets/js/gsap-scroll-to-plugin.js"></script>
+  <!-- Split Text -->
+  <script src="assets/js/SplitText.js"></script>
+  <!-- lenis -->
+  <script src="assets/js/lenis.min.js"></script>
+  <!-- wow js -->
+  <script src="assets/js/wow.min.js"></script>
+  <!-- nice-select -->
+  <script src="assets/js/jquery.nice-select.min.js"></script>
+  <!-- nouislider -->
+  <script src="assets/js/nouislider.min.js"></script>
+  <!-- Main Js File -->
+  <script src="assets/js/main.js"></script>
+<script src="/assets/js/index.js"></script>
+
+</body>
+
+</html>

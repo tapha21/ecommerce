@@ -1,0 +1,462 @@
+<!doctype html>
+<html class="no-js" lang="zxx">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>The Largest Bookstore Service Html template - Shop Details </title>
+  <meta name="author" content="vecuro">
+  <meta name="description" content="The Largest Bookstore Service Html template">
+  <meta name="keywords" content="The Largest Bookstore Service Html template">
+  <meta name="robots" content="INDEX,FOLLOW">
+  <!-- Mobile Specific Metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Favicons -->
+  <link rel="icon" href="/assets/img/favicons/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/assets/img/favicons/favicon.png" type="image/png" sizes="32x32">
+  <link rel="shortcut icon" href="/assets/img/favicons/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" href="/assets/img/favicons/favicon.png">
+  <!--==============================
+	  Google Fonts
+	============================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <!--==============================
+	    All CSS File
+	============================== -->
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
+  <!-- Fontawesome Icon -->
+  <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
+  <!-- Magnific Popup -->
+  <link rel="stylesheet" href="/assets/css/magnific-popup.min.css">
+  <!-- Slick Slider -->
+  <link rel="stylesheet" href="/assets/css/slick.min.css">
+  <!-- nice-select -->
+  <link rel="stylesheet" href="/assets/css/nice-select.min.css">
+  <!-- animate js -->
+  <link rel="stylesheet" href="/assets/css/animate.min.css">
+  <!-- nouislider js -->
+  <link rel="stylesheet" href="/assets/css/nouislider.css">
+  <!-- Theme Custom CSS -->
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+
+<body>
+
+  <!--[if lte IE 9]>
+    	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <!--********************************
+   		Code Start From Here 
+	******************************** -->
+  <!--==============================
+	Preloader
+	==============================-->
+{{ include('navbar.html.twig') }}
+
+
+  <!--==============================
+    Breadcrumb
+============================== -->
+<div class="breadcumb-wrapper" data-bg-src="/assets/img/hero/heroimg2.png">
+  <div class="container z-index-common">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-white fw-bold mb-3 shadow-sm">Détails du produit</h1>
+      <div class="breadcumb-menu-wrap">
+        <div class="breadcumb-menu">
+          <span><a href="{{ path('app_home') }} "class="text-white text-decoration-none fw-medium">Accueil</a></span>
+          <span class="px-2 fw-bold" style="color: #fed793;">Détails du produit</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Shop Details Area Start-->
+<div class="vs-product-wrapper space-top space-extra-bottom">
+  <div class="container">
+    <div class="row gx-60">
+
+      <div class="col-lg-6">
+        <div class="product-slide-row wow animate__fadeInUp" data-wow-delay="0.30s">
+          <div class="product-big-img">
+            <div class="img">
+              <img src="/assets/img/hero/heroimg2.png" alt="Image produit">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <div class="product-about wow animate__fadeInUp" data-wow-delay="0.30s">
+
+          <h2 class="product-title">Vie solitaire négligée</h2>
+
+          <span class="product-author">
+            <strong>Par :</strong> <a href="#">Fahim Al Bashar</a>
+          </span>
+
+          <p class="product-price">6000 FCFA <del>9000 FCA</del></p>
+
+          <p class="text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sit purus vel, of a viveirra facilisi neque quisque. Phasellus aliquam ut id rhoncus. In viverra sed vitae vivamus amet, nuncg vivamus.
+          </p>
+
+          <span class="product-instock">
+            <p>Disponibilité :</p>
+            <span><i class="fas fa-check-square"></i>En stock</span>
+          </span>
+
+          <div class="actions">
+            <div class="quantity">
+              <div class="quantity__field quantity-container">
+                <div class="quantity__buttons">
+                  <button class="quantity-plus qty-btn"><i class="fal fa-plus"></i></button>
+                  <input type="number" id="quantity" class="qty-input" step="1" min="1" max="100" name="quantity" value="01" title="Quantité">
+                  <button class="quantity-minus qty-btn"><i class="fal fa-minus"></i></button>
+                </div>
+              </div>
+            </div>
+
+            <a href="{{ path('app_cart_index') }}" class="vs-btn">
+              <i class="fa-solid fa-basket-shopping"></i> Ajouter au panier
+            </a>
+
+            <a href="{{ path('app_wishlist_index') }}" class="icon-btn">
+              <i class="far fa-heart"></i>
+            </a>
+          </div>
+
+          <div class="product_meta">
+            <h4 class="h5">Informations :</h4>
+
+            <span class="sku_wrapper">
+              <p>SKU :</p> <span class="sku">03</span>
+            </span>
+
+            <span class="posted_in">
+              <p>Catégorie :</p> <a href="#" rel="tag">Thriller</a>
+            </span>
+
+            <span>
+              <p>Tags :</p>
+              <a href="#" rel="tag">Enfants</a>
+              <a href="#" rel="tag">Populaire</a>
+              <a href="#" rel="tag">Fantôme</a>
+            </span>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="product-description wow animate__fadeInUp" data-wow-delay="0.50s">
+
+      <div class="product-description__tab">
+        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+
+          <li class="nav-item">
+            <button class="nav-link active" data-bs-toggle="pill" data-bs-target="#pills-home">
+              Description
+            </button>
+          </li>
+
+          <li class="nav-item">
+            <button class="nav-link" data-bs-toggle="pill" data-bs-target="#pills-contact">
+              Avis (03)
+            </button>
+          </li>
+
+        </ul>
+      </div>
+
+      <div class="tab-content">
+
+        <!-- DESCRIPTION -->
+        <div class="tab-pane fade show active" id="pills-home">
+
+          <div class="description">
+
+            <p class="text">
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In ut ullamcorper leo, eget euismod orci.
+            </p>
+
+            <p class="text">
+              Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+            </p>
+
+            <div class="product_meta">
+              <span><p>Catégorie</p> Thriller</span>
+              <span><p>Couleur</p> Violet lilas</span>
+              <span><p>Poids</p> 10.4 Onces</span>
+              <span><p>Dimensions</p> 2.6 x 4.2 x 4.8 pouces</span>
+              <span><p>Papier</p> Papier blanc</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- AVIS -->
+        <div class="tab-pane fade" id="pills-contact">
+
+          <div class="woocommerce-reviews">
+
+            <h4>Avis clients</h4>
+
+            <div class="vs-comment-form review-form">
+              <h3>Ajouter un avis</h3>
+
+              <div class="row">
+
+                <div class="col-md-6 form-group">
+                  <input type="text" class="form-control" placeholder="Nom complet">
+                </div>
+
+                <div class="col-md-6 form-group">
+                  <input type="email" class="form-control" placeholder="Adresse email">
+                </div>
+
+                <div class="col-12 form-group">
+                  <textarea class="form-control" placeholder="Votre avis"></textarea>
+                </div>
+
+                <div class="col-12">
+                  <button class="vs-btn">Envoyer</button>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+  <!-- Shop Details Area End -->
+  <!-- Book Of The Month End -->
+ <section class="books-layout1 style2 space-bottom py-5 mb-5 pb-5">
+  <div class="container">
+
+    <!-- Titre -->
+    <div class="title-area2 animation-style1 title-anime">
+      <h2 class="sec-title title-anime__title">Produits similaires</h2>
+
+      <div class="arraw-area">
+        <div class="d-flex justify-content-center align-items-center gap-2">
+          <button class="icon-btn border-none" data-slick-prev=".product-carousel">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+          <button class="icon-btn" data-slick-next=".product-carousel">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Carousel -->
+    <div class="row vs-carousel g-4 product-carousel wow animate__fadeInUp"
+      data-wow-delay="0.30s"
+      data-slide-show="4"
+      data-autoplay="true">
+
+      <!-- PRODUIT 1 -->
+      <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="product-style1">
+          <div class="product-img">
+            <img src="/assets/img/hero/heroimg2.png" alt="Produit similaire">
+
+            <div class="product-btns">
+              <a href="{{ path('app_wishlist_index') }}" class="icon-btn wishlist">
+                <i class="far fa-heart"></i>
+              </a>
+              <a href="/panier" class="icon-btn cart">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </a>
+            </div>
+
+            <ul class="post-box">
+              <li>Populaire</li>
+              <li>-30%</li>
+            </ul>
+          </div>
+
+          <div class="product-content">
+            <div class="product-rating">
+              <span class="star"><i class="fas fa-star"></i> (4.5)</span>
+              <ul class="price-list">
+                <li><del>39.99€</del></li>
+                <li>30.00€</li>
+              </ul>
+            </div>
+
+            <span class="product-author"><strong>Auteur :</strong> Fahim Al Bashar</span>
+            <h2 class="product-title"><a href="/produit/1">Le Voyage Intérieur</a></h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUIT 2 -->
+      <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="product-style1">
+          <div class="product-img">
+            <img src="/assets/img/hero/heroimg2.png" alt="Produit similaire">
+
+            <div class="product-btns">
+              <a href="{{ path('app_wishlist_index') }}" class="icon-btn wishlist">
+                <i class="far fa-heart"></i>
+              </a>
+              <a href="/panier" class="icon-btn cart">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </a>
+            </div>
+
+            <ul class="post-box">
+              <li>Populaire</li>
+              <li>-30%</li>
+            </ul>
+          </div>
+
+          <div class="product-content">
+            <div class="product-rating">
+              <span class="star"><i class="fas fa-star"></i> (4.5)</span>
+              <ul class="price-list">
+                <li><del>39.99€</del></li>
+                <li>30.00€</li>
+              </ul>
+            </div>
+
+            <span class="product-author"><strong>Auteur :</strong> H. Abdul</span>
+            <h2 class="product-title"><a href="/produit/2">Chronologie du Monde</a></h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUIT 3 -->
+      <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="product-style1">
+          <div class="product-img">
+            <img src="/assets/img/hero/heroimg2.png" alt="Produit similaire">
+
+            <div class="product-btns">
+              <a href="{{ path('app_wishlist_index') }}" class="icon-btn wishlist">
+                <i class="far fa-heart"></i>
+              </a>
+              <a href="/panier" class="icon-btn cart">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </a>
+            </div>
+
+            <ul class="post-box">
+              <li>Populaire</li>
+              <li>-30%</li>
+            </ul>
+          </div>
+
+          <div class="product-content">
+            <div class="product-rating">
+              <span class="star"><i class="fas fa-star"></i> (4.5)</span>
+              <ul class="price-list">
+                <li><del>39.99€</del></li>
+                <li>30.00€</li>
+              </ul>
+            </div>
+
+            <span class="product-author"><strong>Auteur :</strong> D. Bellingham</span>
+            <h2 class="product-title"><a href="/produit/3">Secrets du Succès</a></h2>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUIT 4 -->
+      <div class="col-xl-3 col-md-4 col-sm-6">
+        <div class="product-style1">
+          <div class="product-img">
+            <img src="/assets/img/hero/heroimg2.png" alt="Produit similaire">
+
+            <div class="product-btns">
+              <a href="{{ path('app_wishlist_index') }}" class="icon-btn wishlist">
+                <i class="far fa-heart"></i>
+              </a>
+              <a href="/panier" class="icon-btn cart">
+                <i class="fa-solid fa-basket-shopping"></i>
+              </a>
+            </div>
+
+            <ul class="post-box">
+              <li>Populaire</li>
+              <li>-30%</li>
+            </ul>
+          </div>
+
+          <div class="product-content">
+            <div class="product-rating">
+              <span class="star"><i class="fas fa-star"></i> (4.5)</span>
+              <ul class="price-list">
+                <li><del>39.99€</del></li>
+                <li>30.00€</li>
+              </ul>
+            </div>
+
+            <span class="product-author"><strong>Auteur :</strong> Alex John</span>
+            <h2 class="product-title"><a href="/produit/4">Guide de la Réussite</a></h2>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+  <!-- Book Of The Month End -->
+  <!-- Cta Area -->
+{{ include('footer.html.twig') }}
+
+  <!--********************************
+			Code End  Here 
+	******************************** -->
+  <!--==============================
+        All Js File
+    ============================== -->
+  <!-- Jquery -->
+  <script src="/assets/js/vendor/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <!-- Slick Slider -->
+  <script src="/assets/js/slick.min.js"></script>
+  <!-- Magnific Popup -->
+  <script src="/assets/js/jquery.magnific-popup.min.js"></script>
+  <!-- imagesloaded -->
+  <script src="/assets/js/imagesloaded.pkgd.min.js"></script>
+  <!-- Isotope Filter -->
+  <script src="/assets/js/isotope.pkgd.min.js"></script>
+  <!-- Gsap -->
+  <script src="/assets/js/gsap.min.js"></script>
+  <!-- ScrollTrigger -->
+  <script src="/assets/js/ScrollTrigger.min.js"></script>
+  <!-- Gsap ScrollTo Plugin -->
+  <script src="/assets/js/gsap-scroll-to-plugin.js"></script>
+  <!-- Split Text -->
+  <script src="/assets/js/SplitText.js"></script>
+  <!-- lenis -->
+  <script src="/assets/js/lenis.min.js"></script>
+  <!-- wow js -->
+  <script src="/assets/js/wow.min.js"></script>
+  <!-- nice-select -->
+  <script src="/assets/js/jquery.nice-select.min.js"></script>
+  <!-- nouislider -->
+  <script src="/assets/js/nouislider.min.js"></script>
+  <!-- Main Js File -->
+  <script src="/assets/js/main.js"></script>
+</body>
+
+</html>

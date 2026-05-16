@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<section class="min-vh-100 d-flex align-items-center py-5" style="background-color: #F8EBE5;">
+    <div class="container">
+        <div class="row justify-content-center">
+            {# Largeur adaptative : 100% sur mobile, 33% sur très grand écran #}
+            <div class="col-12 col-sm-10 col-md-7 col-lg-5 col-xl-3">
+                
+                <div class="card border-0 shadow-lg rounded-4">
+                    <div class="card-body p-4">
+                        
+                        <h2 class="text-center fw-bold mb-4" style="color: #2E4A5B;">Bienvenue</h2>
+
+                        {% if error %}
+                            <div class="alert alert-danger">
+                                Identifiants incorrects
+                            </div>
+                        {% endif %}
+
+                        <form method="post" action="{{ path('login') }}">
+                            <div class="mb-3">
+                                <label class="form-label small fw-bold text-muted">Email</label>
+                                <input type="email" name="email" class="form-control border-0 bg-light shadow-sm py-2" placeholder="votre@email.com" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label small fw-bold text-muted">Mot de passe</label>
+                                <input type="password" name="password" class="form-control border-0 bg-light shadow-sm py-2" placeholder="••••••••" required>
+                            </div>
+
+                            <button type="submit" class="btn btn-lg w-100 text-white fw-bold shadow-sm" 
+                                    style="background-color: #f39bbf; border-radius: 10px; font-size: 1rem;">
+                                Se connecter
+                            </button>
+                        </form>
+
+                        <div class="text-center mt-4 pt-3 border-top">
+                            <p class="text-muted small mb-0">Nouveau ici ? 
+                                <a href="{{ path('register') }}" class="fw-bold text-decoration-none" style="color: #BD7579;">
+                                    Créer un compte
+                                </a>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

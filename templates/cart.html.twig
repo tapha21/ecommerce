@@ -1,0 +1,123 @@
+{{ include('navbar.html.twig') }}
+
+
+<body class="cart-page">
+  <!--[if lte IE 9]>
+    	<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  <![endif]-->
+  <!--********************************
+   		Code Start From Here 
+	******************************** -->
+  <!--==============================
+	Preloader
+	==============================-->
+
+  <!--==============================
+    Breadcrumb
+============================== -->
+  <div class="breadcumb-wrapper" data-bg-src="assets/img/hero/souhait.webp">
+    <div class="container z-index-common">
+      <div class="breadcumb-content">
+        <h1 class="breadcumb-title text-white" >Panier</h1>
+        
+      </div>
+    </div>
+  </div>
+  <!-- Cart Area Start-->
+<div class="vs-cart-wrapper deen-cart-wrapper py-5 mb-5 pb-5">
+    <div class="container">
+
+        <div class="row g-4">
+
+            <!-- LISTE PANIER -->
+            <div class="col-lg-8">
+                <div class="card deen-cart-card border-0 shadow-sm">
+                    <div class="deen-cart-heading d-none d-md-grid">
+                        <span>Produit</span>
+                        <span>Quantité</span>
+                        <span>Total</span>
+                        <span></span>
+                    </div>
+                    <div id="cart-container" class="list-group list-group-flush">
+                                
+                    </div>
+                    
+                </div>
+
+                <div class="mt-4">
+                    <a href="{{ path('app_shop') }}" class="deen-cart-back text-decoration-none fw-bold">
+                        <i class="fas fa-arrow-left me-2"></i>Continuer mes achats
+                    </a>
+                </div>
+            </div>
+
+            <!-- RESUME -->
+            <div class="col-lg-4">
+                <div class="card deen-cart-summary border-0 shadow-sm p-4">
+                    <h5 class="fw-bold mb-4">Résumé de commande</h5>
+
+                    <ul class="list-group list-group-flush mb-4">
+                        <li class="list-group-item d-flex justify-content-between px-0 border-0">
+                            <span>Sous-total</span>
+                            <span id="cart-subtotal" class="fw-bold">0 FCFA</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between px-0 pt-3 border-0">
+                            <strong>Total</strong>
+                            <strong id="cart-total" style="color:var(--theme-color)">0 FCFA</strong>
+                        </li>
+                    </ul>
+
+                    <a href="{{ path('checkout_page') }}" class="deen-checkout-btn btn text-white w-100 fw-bold">
+                        PASSER LA COMMANDE
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+  <!-- Cart Area End-->
+  <!-- Cta Area -->
+{{ include('footer.html.twig') }}
+
+  <!--********************************
+			Code End  Here 
+	******************************** -->
+  <!--==============================
+        All Js File
+    ============================== -->
+  <!-- Jquery -->
+  <script src="assets/js/index.js"></script>
+  <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="assets/js/bootstrap.min.js"></script>
+  <!-- Slick Slider -->
+  <script src="assets/js/slick.min.js"></script>
+  <!-- Magnific Popup -->
+  <script src="assets/js/jquery.magnific-popup.min.js"></script>
+  <!-- imagesloaded -->
+  <script src="assets/js/imagesloaded.pkgd.min.js"></script>
+  <!-- Isotope Filter -->
+  <script src="assets/js/isotope.pkgd.min.js"></script>
+  <!-- Gsap -->
+  <script src="assets/js/gsap.min.js"></script>
+  <!-- ScrollTrigger -->
+  <script src="assets/js/ScrollTrigger.min.js"></script>
+  <!-- Gsap ScrollTo Plugin -->
+  <script src="assets/js/gsap-scroll-to-plugin.js"></script>
+  <!-- Split Text -->
+  <script src="assets/js/SplitText.js"></script>
+  <!-- lenis -->
+  <script src="assets/js/lenis.min.js"></script>
+  <!-- wow js -->
+  <script src="assets/js/wow.min.js"></script>
+  <!-- nice-select -->
+  <script src="assets/js/jquery.nice-select.min.js"></script>
+  <!-- nouislider -->
+  <script src="assets/js/nouislider.min.js"></script>
+  <!-- Main Js File -->
+  <script src="assets/js/main.js"></script>
+  
+</body>
+
+</html>

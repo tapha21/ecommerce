@@ -1,0 +1,71 @@
+{% set imagePath = product.image
+    ? asset('uploads/products/' ~ product.image)
+    : asset('assets/img/hero/heroimg2.png')
+%}
+
+<div class="col-xl-4 col-md-6 col-sm-6 product-item deen-product-card"
+     data-search="{{ (product.titre ~ ' ' ~ product.prix ~ ' ' ~ (product.category ? product.category.nom : ''))|lower }}">
+
+    <div class="product-style1 shadow-sm h-100">
+
+        <div class="product-img">
+
+            <img src="{{ imagePath }}"
+                 class="deen-product-img w-100"
+                 alt="{{ product.titre }}">
+
+            <div class="product-btns">
+
+                <a href="#"
+                   class="icon-btn js-wishlist"
+                   data-id="{{ product.id }}"
+                    data-title="{{ product.titre }}"
+                    data-price="{{ product.prix }}"
+                    data-lots='{{ product.lots|map(lot => {
+                        "id": lot.id,
+                        "nom": lot.nom,
+                        "quantite": lot.quantite,
+                        "prix": lot.prix
+                        })|json_encode|e("html_attr") }}'>
+                    <i class="far fa-heart"></i>
+                    
+                </a>
+
+               <a href="#"
+                    class="icon-btn js-cart"
+                    data-id="{{ product.id }}"
+                    data-title="{{ product.titre }}"
+                    data-price="{{ product.prix }}"
+                    data-image="{{ imagePath }}"
+                    data-lots='{{ product.lots|map(lot => {
+                        "id": lot.id,
+                        "nom": lot.nom,
+                        "quantite": lot.quantite,
+                        "prix": lot.prix
+                        })|json_encode|e("html_attr") }}'>
+                        <i class="far fa-shopping-basket"></i>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="product-content text-center py-3">
+            <ul class="price-list fw-bold text-primary mb-2">
+                <li>{{ product.prix|number_format(0, ',', ' ') }} FCFA</li>
+            </ul>
+
+            <h2 class="product-title mb-3 fs-6">
+                <a href="{{ path('product_show', {'id': product.id}) }}">
+                    {{ product.titre }}
+                </a>
+            </h2>
+
+            <a href="{{ path('product_show', {'id': product.id}) }}"
+               class="vs-btn btn-sm"
+               style="padding:5px 15px; font-size:11px;">
+                Voir Détails
+            </a>
+        </div>
+
+    </div>
+</div>

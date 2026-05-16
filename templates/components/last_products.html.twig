@@ -1,0 +1,45 @@
+<div class="widget product-sidebar shadow-sm p-4"
+     style="background:#fff; border-radius:15px; border:1px solid #f0f0f0;">
+
+    <h3 class="widget_title mb-4"
+        style="font-size:20px; font-weight:700; border-left:4px solid var(--theme-color); padding-left:15px;">
+
+        Nos Derniers Produits
+
+    </h3>
+
+    <div class="recent-post-wrap">
+
+        {% for product in lastProducts %}
+
+            <div class="recent-post d-flex align-items-center mb-3 pb-3 border-bottom">
+
+                <div class="media-img me-3">
+                    <img src="{{ asset('uploads/products/' ~ product.image) }}"
+                         style="width:80px; height:90px; object-fit:cover; border-radius:10px;">
+                </div>
+
+                <div class="media-body">
+
+                    <h6 class="mb-1" style="font-size:14px;">
+                        {{ product.titre }}
+                    </h6>
+
+                    <div class="fw-bold mb-2" style="color:var(--theme-color); font-size:15px;">
+                        {{ product.prix|number_format(0, ',', ' ') }} FCFA
+                    </div>
+
+                    <a href="{{ path('product_show', {id: product.id}) }}"
+                       class="text-decoration-underline"
+                       style="font-size:12px; font-weight:600;">
+                        Voir détails
+                    </a>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+    </div>
+</div>

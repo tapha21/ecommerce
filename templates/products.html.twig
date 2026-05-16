@@ -1,0 +1,612 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Produits | Admin{% endblock %}
+
+{% block body %}
+<div class="container-fluid py-4">
+
+    <!-- HEADER -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="fw-bold">Gestion des produits</h2>
+
+        <button
+                class="btn btn-dark rounded-pill px-4"
+                data-bs-toggle="modal"
+                data-bs-target="#productModal">
+                + Créer un produit
+            </button>
+    </div>
+
+    <!-- 🔎 FILTRES -->
+    <div class="card mb-3 p-3 shadow-sm border-0">
+        <div class="row g-2">
+
+            <!-- SEARCH -->
+            <div class="col-md-3">
+                <input type="text" id="searchProduct"
+                       class="form-control"
+                       placeholder="Rechercher produit...">
+            </div>
+
+            <!-- CATEGORY -->
+            <div class="col-md-3">
+                <select id="filterCategory" class="form-select">
+                    <option value="">Catégories</option>
+                    {% set categoriesList = [] %}
+                    {% for p in products %}
+                        {% if p.category and p.category.nom not in categoriesList %}
+                            {% set categoriesList = categoriesList|merge([p.category.nom]) %}
+                            <option value="{{ p.category.nom }}">{{ p.category.nom }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- STOCK -->
+            <div class="col-md-2">
+                <select id="filterStock" class="form-select">
+                    <option value="">Stock</option>
+                    <option value="ok">Disponible</option>
+                    <option value="out">Rupture</option>
+                </select>
+            </div>
+
+            <!-- TAGS -->
+            <div class="col-md-2">
+                <select id="filterPromo" class="form-select">
+                    <option value="">Tags</option>
+                    <option value="promo">Promotion</option>
+                    <option value="new">Nouveauté</option>
+                    <option value="best">Best seller</option>
+                </select>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- TABLE -->
+    <div class="card shadow-sm border-0">
+
+        <div class="table-responsive">
+            <table class="table align-middle" id="productTable">
+
+                <thead class="table-light">
+                    <tr>
+                        <th>Produit</th>
+                        <th>Prix</th>
+                        <th>Stock</th>
+                        <th>Catégorie</th>
+                        <th>Tags</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for p in products %}
+                    <tr class="product-row"
+                        data-name="{{ p.titre|lower }}"
+                        data-category="{{ p.category ? p.category.nom|lower : '' }}"
+                        data-stock="{{ p.stock > 0 ? 'ok' : 'out' }}"
+                        data-promo="
+                            {% if p.promotion %}promo {% endif %}
+                            {% if p.nouveaute %}new {% endif %}
+                            {% if p.bestSeller %}best{% endif %}
+                        ">
+
+
+                        <td>
+                            <div class="d-flex align-items-center gap-3">
+
+                                <!-- IMAGE -->
+                                <img src="{{ asset('uploads/products/' ~ p.image) }}"
+                                    alt="{{ p.titre }}"
+                                    style="width:55px;height:55px;object-fit:cover;border-radius:10px;">
+
+                                <!-- TEXT -->
+                                <div>
+                                    <div class="fw-bold">{{ p.titre }}</div>
+                                    <small class="text-muted">
+                                        {{ p.description|slice(0, 40) }}...
+                                    </small>
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td class="fw-bold text-primary">
+                            {{ p.prix|number_format(0, ',', ' ') }} FCFA
+                        </td>
+
+                        <td>
+                            {% if p.stock > 0 %}
+                                <span class="badge bg-success">
+                                    Disponible ({{ p.stock }})
+                                </span>
+                            {% else %}
+                                <span class="badge bg-danger">Rupture</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {{ p.category ? p.category.nom : '---' }}
+                        </td>
+
+                        <td>
+                            {% if p.promotion %}
+                                <span class="badge bg-warning text-dark">Promo</span>
+                            {% endif %}
+                            {% if p.nouveaute %}
+                                <span class="badge bg-info">New</span>
+                            {% endif %}
+                            {% if p.bestSeller %}
+                                <span class="badge bg-dark">Best</span>
+                            {% endif %}
+                            {% if p.phares %}
+                                <span class="badge bg-primary">Phare</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-center">
+                            <button class="btn btn-sm btn-primary"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#edit{{ p.id }}">
+                                <i class="fa fa-pen"></i>
+                            </button>
+
+                            <a href="{{ path('app_product_delete', {id: p.id}) }}"
+                            class="btn btn-sm btn-danger"
+                            onclick="return confirm('Supprimer ce produit ?')">
+
+                                <i class="fa fa-trash"></i>
+                            </a>
+                            <button
+                                class="btn btn-sm btn-success"
+                                data-bs-toggle="modal"
+                                data-bs-target="#lotsModal{{ p.id }}">
+                                <i class="fa fa-boxes-stacked"></i>
+                            </button>
+
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- PAGINATION -->
+        <div class="card-footer bg-white border-0">
+            <nav>
+                <ul class="pagination justify-content-center mb-0" id="pagination"></ul>
+            </nav>
+        </div>
+
+    </div>
+
+    {% for p in products %}
+    <div class="modal fade" id="edit{{ p.id }}" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+
+            <form method="post"
+                action="{{ path('app_product_edit', {id: p.id}) }}"
+                enctype="multipart/form-data"
+                class="modal-content shadow-lg border-0 rounded-4">
+
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">Modifier : {{ p.titre }}</h5>
+                    <button type="button" class="btn-close btn-close-white"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+
+                    {# IMAGE #}
+                    <div class="text-center mb-3">
+                        {% if p.image %}
+                            <img src="{{ asset('uploads/products/' ~ p.image) }}"
+                                class="img-fluid rounded"
+                                style="max-height:180px;">
+                        {% endif %}
+                    </div>
+
+                    {# FORM #}
+                    <input name="product[titre]" value="{{ p.titre }}" class="form-control mb-2">
+
+                    <textarea name="product[description]" class="form-control mb-2">{{ p.description }}</textarea>
+
+                    <input name="product[prix]" value="{{ p.prix }}" class="form-control mb-2">
+
+                    <input name="product[stock]" value="{{ p.stock }}" class="form-control mb-2">
+
+                    <input type="file" name="product[imageFile]" class="form-control mb-3">
+
+                    {# OPTIONS #}
+                    <div class="row">
+
+                        <div class="col-6">
+                            <input type="checkbox" name="product[promotion]" {{ p.promotion ? 'checked' : '' }}>
+                            Promotion
+                        </div>
+
+                        <div class="col-6">
+                            <input type="checkbox" name="product[nouveaute]" {{ p.nouveaute ? 'checked' : '' }}>
+                            Nouveauté
+                        </div>
+
+                        <div class="col-6">
+                            <input type="checkbox" name="product[bestSeller]" {{ p.bestSeller ? 'checked' : '' }}>
+                            Best seller
+                        </div>
+
+                        <div class="col-6">
+                            <input type="checkbox" name="product[phares]" {{ p.phares ? 'checked' : '' }}>
+                            Phare
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-light" data-bs-dismiss="modal">Annuler</button>
+                    <button class="btn btn-primary">Enregistrer</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    {% endfor %}
+
+    {% for p in products %}
+    <div class="modal fade" id="lotsModal{{ p.id }}" tabindex="-1">
+
+        <div class="modal-dialog modal-lg">
+
+            <form method="post"
+                action="{{ path('app_product_update_lots', {id: p.id}) }}"
+                class="modal-content">
+
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title">Lots de {{ p.titre }}</h5>
+                    <button type="button" class="btn-close btn-close-white"
+                            data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body" id="lots-container-{{ p.id }}">
+
+                    {% for lot in p.lots %}
+                    <div class="row g-2 mb-2 lot-row">
+
+                        <div class="col">
+                            <input type="text"
+                                name="lots[{{ loop.index0 }}][nom]"
+                                value="{{ lot.nom }}"
+                                class="form-control">
+                        </div>
+
+                        <div class="col">
+                            <input type="number"
+                                name="lots[{{ loop.index0 }}][quantite]"
+                                value="{{ lot.quantite }}"
+                                class="form-control">
+                        </div>
+
+                        <div class="col">
+                            <input type="number"
+                                name="lots[{{ loop.index0 }}][prix]"
+                                value="{{ lot.prix }}"
+                                class="form-control">
+                        </div>
+
+                        <div class="col-auto">
+                            <button type="button"
+                                    class="btn btn-danger"
+                                    onclick="this.closest('.lot-row').remove()">
+                                ✕
+                            </button>
+                        </div>
+
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button"
+                            class="btn btn-outline-primary"
+                            onclick="addLot({{ p.id }})">
+                        + Ajouter lot
+                    </button>
+
+                    <button class="btn btn-success">
+                        Enregistrer
+                    </button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="modal fade" id="productModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content border-0 shadow-lg rounded-4">
+                <div class="modal-header bg-dark text-white rounded-top-4 p-4">
+                    <h5 class="modal-title fw-bold"><i class="fa-solid fa-circle-plus me-2 text-success"></i>Nouveau Produit</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <form method="post" action="{{ path('app_product_create') }}" enctype="multipart/form-data">
+                    <div class="modal-body p-4">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-muted">Nom du produit</label>
+                                <input name="product[titre]" class="form-control rounded-3 border-light-subtle bg-light p-2" placeholder="Ex: Robe en soie" required>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-muted">Description</label>
+                                <textarea name="product[description]" rows="3" class="form-control rounded-3 border-light-subtle bg-light" placeholder="Détails du produit..."></textarea>
+                            </div>
+
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">Prix</label>
+                                <input name="product[prix]" class="form-control rounded-3 border-light-subtle bg-light" placeholder="Prix en FCFA">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">Stock</label>
+                                <input name="product[stock]" class="form-control rounded-3 border-light-subtle bg-light" placeholder="Quantité">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label small fw-bold text-muted">Catégorie</label>
+                                <select name="product[category]" class="form-select rounded-3 border-light-subtle bg-light">
+                                    {% for c in categories %}
+                                        <option value="{{ c.id }}">{{ c.nom }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label class="form-label small fw-bold text-muted">Photo du produit</label>
+                                <div class="input-group border rounded-3 p-1 bg-light">
+                                    <input type="file" name="product[imageFile]" class="form-control border-0 bg-transparent" id="inputFile">
+                                </div>
+                            </div>
+
+                            <div class="col-12 mt-4 bg-light p-3 rounded-4">
+                                <div class="row text-center">
+                                    <div class="col-md-3">
+                                        <label class="small fw-bold d-block mb-2">Promotion</label>
+                                        <input type="checkbox" name="product[promotion]" class="form-check-input">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="small fw-bold d-block mb-2">Nouveauté</label>
+                                        <input type="checkbox" name="product[nouveaute]" class="form-check-input">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="small fw-bold d-block mb-2">Best Seller</label>
+                                        <input type="checkbox" name="product[bestSeller]" class="form-check-input">
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="small fw-bold d-block mb-2">Phare</label>
+                                        <input type="checkbox" name="product[phares]" class="form-check-input">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                    <div class="modal-footer border-0 p-4 pt-0">
+                        <button type="button" class="btn btn-outline-dark rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Fermer</button>
+                        <button type="submit" class="btn btn-dark rounded-pill px-5 fw-bold shadow">Confirmer la création</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+<!-- JS -->
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const search = document.getElementById('searchProduct');
+    const category = document.getElementById('filterCategory');
+    const stock = document.getElementById('filterStock');
+    const promo = document.getElementById('filterPromo');
+
+    const rows = Array.from(document.querySelectorAll('.product-row'));
+    const pagination = document.getElementById('pagination');
+
+    let currentPage = 1;
+    const perPage = 10;
+
+    function normalize(str) {
+        return (str || '')
+            .toLowerCase()
+            .normalize("NFD")
+            .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function getFilteredRows() {
+
+        const s = normalize(search.value);
+        const cat = category.value.toLowerCase();
+        const st = stock.value;
+        const pr = promo.value;
+
+        return rows.filter(row => {
+
+            let ok = true;
+
+            if (s && !normalize(row.dataset.name).includes(s)) ok = false;
+
+            if (cat && row.dataset.category !== cat) ok = false;
+
+            if (st && row.dataset.stock !== st) ok = false;
+
+            if (pr && !row.dataset.promo.includes(pr)) ok = false;
+
+            return ok;
+        });
+    }
+
+    function renderTable() {
+
+        const filtered = getFilteredRows();
+
+        const start = (currentPage - 1) * perPage;
+        const end = start + perPage;
+
+        rows.forEach(r => r.style.display = 'none');
+
+        filtered.slice(start, end).forEach(r => r.style.display = '');
+
+        renderPagination(filtered.length);
+    }
+
+    function renderPagination(total) {
+
+        pagination.innerHTML = '';
+
+        const pages = Math.ceil(total / perPage);
+
+        for (let i = 1; i <= pages; i++) {
+
+            const li = document.createElement('li');
+            li.className = 'page-item ' + (i === currentPage ? 'active' : '');
+
+            li.innerHTML = `<a class="page-link" href="#">${i}</a>`;
+
+            li.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentPage = i;
+                renderTable();
+            });
+
+            pagination.appendChild(li);
+        }
+    }
+
+    function reset() {
+        currentPage = 1;
+        renderTable();
+    }
+
+    search.addEventListener('input', reset);
+    category.addEventListener('change', reset);
+    stock.addEventListener('change', reset);
+    promo.addEventListener('change', reset);
+
+    renderTable();
+});
+</script>
+
+<script>
+
+function addLot(productId) {
+    const container = document.getElementById('lots-container-' + productId);
+
+    if (!container) return;
+
+    // Nombre actuel de lignes = prochain index
+    const index = container.querySelectorAll('.lot-row').length;
+
+    // Création de la ligne
+    const row = document.createElement('div');
+    row.className = 'row g-2 mb-2 lot-row';
+
+    row.innerHTML = `
+        <div class="col-md-4">
+            <input
+                type="text"
+                name="lots[${index}][nom]"
+                class="form-control"
+                placeholder="Nom du lot (ex: Lot 4)"
+                required>
+        </div>
+
+        <div class="col-md-3">
+            <input
+                type="number"
+                name="lots[${index}][quantite]"
+                class="form-control"
+                placeholder="Quantité"
+                min="1"
+                required>
+        </div>
+
+        <div class="col-md-3">
+            <input
+                type="number"
+                name="lots[${index}][prix]"
+                class="form-control"
+                placeholder="Prix"
+                min="0"
+                step="0.01"
+                required>
+        </div>
+
+        <div class="col-md-2">
+            <button
+                type="button"
+                class="btn btn-danger w-100"
+                onclick="removeLotRow(this)">
+                <i class="fa fa-trash"></i>
+            </button>
+        </div>
+    `;
+
+    container.appendChild(row);
+
+    // Réindexation après ajout
+    reindexLots(container);
+}
+
+/**
+ * Supprime une ligne de lot
+ */
+function removeLotRow(button) {
+    const row = button.closest('.lot-row');
+    if (!row) return;
+
+    const container = row.parentElement;
+    row.remove();
+
+    // Réindexation après suppression
+    reindexLots(container);
+}
+
+/**
+ * Réindexe les noms des inputs :
+ * lots[0][nom]
+ * lots[1][nom]
+ * lots[2][nom]
+ */
+function reindexLots(container) {
+    const rows = container.querySelectorAll('.lot-row');
+
+    rows.forEach((row, index) => {
+        const inputs = row.querySelectorAll('input');
+
+        inputs.forEach(input => {
+            if (input.name.includes('[nom]')) {
+                input.name = `lots[${index}][nom]`;
+            }
+
+            if (input.name.includes('[quantite]')) {
+                input.name = `lots[${index}][quantite]`;
+            }
+
+            if (input.name.includes('[prix]')) {
+                input.name = `lots[${index}][prix]`;
+            }
+        });
+    });
+}
+
+</script>
+{% endblock %}

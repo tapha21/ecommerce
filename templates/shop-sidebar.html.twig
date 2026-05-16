@@ -1,0 +1,357 @@
+{{ include('navbar.html.twig') }}
+
+<body class="shop-page">
+
+
+  <!--==============================
+    Breadcrumb
+============================== -->
+<div class="breadcumb-wrapper position-relative" data-bg-src="assets/img/hero/bookstrore.avif" 
+     style="padding: 120px 0; background-size: cover; background-position: center;">
+  
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: rgba(0, 0, 0, 0.4);"></div>
+
+  <div class="container position-relative z-3">
+    <div class="breadcumb-content text-center">
+
+      <h1 class="breadcumb-title text-white fw-bold mb-3 shadow-sm" style="font-size: 3.5rem; text-shadow: 2px 2px 10px rgba(0,0,0,0.5);">
+        {{ shopTitle|default('Catalogue') }}
+      </h1>
+
+
+    </div>
+  </div>
+</div>
+
+<section class="books-layout1 shop-catalog-section space-top space-extra-bottom">
+    <div class="container">
+        <div class="row g-4">
+            
+           <div class="col-xl-3 col-lg-4 order-2 order-lg-1">
+    <aside class="sidebar-area shop-sidebar">
+
+        {# 🔎 RECHERCHE + FILTRE INTELLIGENT #}
+        <div class="widget widget_search shop-search-widget wow animate__fadeInUp" data-wow-delay="0.2s">
+            <h3 class="widget_title title-shep text-sm">Trouver un article</h3>
+
+            <form method="get" action="{{ path('app_shop') }}" class="search-form-container position-relative">
+                    <div class="search-form position-relative">
+
+                        <input type="text"
+                            id="smartProductSearch"
+                            name="q"
+                            value="{{ currentSearch }}"
+                            class="form-control border-0 bg-light p-3 shadow-none"
+                            placeholder="Rechercher ici..."
+                            autocomplete="off"
+                            style="border-radius: 8px;">
+
+                        {# garder catégorie sélectionnée #}
+                        <input type="hidden" name="cat" value="{{ currentCategory }}">
+                        <input type="hidden" name="section" value="{{ currentSection }}">
+                        <input type="hidden" name="category_name" value="{{ currentCategoryName }}">
+
+                        <button type="submit"
+                                class="position-absolute end-0 top-50 translate-middle-y border-0 bg-transparent me-3">
+                            <i class="far fa-search" style ="color: var(--theme-color)"></i>
+                        </button>
+
+                    </div>
+            </form>
+        </div>
+
+        {# 📂 CATEGORIES DYNAMIQUES #}
+        <div class="widget widget_categories wow animate__fadeInUp" data-wow-delay="0.4s">
+            <h3 class="widget_title title-shep text-sm">Filtres</h3>
+
+            <ul>
+
+                {# TOUS LES PRODUITS #}
+                <li>
+                  <a href="{{ path('app_shop', { q: currentSearch }) }}"
+                    class="{{ currentCategory is empty and currentSection is empty and currentCategoryName is empty ? 'fw-bold' : '' }}"
+                    style="{{ currentCategory is empty and currentSection is empty and currentCategoryName is empty ? 'color: var(--theme-color);' : '' }}">
+                        Tous les produits
+                  </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('app_shop', { section: 'phares', q: currentSearch }) }}"
+                       class="{{ currentSection == 'phares' ? 'fw-bold' : '' }}"
+                       style="{{ currentSection == 'phares' ? 'color: var(--theme-color);' : '' }}">
+                        Produits phares
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('app_shop', { section: 'promotions', q: currentSearch }) }}"
+                       class="{{ currentSection == 'promotions' ? 'fw-bold' : '' }}"
+                       style="{{ currentSection == 'promotions' ? 'color: var(--theme-color);' : '' }}">
+                        Promotions
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('app_shop', { section: 'nouveautes', q: currentSearch }) }}"
+                       class="{{ currentSection == 'nouveautes' ? 'fw-bold' : '' }}"
+                       style="{{ currentSection == 'nouveautes' ? 'color: var(--theme-color);' : '' }}">
+                        Nouveautés
+                    </a>
+                </li>
+
+                <li>
+                    <a href="{{ path('app_shop', { section: 'best_sellers', q: currentSearch }) }}"
+                       class="{{ currentSection == 'best_sellers' ? 'fw-bold' : '' }}"
+                       style="{{ currentSection == 'best_sellers' ? 'color: var(--theme-color);' : '' }}">
+                        Best sellers
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+        {# 📂 CATEGORIES DYNAMIQUES #}
+        <div class="widget widget_categories wow animate__fadeInUp" data-wow-delay="0.4s">
+            <h3 class="widget_title title-shep text-sm">Rayons</h3>
+
+            <ul>
+
+                {# LISTE DES CATEGORIES #}
+                {% for cat in categories %}
+                    <li>
+                        <a href="{{ path('app_shop', {
+                            cat: cat.id,
+                            q: currentSearch
+                        }) }}"
+                           class="{{ currentCategory == cat.id ? 'fw-bold' : '' }}"
+                           style="{{ currentCategory == cat.id ? 'color: var(--theme-color);' : '' }}"
+                           >
+                            {{ cat.nom }}
+                        </a>
+                    </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+
+        </aside>
+    </div>
+
+           <div class="col-xl-9 col-lg-8 order-1 order-lg-2">
+
+    <div class="shop-results-bar mb-4">
+        <span id="shopResultCount">{{ products|length }}</span>
+        produit{{ products|length > 1 ? 's' : '' }} trouvé{{ products|length > 1 ? 's' : '' }}
+    </div>
+
+    <div class="row g-4" id="product-list">
+
+        {% for product in products %}
+
+        {% include 'components/product_card.html.twig' with { 'product': product } %}
+
+
+        {% endfor %}
+
+    </div>
+
+    <div id="emptyShopResults" class="shop-empty-results text-center py-5 d-none">
+        <i class="fa-solid fa-magnifying-glass mb-3"></i>
+        <h5 class="fw-bold">Aucun produit trouvé</h5>
+        <p class="text-muted mb-0">Essayez un autre mot-clé ou changez de filtre.</p>
+    </div>
+
+    <!-- PAGINATION -->
+    <div class="vs-pagination pt-4 d-flex justify-content-center">
+        <ul class="pagination-list d-flex list-unstyled gap-2" id="pagination"></ul>
+    </div>
+
+    </div>
+            </div>
+        </div>
+</section>
+
+{{ include('footer.html.twig') }}
+
+  <!--********************************
+			Code End  Here 
+	******************************** -->
+  <!--==============================
+        All Js File
+    ============================== -->
+  <!-- Jquery -->
+  <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="assets/js/bootstrap.min.js"></script>
+  <!-- Slick Slider -->
+  <script src="assets/js/slick.min.js"></script>
+  <!-- Magnific Popup -->
+  <script src="assets/js/jquery.magnific-popup.min.js"></script>
+  <!-- imagesloaded -->
+  <script src="assets/js/imagesloaded.pkgd.min.js"></script>
+  <!-- Isotope Filter -->
+  <script src="assets/js/isotope.pkgd.min.js"></script>
+  <!-- Gsap -->
+  <script src="assets/js/gsap.min.js"></script>
+  <!-- ScrollTrigger -->
+  <script src="assets/js/ScrollTrigger.min.js"></script>
+  <!-- Gsap ScrollTo Plugin -->
+  <script src="assets/js/gsap-scroll-to-plugin.js"></script>
+  <!-- Split Text -->
+  <script src="assets/js/SplitText.js"></script>
+  <!-- lenis -->
+  <script src="assets/js/lenis.min.js"></script>
+  <!-- wow js -->
+  <script src="assets/js/wow.min.js"></script>
+  <!-- nice-select -->
+  <script src="assets/js/jquery.nice-select.min.js"></script>
+  <!-- nouislider -->
+  <script src="assets/js/nouislider.min.js"></script>
+  <!-- Main Js File -->
+  <script src="assets/js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const items = document.querySelectorAll(".product-item");
+        const pagination = document.getElementById("pagination");
+        const perPage = 12;
+        let currentPage = 1;
+
+        function showPage(page) {
+            const totalPages = Math.ceil(items.length / perPage);
+            if (page < 1 || page > totalPages) return;
+            
+            currentPage = page;
+            items.forEach((item, index) => {
+                item.style.display = (index >= (page - 1) * perPage && index < page * perPage) ? "block" : "none";
+            });
+            updatePagination();
+        }
+
+        function createPageLink(text, page, isActive = false, isDisabled = false) {
+            let li = document.createElement("li");
+            let a = document.createElement("a");
+            a.href = "#";
+            a.innerText = text;
+            
+            if (isDisabled) {
+                a.style.pointerEvents = "none";
+                a.style.opacity = "0.5";
+            }
+            if (isActive) a.classList.add("active");
+
+            a.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (!isDisabled) showPage(page);
+            });
+
+            li.appendChild(a);
+            return li;
+        }
+
+        function updatePagination() {
+            pagination.innerHTML = "";
+            const totalPages = Math.ceil(items.length / perPage);
+
+            // Bouton Précédent
+            pagination.appendChild(createPageLink("«", currentPage - 1, false, currentPage === 1));
+
+            // Pages numérotées
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.appendChild(createPageLink(i, i, i === currentPage));
+            }
+
+            // Bouton Suivant
+            pagination.appendChild(createPageLink("»", currentPage + 1, false, currentPage === totalPages));
+        }
+
+        showPage(1);
+    });
+</script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const items = Array.from(document.querySelectorAll(".product-item"));
+        const pagination = document.getElementById("pagination");
+        const searchInput = document.getElementById("smartProductSearch");
+        const resultCount = document.getElementById("shopResultCount");
+        const emptyResults = document.getElementById("emptyShopResults");
+        const perPage = 12;
+        let currentPage = 1;
+        let filteredItems = items;
+
+        function normalize(value) {
+            return (value || "")
+                .toLowerCase()
+                .normalize("NFD")
+                .replace(/[\u0300-\u036f]/g, "")
+                .trim();
+        }
+
+        function showPage(page) {
+            const totalPages = Math.max(1, Math.ceil(filteredItems.length / perPage));
+            if (page < 1 || page > totalPages) return;
+
+            currentPage = page;
+            items.forEach(item => item.style.display = "none");
+            filteredItems.forEach((item, index) => {
+                item.style.display = (index >= (page - 1) * perPage && index < page * perPage) ? "" : "none";
+            });
+
+            if (resultCount) resultCount.textContent = filteredItems.length;
+            if (emptyResults) emptyResults.classList.toggle("d-none", filteredItems.length > 0);
+            renderPagination();
+        }
+
+        function createPageLink(text, page, isActive = false, isDisabled = false) {
+            const li = document.createElement("li");
+            const a = document.createElement("a");
+            a.href = "#";
+            a.innerText = text;
+
+            if (isActive) a.classList.add("active");
+            if (isDisabled) {
+                a.style.pointerEvents = "none";
+                a.style.opacity = "0.5";
+            }
+
+            a.addEventListener("click", (e) => {
+                e.preventDefault();
+                if (!isDisabled) showPage(page);
+            });
+
+            li.appendChild(a);
+            return li;
+        }
+
+        function renderPagination() {
+            if (!pagination) return;
+
+            pagination.innerHTML = "";
+            const totalPages = Math.ceil(filteredItems.length / perPage);
+            if (totalPages <= 1) return;
+
+            pagination.appendChild(createPageLink("«", currentPage - 1, false, currentPage === 1));
+
+            for (let i = 1; i <= totalPages; i++) {
+                pagination.appendChild(createPageLink(i, i, i === currentPage));
+            }
+
+            pagination.appendChild(createPageLink("»", currentPage + 1, false, currentPage === totalPages));
+        }
+
+        function applySearch() {
+            const term = normalize(searchInput?.value);
+
+            filteredItems = term
+                ? items.filter(item => normalize(item.dataset.search || item.textContent).includes(term))
+                : items;
+
+            showPage(1);
+        }
+
+        searchInput?.addEventListener("input", applySearch);
+        applySearch();
+    });
+</script>
+</body>
+
+</html>
