@@ -71,8 +71,10 @@ RUN rm -rf var/cache/*
 # --------------------------------------------------
 # Permissions
 # --------------------------------------------------
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 var public/uploads
+
+RUN mkdir -p var/cache var/log public/uploads \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 777 var
 
 # --------------------------------------------------
 # Configuration Apache pour Symfony (/public)
