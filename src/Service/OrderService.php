@@ -103,15 +103,12 @@ public function cancelOrder(Orders $order)
 }
 private function getUnitPrice(Product $product, int $qty): float
 {
-    $bestPrice = $product->getPrix(); // prix par défaut
+    $bestPrice = $product->getPrix();
 
     foreach ($product->getLots() as $lot) {
 
-        $min = $lot->getQuantiteMin();
-        $max = $lot->getQuantiteMax();
-
-        if ($qty >= $min && ($max === null || $qty <= $max)) {
-            $bestPrice = $lot->getPrixUnitaire();
+        if ($qty >= $lot->getQuantite()) {
+            $bestPrice = $lot->getPrix();
         }
     }
 

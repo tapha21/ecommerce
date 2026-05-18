@@ -126,14 +126,13 @@ public function me(OrdersRepository $ordersRepository): Response
     {
         return $this->render('dashboard.html.twig');
     }
-    #[Route('/change-password', name: 'change_password', methods: ['POST'])]
+#[Route('/change-password', name: 'change_password', methods: ['POST'])]
 public function changePassword(
     Request $request,
     UserPasswordHasherInterface $hasher,
-    EntityManagerInterface $em,
-    AuthService $service
+    EntityManagerInterface $em
 ) {
-    $user = $service->getUser();
+    $user = $this->getUser();
 
     if (!$user) {
         return $this->redirectToRoute('app_login');

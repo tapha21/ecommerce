@@ -22,280 +22,399 @@
       </div>
     </div>
   </div>
-  <!--======== Checkout Section ========-->
-<div class="container py-5 mb-5 pb-5">
+ <!--======== Checkout Section ========-->
+  <div class="container py-5 my-2 mb-5 pb-5">
     <div class="row g-4">
 
-        <!-- LEFT -->
-        <div class="col-lg-7">
+      <!-- LEFT COLUMN -->
+      <div class="col-lg-7">
 
-            <!-- BILLING -->
-            <div class="card border-0 shadow-sm p-4 mb-4">
-                <h4 class="mb-4 fw-bold">Information Personnel </h4>
+        <!-- BILLING (INFORMATION PERSONNEL) -->
+        <div class="card border-0 shadow-sm p-4 mb-4 rounded-4 bg-white">
+          <div class="d-flex align-items-center mb-4">
+            <div class="rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background-color: rgba(209, 102, 85, 0.1); color: #D16655;">
+              <i class="fas fa-user-circle fs-5"></i>
+            </div>
+            <h4 class="mb-0 fw-bold text-dark">Information Personnel</h4>
+          </div>
 
-                {% if app.user %}
+          {% if app.user %}
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label small fw-bold text-secondary">Nom complet</label>
+                <input type="text" id="checkout-name" class="form-control bg-light border-0 py-2.5 rounded-3 text-dark"
+                       value="{{ app.user.nom }} {{ app.user.prenom }}" readonly style="cursor: not-allowed;">
+              </div>
 
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label small text-muted">Nom complet</label>
-                            <input type="text" id="checkout-name" class="form-control bg-light border-0"
-                                   value="{{ app.user.nom }} {{ app.user.prenom }}" readonly>
-                        </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label small fw-bold text-secondary">Téléphone</label>
+                <input type="text" id="checkout-phone" class="form-control bg-light border-0 py-2.5 rounded-3 text-dark"
+                       value="{{ app.user.telephone }}" readonly style="cursor: not-allowed;">
+              </div>
 
-                        <div class="col-md-6 mb-3">
-                            <label class="form-label small text-muted">Téléphone</label>
-                                    <input type="text"  id="checkout-phone" class="form-control bg-light border-0"
-                                        value="{{ app.user.telephone }}" readonly>
-                                </div>
+              <div class="col-12 mb-2">
+                <label class="form-label small fw-bold text-secondary">Adresse</label>
+                <input type="text" id="checkout-address" class="form-control bg-light border-0 py-2.5 rounded-3 text-dark"
+                       value="{{ app.user.adresse }}" readonly style="cursor: not-allowed;">
+              </div>
+            </div>
+          {% else %}
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label class="form-label small fw-bold text-secondary">Nom complet</label>
+                <input type="text" name="name" class="form-control shadow-none py-2.5 checkout-input" placeholder="Ex: Mamadou Diop">
+              </div>
 
-                                <div class="col-12 mb-3">
-                                    <label class="form-label small text-muted">Adresse</label>
-                                    <input type="text" id="checkout-address" class="form-control bg-light border-0"
-                                        value="{{ app.user.adresse }}" readonly>
-                                </div>
-                            </div>
+              <div class="col-md-6 mb-3">
+                <label class="form-label small fw-bold text-secondary">Téléphone</label>
+                <input type="text" name="phone" class="form-control shadow-none py-2.5 checkout-input" placeholder="Ex: 77XXXXXXX">
+              </div>
 
-                        {% else %}
-
-                        <div class="row">
-
-                    <div class="col-md-6 mb-3">
-                        <input type="text"
-                            name="name"
-                            class="form-control shadow-none"
-                            placeholder="Nom complet"
-                            style="border:1px solid #D16655; background:#fff; color:#131313; border-radius:8px;">
-                    </div>
-
-                    <div class="col-md-6 mb-3">
-                        <input type="text"
-                            name="phone"
-                            class="form-control shadow-none"
-                            placeholder="Téléphone"
-                            style="border:1px solid #D16655; background:#fff; color:#131313; border-radius:8px;">
-                    </div>
-
-                    <div class="col-12 mb-3">
-                        <input type="text"
-                            name="address"
-                            class="form-control shadow-none"
-                            placeholder="Adresse complète"
-                            style="border:1px solid #D16655; background:#fff; color:#131313; border-radius:8px;">
-                    </div>
-
+              <div class="col-12 mb-2">
+                <label class="form-label small fw-bold text-secondary">Adresse complète</label>
+                <input type="text" name="address" class="form-control shadow-none py-2.5 checkout-input" placeholder="Ex: Rue 10, Dakar, Sénégal">
+              </div>
+            </div>
+          {% endif %}
         </div>
 
-                {% endif %}
+        <!-- PAYMENT METHODS -->
+        <div class="card border-0 shadow-sm p-4 rounded-4 bg-white">
+          <div class="d-flex align-items-center mb-4">
+            <div class="rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; background-color: rgba(209, 102, 85, 0.1); color: #D16655;">
+              <i class="fas fa-wallet fs-5"></i>
+            </div>
+            <h4 class="mb-0 fw-bold text-dark">Mode de paiement</h4>
+          </div>
+
+          <div class="row row-cols-1 row-cols-sm-2 g-3">
+            <!-- WAVE -->
+            <div class="col">
+              <div class="payment-option-card card h-100 p-3 shadow-none border rounded-3 position-relative transition-all" onclick="document.getElementById('wave').click();">
+                <div class="form-check p-0 m-0 d-flex flex-column align-items-center text-center w-100 h-100 justify-content-between">
+                  <div class="w-100 text-end position-absolute top-0 end-0 p-2">
+                    <input class="form-check-input shadow-none m-0 payment-radio" type="radio" name="payment" id="wave" value="wave">
+                  </div>
+                  <label class="form-check-label d-block fw-bold small text-dark mt-2 w-100" for="wave">
+                    <div class="mb-3 d-flex align-items-center justify-content-center" style="height: 35px;">
+                      <img src="https://goamobile.com/logosent/wave@221@-L-2021-06-30_00-11-11wave_logo_1.jpg" alt="Wave" class="img-fluid rounded" style="max-height: 32px;">
+                    </div>
+                    <span class="fs-6 d-block mb-1">Wave</span>
+                    <span class="text-muted small fw-normal d-block"><i class="fas fa-mobile-alt me-1"></i> Mobile Money</span>
+                  </label>
+                </div>
+              </div>
             </div>
 
-            <!-- PAYMENT -->
-            <div class="row row-cols-1 row-cols-md-2 g-3">
-                    <div class="col">
-                        <div class="payment-option card h-100 text-center p-3 shadow-none border" style="cursor: pointer;">
-                            <div class="form-check p-0">
-                                <input class="form-check-input float-none shadow-none mb-2" type="radio" name="payment" id="wave" value="wave" style="width: 20px; height: 20px; border-color: #D16655;">
-                                <label class="form-check-label d-block fw-bold small" for="wave">
-                                    <div class="mb-2">
-                                        <img src="https://goamobile.com/logosent/wave@221@-L-2021-06-30_00-11-11wave_logo_1.jpg" alt="Wave" style="height: 25px;">
-                                    </div>
-                                    Wave <br>
-                                    <i class="fas fa-mobile-alt mt-2 text-muted"></i>
-                                </label>
-                            </div>
-                        </div>
+            <!-- ORANGE MONEY -->
+            <div class="col">
+              <div class="payment-option-card card h-100 p-3 shadow-none border rounded-3 position-relative transition-all" onclick="document.getElementById('orange').click();">
+                <div class="form-check p-0 m-0 d-flex flex-column align-items-center text-center w-100 h-100 justify-content-between">
+                  <div class="w-100 text-end position-absolute top-0 end-0 p-2">
+                    <input class="form-check-input shadow-none m-0 payment-radio" type="radio" name="payment" id="orange" value="orange_money">
+                  </div>
+                  <label class="form-check-label d-block fw-bold small text-dark mt-2 w-100" for="orange">
+                    <div class="mb-3 d-flex align-items-center justify-content-center" style="height: 35px;">
+                      <img src="https://logos-marques.com/wp-content/uploads/2021/07/Orange-Money-emblem.png" alt="Orange" class="img-fluid rounded" style="max-height: 32px;">
                     </div>
-
-                    <div class="col">
-                        <div class="payment-option card h-100 text-center p-3 shadow-none border" style="cursor: pointer;">
-                            <div class="form-check p-0">
-                                <input class="form-check-input float-none shadow-none mb-2" type="radio" name="payment" id="orange" value="orange_money" style="width: 20px; height: 20px; border-color: #D16655;">
-                                <label class="form-check-label d-block fw-bold small" for="orange">
-                                    <div class="mb-2">
-                                        <img src="https://logos-marques.com/wp-content/uploads/2021/07/Orange-Money-emblem.png" alt="Orange" style="height: 25px;">
-                                    </div>
-                                    Orange Money <br>
-                                    <i class="fas fa-mobile-alt mt-2 text-muted"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="payment-option card h-100 text-center p-3 shadow-none border" style="cursor: pointer;">
-                            <div class="form-check p-0">
-                                <input class="form-check-input float-none shadow-none mb-2" type="radio" name="payment" id="card" value="card" style="width: 20px; height: 20px; border-color: #D16655;">
-                                <label class="form-check-label d-block fw-bold small" for="card">
-                                    <div class="mb-2 fs-4"><i class="fas fa-credit-card"></i></div>
-                                    Carte bancaire <br>
-                                    <i class="fas fa-lock mt-2 text-muted"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="payment-option card h-100 text-center p-3 shadow-none border" style="cursor: pointer; border-color: #D16655 !important;">
-                            <div class="form-check p-0">
-                                <input class="form-check-input float-none shadow-none mb-2" type="radio" name="payment" id="cash" value="cash_on_delivery" checked style="width: 20px; height: 20px; border-color: #D16655; background-color: #D16655;">
-                                <label class="form-check-label d-block fw-bold small" for="cash">
-                                    <div class="mb-2 fs-4">💵</div>
-                                    À la livraison <br>
-                                    <i class="fas fa-truck mt-2 text-muted"></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
+                    <span class="fs-6 d-block mb-1">Orange Money</span>
+                    <span class="text-muted small fw-normal d-block"><i class="fas fa-mobile-alt me-1"></i> Mobile Money</span>
+                  </label>
                 </div>
-
-        </div>
-
-        <!-- RIGHT -->
-        <div class="col-lg-5">
-
-            <div class="card border-0 shadow-sm p-4">
-                <h4 class="mb-4 fw-bold">Detail de la commande </h4>
-
-                <!-- CART DYNAMIC -->
-                <ul class="list-group list-group-flush mb-4" id="checkout-cart"></ul>
-                <div id="lot-box" style="display:none; margin-top:10px;"></div>
-                <!-- TOTAL -->
-                <div class="p-3 bg-light rounded mb-4">
-                    <div class="d-flex justify-content-between">
-                        <span>Sous-total</span>
-                        <span id="sub-total">0 FCFA</span>
-                    </div>
-
-                    <div class="d-flex justify-content-between">
-                        <span>Livraison</span>
-                        <span id="shipping">2000 FCFA</span>
-                    </div>
-
-                    <hr>
-
-                    <div class="d-flex justify-content-between">
-                        <strong>Total</strong>
-                        <strong id="total">0 FCFA</strong>
-                    </div>
-                </div>
-
-                <!-- BUTTON -->
-                <button id="confirm-order"
-                        class="btn w-100 text-white fw-bold"
-                        style="background:var(--theme-color);">
-                    CONFIRMER LA COMMANDE
-                </button>
-
+              </div>
             </div>
+
+            <!-- CARTE BANCAIRE -->
+            <div class="col">
+              <div class="payment-option-card card h-100 p-3 shadow-none border rounded-3 position-relative transition-all" onclick="document.getElementById('card').click();">
+                <div class="form-check p-0 m-0 d-flex flex-column align-items-center text-center w-100 h-100 justify-content-between">
+                  <div class="w-100 text-end position-absolute top-0 end-0 p-2">
+                    <input class="form-check-input shadow-none m-0 payment-radio" type="radio" name="payment" id="card" value="card">
+                  </div>
+                  <label class="form-check-label d-block fw-bold small text-dark mt-2 w-100" for="card">
+                    <div class="mb-3 d-flex align-items-center justify-content-center text-primary" style="height: 35px;">
+                      <i class="fas fa-credit-card fs-2 text-secondary"></i>
+                    </div>
+                    <span class="fs-6 d-block mb-1">Carte bancaire</span>
+                    <span class="text-muted small fw-normal d-block"><i class="fas fa-lock me-1"></i> Paiement Sécurisé</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- À LA LIVRAISON -->
+            <div class="col">
+              <div class="payment-option-card card h-100 p-3 shadow-none border rounded-3 position-relative transition-all" onclick="document.getElementById('cash').click();">
+                <div class="form-check p-0 m-0 d-flex flex-column align-items-center text-center w-100 h-100 justify-content-between">
+                  <div class="w-100 text-end position-absolute top-0 end-0 p-2">
+                    <input class="form-check-input shadow-none m-0 payment-radio" type="radio" name="payment" id="cash" value="cash_on_delivery" checked>
+                  </div>
+                  <label class="form-check-label d-block fw-bold small text-dark mt-2 w-100" for="cash">
+                    <div class="mb-3 d-flex align-items-center justify-content-center fs-2" style="height: 35px; line-height: 35px;">
+                      💵
+                    </div>
+                    <span class="fs-6 d-block mb-1">À la livraison</span>
+                    <span class="text-muted small fw-normal d-block"><i class="fas fa-truck me-1"></i> Payez cash chez vous</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN (ORDER DETAIL) -->
+      <div class="col-lg-5">
+        <div class="card border-0 shadow-sm p-4 rounded-4 bg-white sticky-lg-top" style="top: 20px; z-index: 10;">
+          <h4 class="mb-4 fw-bold text-dark d-flex align-items-center">
+            <i class="fa-solid fa-receipt me-2 text-muted fs-5"></i> Détail de la commande
+          </h4>
+
+          <!-- CART DYNAMIC -->
+          <ul class="list-group list-group-flush mb-3 dynamic-cart-container" id="checkout-cart"></ul>
+          <div id="lot-box" class="p-2 border rounded-3 bg-light mb-3" style="display:none; margin-top:10px;"></div>
+          
+          <!-- TOTAL BOX -->
+          <div class="p-3 bg-light rounded-3 mb-4 border">
+            <div class="d-flex justify-content-between mb-2 text-secondary">
+              <span>Sous-total</span>
+              <span id="sub-total" class="fw-medium text-dark">0 FCFA</span>
+            </div>
+
+            <div class="d-flex justify-content-between mb-3 text-secondary">
+              <span>Livraison</span>
+              <span id="shipping" class="fw-medium text-dark">2000 FCFA</span>
+            </div>
+
+            <hr class="my-2 opacity-10">
+
+            <div class="d-flex justify-content-between align-items-center pt-1">
+              <strong class="text-dark fs-5">Total à payer</strong>
+              <strong id="total" class="fs-4" style="color: var(--theme-color);">0 FCFA</strong>
+            </div>
+          </div>
+
+          <!-- CONFIRM BUTTON -->
+          <button id="confirm-order" class="btn w-100 text-white fw-bold py-3 shadow-sm rounded-3 transition-all order-submit-btn">
+            <i class="fa-solid fa-circle-check me-2"></i> CONFIRMER LA COMMANDE
+          </button>
+        </div>
+      </div>
 
     </div>
-</div>
-<!-- SUCCESS MODAL -->
-<div id="successModal" class="success-modal">
-    <div class="success-box">
+  </div>
+
+  <!-- SUCCESS MODAL -->
+  <div id="successModal" class="success-modal">
+    <div class="success-box border-0 shadow-lg">
+      <div class="success-icon-wrapper animate-scale mb-3">
         <div class="success-icon">✔️</div>
+      </div>
+      <h3 class="fw-bold text-dark mb-2">Merci !</h3>
+      <p class="text-muted mb-4">Votre commande a été effectuée avec succès.</p>
 
-        <h3>Merci !</h3>
-        <p style="color:#000">Votre commande a été effectuée avec succès.</p>
-
-        <button onclick="goHome()" class="success-btn">
-            Retour à l'accueil
-        </button>
+      <button onclick="goHome()" class="btn success-btn w-100 py-2.5 font-bold text-white shadow-sm transition-all">
+        Retour à l'accueil
+      </button>
     </div>
-</div>
-    <!--======== / Checkout Section ========-->
-  <!-- Cta Area -->
-{{ include('footer.html.twig') }}
+  </div>
+  <!--======== / Checkout Section ========-->
 
-  <!--********************************
-			Code End  Here 
-	******************************** -->
+  {{ include('footer.html.twig') }}
+
   <!--==============================
-        All Js File
-    ============================== -->
-  <!-- Jquery -->
-  <script>
-    window.USER_CHECKOUT = {
-        logged: {{ app.user ? 'true' : 'false' }},
-        name: "{{ app.user ? (app.user.nom ~ ' ' ~ app.user.prenom) : '' }}",
-        phone: "{{ app.user ? app.user.telephone : '' }}",
-        address: "{{ app.user ? app.user.adresse : '' }}"
-    };
-</script>
+    Styles Spécifiques
+  ============================== -->
+  <style>
+    /* Champs Saisie Manuelle (Hors Connexion) */
+    .checkout-input {
+      border: 1px solid #dee2e6 !important; 
+      background: #fff !important; 
+      color: #131313 !important; 
+      border-radius: 8px !important;
+      transition: all 0.2s ease-in-out;
+    }
+    .checkout-input:focus {
+      border-color: #D16655 !important;
+      box-shadow: 0 0 0 3px rgba(209, 102, 85, 0.1) !important;
+    }
+
+    /* Cartes Sélecteurs de Paiement */
+    .payment-option-card {
+      border-color: #dee2e6 !important;
+      background-color: #fafafa;
+      cursor: pointer;
+    }
+    .payment-option-card:hover {
+      border-color: #ec6854 !important;
+      background-color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    /* Intégration Dynamique Radio Boutons */
+    .payment-radio {
+      width: 18px !important; 
+      height: 18px !important; 
+      border-color: #dee2e6 !important;
+      cursor: pointer;
+    }
+    .payment-radio:checked {
+      background-color: #e06755 !important;
+      border-color: #D16655 !important;
+    }
+
+    /* Bouton d'action confirmation */
+    .order-submit-btn {
+      background: var(--theme-color) !important;
+      border-radius: 8px !important;
+    }
+    .order-submit-btn:hover {
+      opacity: 0.95;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(209, 102, 85, 0.2);
+    }
+
+    /* Modale de Succès Raffinée */
+    .success-modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(19, 19, 19, 0.6);
+      backdrop-filter: blur(4px);
+      justify-content: center;
+      align-items: center;
+      z-index: 99999;
+    }
+    .success-box {
+      background: #fff;
+      padding: 35px 30px;
+      border-radius: 16px;
+      text-align: center;
+      width: 340px;
+      animation: popCheckout 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .success-icon-wrapper {
+      width: 70px;
+      height: 70px;
+      background-color: rgba(40, 167, 69, 0.1);
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .success-icon {
+      font-size: 32px;
+      color: #28a745;
+      line-height: 1;
+    }
+    .success-btn {
+      background: #D16655 !important;
+      border-radius: 8px !important;
+      border: none !important;
+    }
+    .success-btn:hover {
+      background: #b55242 !important;
+    }
+
+    /* Conteneur dynamique liste panier */
+    .dynamic-cart-container .list-group-item {
+      padding: 12px 0;
+      background: transparent;
+      border-color: rgba(0,0,0,0.05);
+      color: #212529;
+    }
+
+    /* Utilitaires CSS */
+    .transition-all {
+      transition: all 0.2s ease-in-out;
+    }
+
+    @keyframes popCheckout {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+  </style>
+
+  <!--==============================
+    All Js File
+  ============================== -->
+
   <script src="/assets/js/vendor/jquery-3.7.1.min.js"></script>
-  <!-- Bootstrap -->
   <script src="/assets/js/bootstrap.min.js"></script>
-  <!-- Slick Slider -->
   <script src="/assets/js/slick.min.js"></script>
-  <!-- Magnific Popup -->
   <script src="/assets/js/jquery.magnific-popup.min.js"></script>
-  <!-- imagesloaded -->
   <script src="/assets/js/imagesloaded.pkgd.min.js"></script>
-  <!-- Isotope Filter -->
   <script src="/assets/js/isotope.pkgd.min.js"></script>
-  <!-- Gsap -->
   <script src="/assets/js/gsap.min.js"></script>
-  <!-- ScrollTrigger -->
   <script src="/assets/js/ScrollTrigger.min.js"></script>
-  <!-- Gsap ScrollTo Plugin -->
   <script src="/assets/js/gsap-scroll-to-plugin.js"></script>
-  <!-- Split Text -->
   <script src="/assets/js/SplitText.js"></script>
-  <!-- lenis -->
   <script src="/assets/js/lenis.min.js"></script>
-  <!-- wow js -->
   <script src="/assets/js/wow.min.js"></script>
-  <!-- nice-select -->
   <script src="/assets/js/jquery.nice-select.min.js"></script>
-  <!-- nouislider -->
   <script src="/assets/js/nouislider.min.js"></script>
-  <!-- Main Js File -->
+  
+  <!-- Fichiers logiques de traitement applicatifs -->
   <script src="/assets/js/main.js"></script>
-<script src="/assets/js/index.js"></script>
-<style>
-.success-modal{
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:rgba(0,0,0,0.6);
-    justify-content:center;
-    align-items:center;
-    text:black;
-    z-index:9999;
-}
+  <script src="/assets/js/index.js"></script>
 
-.success-box{
-    background:#fff;
-    padding:30px;
-    border-radius:12px;
-    text-align:center;
-    width:300px;
-    animation: pop 0.3s ease;
-}
+  <!-- Script d'interface pour synchroniser le clic des cartes de paiement avec leurs boutons radios masqués -->
+<script>
+window.USER_CHECKOUT = JSON.parse(`{{ {
+    logged: app.user ? true : false,
+    name: app.user ? (app.user.nom ~ ' ' ~ app.user.prenom) : '',
+    phone: app.user ? app.user.telephone : '',
+    address: app.user ? app.user.adresse : ''
+} | json_encode | e('js') }}`);
 
-.success-icon{
-    font-size:50px;
-    color:green;
-    margin-bottom:10px;
-}
+  document.addEventListener('DOMContentLoaded', function() {
+      const paymentCards = document.querySelectorAll('.payment-option-card');
+      
+      // Fonction unique pour synchroniser l'état visuel des cartes
+      function updateCardStyles() {
+          paymentCards.forEach(card => {
+              const radio = card.querySelector('.payment-radio');
+              if (radio && radio.checked) {
+                  // Style quand l'option est sélectionnée (Bordure colorée et fond légèrement teinté)
+                  card.style.setProperty('border-color', '#D16655', 'important');
+                  card.style.backgroundColor = 'rgba(209, 102, 85, 0.05)';
+                  card.style.boxShadow = '0 4px 12px rgba(209, 102, 85, 0.1)';
+              } else {
+                  // Style par défaut quand l'option n'est pas sélectionnée
+                  card.style.setProperty('border-color', '#dee2e6', 'important');
+                  card.style.backgroundColor = '#fafafa';
+                  card.style.boxShadow = 'none';
+              }
+          });
+      }
 
-.success-btn{
-    margin-top:15px;
-    padding:10px 20px;
-    background:#D16655;
-    color:#fff;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
-}
+      // 1. Écouter tous les changements d'état des boutons radio (gère le clic ET les modifs JS)
+      document.querySelectorAll('.payment-radio').forEach(radio => {
+          radio.addEventListener('change', updateCardStyles);
+      });
 
-@keyframes pop {
-    from {transform:scale(0.7); opacity:0;}
-    to {transform:scale(1); opacity:1;}
-}
-</style>
+      // 2. Permettre le clic n'importe où sur la carte pour cocher le radio correspondant
+      paymentCards.forEach(card => {
+          card.addEventListener('click', function(e) {
+              const radio = this.querySelector('.payment-radio');
+              // Évite de provoquer une double activation si on a cliqué directement sur le bouton radio
+              if (radio && e.target !== radio) {
+                  radio.checked = true;
+                  // Déclenche l'événement 'change' pour avertir vos autres scripts JS (comme index.js)
+                  radio.dispatchEvent(new Event('change', { bubbles: true }));
+              }
+          });
+      });
 
+      // 3. Initialisation au chargement initial (pour l'option cochée par défaut "À la livraison")
+      updateCardStyles();
+
+      // Autonomie : Vérification périodique si votre script index.js manipule les propriétés sans déclencher d'événements
+      setInterval(updateCardStyles, 300);
+  });
+</script>
 </body>
-
 </html>

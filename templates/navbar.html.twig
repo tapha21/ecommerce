@@ -1,30 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>Deen-Shop </title>
-  <meta name="author" content="vecuro">
-  <meta name="description" content="Deen-Shop">
-  <meta name="keywords" content="Deen-Shop">
-  <meta name="robots" content="INDEX,FOLLOW">
-  <!-- Mobile Specific Metas -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <!-- Favicons -->
-  <link rel="icon" href="/assets/img/brand/logoN.jpeg" type="image/svg+xml">
-  <link rel="icon" href="/assets/img/brand/logoN.jpeg" type="image/png" sizes="32x32">
-  <link rel="shortcut icon" href="/assets/img/brand/logoN.jpeg" type="image/x-icon">
-  <link rel="apple-touch-icon" href="/assets/img/brand/logoN.jpeg">
-  <!--==============================
-	  Google Fonts
-	============================== -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <!--==============================
-	    All CSS File
-	============================== -->
-  <!-- Bootstrap -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>
+    Deen Shop - Boutique Islamique au Sénégal | Coran, Livres & Accessoires
+  </title>
+
+  <meta name="description" content="Deen Shop est une boutique islamique au Sénégal spécialisée dans les Corans, livres religieux, parfums et accessoires musulmans. Livraison rapide à Dakar et partout au Sénégal.">
+  
+  <meta name="keywords" content="deen shop, boutique islamique, coran sénégal, livres islamiques, boutique musulmane dakar, cadeaux islamiques">
+
+  <meta name="robots" content="index, follow">
+
+  <link rel="canonical" href="yAndHttpHost ~ app.request.pathInfo }}">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Deen Shop - Boutique Islamique">
+  <meta property="og:description" content="Corans, livres islamiques, accessoires et cadeaux musulmans au Sénégal.">
+  <meta property="og:image" content="{{ asset('assets/img/brand/logoN.jpeg') }}">
+  <meta property="og:url" content="{{ app.request.schemeAndHttpHost ~ app.request.pathInfo }}">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Deen Shop">
+  <meta name="twitter:description" content="Boutique islamique au Sénégal">
+  <meta name="twitter:image" content="{{ asset('assets/img/brand/logoN.jpeg') }}">
+
   <link rel="stylesheet" href="/assets/css/bootstrap.min.css">
   <!-- Fontawesome Icon -->
   <link rel="stylesheet" href="/assets/css/fontawesome.min.css">
@@ -41,17 +46,25 @@
   <!-- Theme Custom CSS -->
   <link rel="stylesheet" href="/assets/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <!-- Favicon -->
+  <link rel="icon" href="/assets/img/brand/logoN.jpeg">
+  <!-- Fonts & CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
 </head>
 <body>
+
+  <!-- Preloader -->
   <div class="preloader">
-    <button class="vs-btn preloaderCls">Annuler le chargement </button>
+    <button class="vs-btn preloaderCls">Annuler le chargement</button>
     <div class="preloader-inner">
-      <img src="/assets/img/brand/logoN.jpeg" alt="logo">
+      <img src="/assets/img/brand/logoN.jpeg" alt="Deen Shop boutique islamique Sénégal coran livres musulmans" class="deen-header-logo">
       <span class="loader"></span>
     </div>
-</div>
+  </div>
 
-<button class="back-to-top" id="backToTop" aria-label="Retour en haut">
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Retour en haut">
     <span class="progress-circle">
       <svg viewBox="0 0 100 100">
           <circle class="bg" cx="50" cy="50" r="40"></circle>
@@ -59,568 +72,556 @@
       </svg>
       <span class="progress-percentage" id="progressPercentage">0%</span>
     </span>
-</button>
+  </button>
 
-<a href="https://wa.me/221778181259"
-   class="deen-whatsapp-float"
-   target="_blank"
-   rel="noopener"
-   aria-label="Envoyer un message WhatsApp">
+  <!-- WhatsApp Float -->
+  <a href="https://wa.me/221778181259" class="deen-whatsapp-float" target="_blank" rel="noopener" aria-label="Envoyer un message WhatsApp">
     <i class="fa-brands fa-whatsapp"></i>
-</a>
+  </a>
 
-<div class="vs-menu-wrapper">
-    <div class="vs-menu-area text-center">
-
-      <!-- ✅ LOGO MOBILE (VISIBLE TOUJOURS) -->
-      <div class="mobile-logo">
+  <!-- Mobile Menu Wrapper -->
+  <div class="vs-menu-wrapper">
+    <div class="vs-menu-area text-center py-4">
+      <!-- LOGO MOBILE -->
+      <div class="mobile-logo d-flex align-items-center justify-content-between px-3 mb-4">
         <a href="{{ path('app_home') }}">
-          <img src="/assets/img/brand/logoN.jpeg"
-               alt="ebukz"
-               class="logo img-fluid"
-               style="max-height:120px; width:auto;">
+          <img src="/assets/img/brand/logoN.jpeg" alt="ebukz" class="logo img-fluid rounded-3" style="max-height:80px; width:auto; border: 1px solid rgba(0,0,0,0.05);">
         </a>
-        <button class="vs-menu-toggle"><i class="fal fa-times"></i></button>
+        <button class="vs-menu-toggle rounded-circle border-0 d-flex align-items-center justify-content-center bg-light text-dark" style="width: 40px; height: 40px;"><i class="fal fa-times"></i></button>
       </div>
 
-      <div class="vs-mobile-menu">
-        <ul>
-          <li><a href="{{ path('app_home') }}">Accueil</a></li>
-          <li><a href="{{ path('app_shop') }}">Boutique</a></li>
-          <li class="menu-item-has-children">
-            <a href="">Categories</a>
-            <ul class="sub-menu">
+      <div class="vs-mobile-menu text-start px-3">
+        <ul class="list-unstyled">
+          <li class="py-2 border-bottom"><a href="{{ path('app_home') }}" class="text-dark text-decoration-none fw-medium d-block">Accueil</a></li>
+          <li class="py-2 border-bottom"><a href="{{ path('app_shop') }}" class="text-dark text-decoration-none fw-medium d-block">Boutique</a></li>
+          <li class="menu-item-has-children py-2 border-bottom">
+            <a href="#" class="text-dark text-decoration-none fw-medium d-block">Catégories</a>
+            <ul class="sub-menu list-unstyled ps-3 pt-2 small bg-light rounded-3 mt-2" style="display: none;">
                {% for category in categories %}
-                                    <li>
-                                        <a href="{{ path('app_shop', { 'cat': category.id }) }}"
-                                        class="dropdown-item category-link"
-                                        data-id="{{ category.id }}">
-                                            {{ category.nom }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
+                  <li class="py-1.5">
+                    <a href="{{ path('app_shop', { 'cat': category.id }) }}" class="dropdown-item category-link text-secondary" data-id="{{ category.id }}">
+                      {{ category.nom }}
+                    </a>
+                  </li>
+               {% endfor %}
             </ul>
           </li>
-
-          <li><a href="#">Contact</a></li>
         </ul>
 
-        <div class="deen-mobile-actions">
-            <a href="#" class="deen-mobile-action-item">
-                <i class="fal fa-location me-2"></i>
-                <span>Scat-urbam</span>
+        <div class="deen-mobile-actions rounded-4 bg-light p-3 mt-4 border-0">
+          <a href="#" class="deen-mobile-action-item text-dark text-decoration-none small d-flex align-items-center mb-3">
+            <i class="fal fa-location-arrow me-2 text-secondary"></i>
+            <span>Scat-urbam</span>
+          </a>
+
+          <div class="deen-mobile-socials d-flex gap-3 mb-4">
+            <a href="https://www.tiktok.com/@sen_deen_shop" class="rounded-circle bg-white shadow-sm d-flex align-items-center justify-content-center text-dark text-decoration-none" style="width: 38px; height: 38px;" aria-label="TikTok">
+              <i class="fa-brands fa-tiktok"></i>
             </a>
+            <a href="https://www.instagram.com/sen_deen_shop/" class="rounded-circle bg-white shadow-sm d-flex align-items-center justify-content-center text-dark text-decoration-none" style="width: 38px; height: 38px;" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+          </div>
 
-            <div class="deen-mobile-socials">
-                <a href="https://www.tiktok.com/@sen_deen_shop" aria-label="TikTok">
-                    <i class="fa-brands fa-tiktok"></i>
-                </a>
-                <a href="https://www.instagram.com/sen_deen_shop/" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-            </div>
-
-            {% if app.user %}
-                <a href="{{ path('profile') }}" class="deen-mobile-action-item">
-                    <i class="fa-solid fa-user me-2"></i>
-                    <span>Mon profil</span>
-                </a>
-                <a href="{{ path('logout') }}" class="deen-mobile-action-item">
-                    <i class="fa-solid fa-right-from-bracket me-2"></i>
-                    <span>Déconnexion</span>
-                </a>
-            {% else %}
-                <a href="#" class="deen-mobile-action-item" data-bs-toggle="modal" data-bs-target="#authModal">
-                    <i class="fa-solid fa-user me-2"></i>
-                    <span>Connexion</span>
-                </a>
-            {% endif %}
+          {% if app.user %}
+            <a href="{{ path('profile') }}" class="btn btn-white w-100 shadow-sm border rounded-3 mb-2 small text-start py-2">
+              <i class="fa-solid fa-user me-2 text-muted"></i> Mon profil
+            </a>
+            <a href="{{ path('logout') }}" class="btn btn-danger-soft text-danger w-100 rounded-3 small text-start py-2">
+              <i class="fa-solid fa-right-from-bracket me-2"></i> Déconnexion
+            </a>
+          {% else %}
+            <a href="#" class="btn btn-dark w-100 rounded-3 py-2 small" data-bs-toggle="modal" data-bs-target="#authModal">
+              <i class="fa-solid fa-user me-2"></i> Connexion / S'inscrire
+            </a>
+          {% endif %}
         </div>
       </div>
-
     </div>
-</div>
+  </div>
 
-<div class="popup-search-box d-none d-lg-block">
+  <!-- Popup Search Box Desktop (Si activée par clic ailleurs) -->
+  <div class="popup-search-box d-none d-lg-block">
     <button class="searchClose"><i class="fal fa-times"></i></button>
-
     <form action="{{ path('app_shop') }}" method="GET">
-        <input type="text"
-               name="q"
-               class="border-theme"
-               placeholder="Que recherchez-vous ?">
-
-        <button type="submit">
-            <i class="fal fa-search"></i>
-        </button>
+        <input type="text" name="q" class="border-theme rounded-pill" placeholder="Que recherchez-vous ?">
+        <button type="submit"><i class="fal fa-search"></i></button>
     </form>
-</div>
-<header class="deen-navbar fixed-top border-bottom bg-white">
+  </div>
 
-    <!-- 1. TOP BAR (Rose) -->
-    <div class="deen-topbar py-2 d-md-block" style="background-color: var(--theme-color);">
-        <div class="container">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-auto ">
-                    <div class="deen-topbar-info text-white small">
-                        <i class="fa-solid fa-truck-fast me-2"></i>
-                        <span class="me-3">Livraison la plus rapide dans votre ville</span>
-                        <i class="fas fa-envelope me-2"></i>
-                        <a href="mailto:DeenShop@gmail.com" class="text-white text-decoration-none">DeenShop@gmail.com</a>
-                    </div>
-                </div>
-                <div class="col-auto">
-                    <div class="deen-topbar-actions d-flex align-items-center text-white small gap-3">
-                        <div class="dropdown">
-                            <a class="text-white text-decoration-none ">
-                                <i class="fal fa-location me-1"></i>  Scat-urbam
-                            </a>
-                        </div>
-                        <div class="vr"></div> <!-- Ligne de séparation -->
-                        <div class="d-flex gap-2">
-                            <a href="https://www.tiktok.com/@sen_deen_shop" class="text-white"><i class="fa-brands fa-tiktok"></i></a>
-                            <a href="https://www.instagram.com/sen_deen_shop/" class="text-white"><i class="fab fa-instagram"></i></a>
-                        </div>
-                           {% if app.user %}
-                                <div class="dropdown">
-                                    <a class="text-white dropdown-toggle" data-bs-toggle="dropdown" style="cursor: pointer;">
-                                        <i class="fa-solid fa-user"></i>
-                                    </a>
-                                    <ul class="dropdown-menu dropdown-menu-end">
-                                        <li><a class="dropdown-item" href="{{ path('profile') }}">Mon profil</a></li>
-                                        <li><a class="dropdown-item" href="{{ path('logout') }}">Déconnexion</a></li>
-                                    </ul>
-                                </div>
-                            {% else %}
-                                {# On ajoute data-bs-toggle et data-bs-target #}
-                                <a href="#" class="text-white" data-bs-toggle="modal" data-bs-target="#authModal">
-                                    <i class="fa-solid fa-user"></i>
-                                </a>
-                            {% endif %}
-                    </div>
-                </div>
+  <!-- HEADER NAVBAR -->
+  <header class="deen-navbar fixed-top border-bottom bg-white shadow-sm">
+
+    <!-- 1. TOP BAR -->
+    <div class="deen-topbar py-2 d-none d-md-block" style="background-color: var(--theme-color);">
+      <div class="container">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="deen-topbar-info text-white small opacity-90 d-flex align-items-center gap-3">
+              <span><i class="fa-solid fa-truck-fast me-1.5"></i> Livraison la plus rapide dans votre ville</span>
+              <span class="opacity-50">|</span>
+              <a href="mailto:DeenShop@gmail.com" class="text-white text-decoration-none"><i class="fas fa-envelope me-1.5"></i> DeenShop@gmail.com</a>
             </div>
+          </div>
+          <div class="col-auto">
+            <div class="deen-topbar-actions d-flex align-items-center text-white small gap-3">
+              <a class="text-white text-decoration-none opacity-90"><i class="fal fa-location-arrow me-1"></i> Scat-urbam</a>
+              <div class="opacity-25" style="width: 1px; height: 12px; background: #fff;"></div>
+              <div class="d-flex gap-2">
+                <a href="https://www.tiktok.com/@sen_deen_shop" class="text-white opacity-75 hover-opacity-100 transition-all"><i class="fa-brands fa-tiktok"></i></a>
+                <a href="https://www.instagram.com/sen_deen_shop/" class="text-white opacity-75 hover-opacity-100 transition-all"><i class="fab fa-instagram"></i></a>
+              </div>
+              <div class="opacity-25" style="width: 1px; height: 12px; background: #fff;"></div>
+
+              {% if app.user %}
+                <div class="user-dropdown">
+                  <a href="#" class="user-toggle text-white">
+                    <i class="fa-solid fa-user me-1"></i>
+                    {{ app.user.nom }} {{ app.user.prenom }}
+                    <i class="fa-solid fa-chevron-down ms-2 small"></i>
+                  </a>
+
+                  <ul class="user-menu">
+                    <li><a href="{{ path('profile') }}">Mon profil</a></li>
+                    <li><a href="{{ path('logout') }}" class="text-danger">Déconnexion</a></li>
+                  </ul>
+                </div>
+              {% else %}
+                <a href="#" class="text-white text-decoration-none fw-medium" data-bs-toggle="modal" data-bs-target="#authModal">
+                  <i class="fa-solid fa-user-circle"></i> Connexion
+                </a>
+              {% endif %}
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
-    <!-- 2. MAIN HEADER (Middle) -->
-    <div class="deen-main-header py-3 bg-white">
-        <div class="container">
-            <div class="row align-items-center justify-content-between flex-nowrap ">
+    <!-- 2. MAIN HEADER -->
+    <div class="deen-main-header py-2.5 bg-white">
+      <div class="container">
+        <div class="row align-items-center justify-content-between flex-nowrap">
+          
+          <!-- LOGO -->
+          <div class="col-auto">
+            <a href="{{ path('app_home') }}" class="d-block transition-all hover-scale">
+              <img src="/assets/img/brand/logoN.jpeg" alt="Logo Deen Shop" class="deen-header-logo img-fluid rounded-2" style="max-height: 75px; width: auto; height: auto;">
+            </a>
+          </div>
+
+          <!-- BARRE DE RECHERCHE CORRIGÉE (Desktop) -->
+          <div class="col d-none d-lg-block px-5">
+            <form action="{{ path('app_shop') }}" method="GET">
+              <div class="input-group border rounded-pill bg-light border-light-subtle custom-search-group">
                 
-                <!-- LOGO -->
-                <!-- LOGO -->
-<div class="col-auto">
-    <a href="{{ path('app_home') }}" class="d-block">
-        <img
-            src="/assets/img/brand/logoN.jpeg"
-            alt="Logo Deen Shop"
-            class="deen-header-logo img-fluid"
-            style="
-                max-height: 90px;
-                width: auto;
-                height: auto;
-            "
-        >
-    </a>
+                <!-- Conteneur Dropdown Dédié -->
+<div class="dropdown position-relative">
+    <button
+        type="button"
+        id="desktopCategoryDropdown"
+        class="btn btn-white border-0 px-3 small text-dark fw-medium h-100 d-flex align-items-center"
+        style="background:#fff; border-radius:50px 0 0 50px; border-right:1px solid #eee !important;"
+    >
+        Catégories
+        <i class="fal fa-chevron-down ms-2"></i>
+    </button>
+
+    <ul
+        id="desktopCategoryMenu"
+        class="custom-dropdown-menu list-unstyled m-0"
+    >
+        {% if categories is defined and categories|length > 0 %}
+            {% for category in categories %}
+                <li>
+                    <a
+                        href="{{ path('app_shop', {'cat': category.id}) }}"
+                        class="dropdown-item category-link py-2 px-3 small"
+                    >
+                        {{ category.nom }}
+                    </a>
+                </li>
+            {% endfor %}
+        {% else %}
+            <li>
+                <span class="dropdown-item-text text-muted small px-3 py-2 d-block">
+                    Aucune catégorie disponible
+                </span>
+            </li>
+        {% endif %}
+    </ul>
 </div>
 
-                <!-- SEARCH BAR (Cachée sur Mobile < 992px) -->
-               <div class="col d-none d-lg-block px-4">
-    <form action="{{ path('app_shop') }}" method="GET">
-        <div class="input-group border rounded-pill overflow-visible">
+                <input type="text" name="q" value="{{ currentSearch ?? '' }}" class="form-control border-0 shadow-none bg-transparent ps-3 small text-dark" placeholder="Rechercher un produits, coran, livres...">
 
-            <button class="btn btn-light dropdown-toggle border-0 px-3" type="button" data-bs-toggle="dropdown">
-                Catégories
-            </button>
+                <button class="btn border-0 px-4 transition-all d-flex align-items-center justify-content-center" style="background-color: #D16655; color: white; border-radius: 0 50px 50px 0;" type="submit">
+                  <i class="fa-solid fa-magnifying-glass fs-6"></i>
+                </button>
+              </div>
+            </form>
+          </div>
 
-            <ul class="dropdown-menu">
-                {% for category in categories %}
-                    <li>
-                        <a href="{{ path('app_shop', { 'cat': category.id }) }}"
-                           class="dropdown-item category-link"
-                           data-id="{{ category.id }}">
-                            {{ category.nom }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
+          <!-- BOUTONS D'ACTIONS -->
+          <div class="col-auto">
+            <div class="d-flex align-items-center gap-2.5 gap-md-3">
+              
+              <!-- Wishlist -->
+              <a href="{{ path('app_wishlist_index') }}" class="deen-action-btn btn rounded-circle position-relative d-flex align-items-center justify-content-center border-0 p-0" style="width: 44px; height: 44px; background-color: #f7f7f7; color: #444;">
+                <i class="fal fa-heart fs-5"></i>
+                <span class="wishlist-count position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark py-1 px-1.5" style="font-size: 10px;">0</span>
+              </a>
 
-            <!-- 🔥 IMPORTANT : name="q" -->
-            <input type="text"
-                   name="q"
-                   value="{{ currentSearch ?? '' }}"
-                   class="form-control border-0 shadow-none"
-                   placeholder="Rechercher votre produit...">
+              <!-- Cart (Panier) -->
+              <a href="{{ path('app_cart_index') }}" class="deen-action-btn btn rounded-circle position-relative d-flex align-items-center justify-content-center border-0 p-0 shadow-sm text-white" style="width: 44px; height: 44px; background-color: #D16655;">
+                <i class="fa-solid fa-basket-shopping fs-5"></i>
+                <span class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark py-1 px-1.5" style="font-size: 10px;">0</span>
+              </a>
 
-            <button class="btn border-0 px-3" style="background-color: #b57c7c; color: white;" type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-
-        </div>
-    </form>
-</div>
-
-                <!-- ACTIONS & BOUTONS -->
-                <div class="col-auto">
-                    <div class="d-flex align-items-center gap-2 gap-md-3">
-                        
-                        <!-- Wishlist -->
-                        <a href="{{ path('app_wishlist_index') }}"class="deen-action-btn btn rounded-circle position-relative d-flex align-items-center justify-content-center p-0"
-                            style="width: 45px; height: 45px; color: var(--theme-color);">
-
-                                <i class="fal fa-heart"></i>
-
-                                <span class="wishlist-count position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
-                                    0
-                                </span>
-
-                            </a>
-
-                        <!-- Cart -->
-                        <a href="{{ path('app_cart_index') }}" class="deen-action-btn btn rounded-circle position-relative d-flex align-items-center justify-content-center p-0" style="width: 45px; height: 45px; background-color: var(--theme-color); color:#ffff">
-                        <i class="fa-solid fa-basket-shopping"></i>
-                        <span class="cart-count position-absolute top-0 start-100 translate-middle badge rounded-pill bg-dark">
-                            0
-                        </span>                        </a>
-
-                        <!-- Phone Info (Caché sur Mobile < 768px) -->
-                        <div class="d-none d-md-flex align-items-center gap-2 ps-2 border-start">
-                            <div class="rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px; background-color: var(--theme-color); color:#ffff">
-                                <i class="fas fa-phone"></i>
-                            </div>
-                            <div class="lh-1">
-                                <small class="text-muted d-block" style="font-size: 10px;">Appelez-Nous 24h/24</small>
-                                <strong class="small fw-bold">(+221) 77 818 12 59</strong>
-                            </div>
-                        </div>
-
-                        <!-- HAMBURGER MENU (Visible seulement sur Mobile/Tablette) -->
-                        <button class="btn border-0 d-lg-none p-0 ms-2 vs-menu-toggle">
-                            <i class="fal fa-bars text-dark"></i>
-                        </button>
-
-                    </div>
+              <!-- Numéro d'assistance (Desktop) -->
+              <div class="d-none d-md-flex align-items-center gap-2.5 ps-3 border-start border-light-subtle">
+                <div class="rounded-circle d-flex align-items-center justify-content-center text-white" style="width: 44px; height: 44px; background-color: rgba(209, 102, 85, 0.1); color: #D16655 !important;">
+                  <i class="fas fa-phone-alt" style="color: #D16655;"></i>
                 </div>
+                <div class="lh-sm">
+                  <small class="text-muted d-block opacity-75" style="font-size: 10px;">Assistance 24h/7</small>
+                  <strong class="small fw-bold text-dark" style="font-size: 13px;">(+221) 77 818 12 59</strong>
+                </div>
+              </div>
+
+              <!-- Hamburger Menu Mobile Toggle -->
+              <button class="btn btn-light rounded-circle d-lg-none p-0 d-flex align-items-center justify-content-center vs-menu-toggle" style="width: 42px; height: 42px; background: #f7f7f7; border: 0;">
+                <i class="fal fa-bars text-dark fs-5"></i>
+              </button>
 
             </div>
+          </div>
+
         </div>
+      </div>
     </div>
-</header>
+  </header>
+
+  <!--==============================
+    Styles Unifiés & Ergonomie Complète
+  ============================== -->
 <style>
-html,
-body {
-    margin: 0 !important;
+  html, body {
+      margin: 0 !important;
+      font-family: 'Poppins', sans-serif;
+  }
+  body {
+      padding-top: 135px !important;
+      background-color: #fcfcfc;
+  }
+
+  /* Barre de navigation principale */
+  .deen-navbar {
+      border-color: rgba(0, 0, 0, 0.04) !important;
+      transition: all 0.3s ease-in-out;
+  }
+  
+  /* Conteneur principal */
+.custom-search-group {
+    position: relative;
+    overflow: visible !important;
 }
 
-/* =========================
-   BODY / LAYOUT
-========================= */
-body {
-    padding-top: 154px !important;
+/* Dropdown */
+.custom-search-group .dropdown {
+    position: relative !important;
 }
 
-/* =========================
-   NAVBAR FIXE
-========================= */
-.deen-navbar {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    margin-top: 0 !important;
-    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
-    z-index: 1040;
-}
-
-.deen-topbar {
-    margin-top: 0 !important;
-}
-
-/* =========================
-   MENU MOBILE
-========================= */
-.vs-menu-wrapper {
-    top: 0 !important;
-    margin-top: 0 !important;
-    z-index: 1050;
-}
-
-.vs-menu-wrapper.open {
-    opacity: 1;
-    visibility: visible;
-}
-
-.vs-menu-wrapper.open .vs-menu-area {
-    left: 0;
-    opacity: 1;
-    visibility: visible;
-}
-
-/* =========================
-   MOBILE ACTIONS
-========================= */
-.deen-mobile-actions {
+/* Menu catégories */
+.custom-dropdown-menu {
     display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 260px;
+    max-height: 380px;
+    overflow-y: auto;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-radius: 12px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+    z-index: 999999;
+    padding: 8px 0;
 }
 
-/* =========================
-   WHATSAPP FLOAT
-========================= */
-.deen-whatsapp-float {
-    position: fixed;
-    left: 22px;
-    bottom: 28px;
-    width: 58px;
-    height: 58px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background-color: #25d366;
-    color: #fff;
-    font-size: 31px;
-    box-shadow: 0 12px 28px rgba(37, 211, 102, 0.35);
-    z-index: 99990;
+
+/* Affichage */
+.custom-dropdown-menu.show {
+    display: block;
+}
+
+/* Items */
+.custom-dropdown-menu .dropdown-item {
+    color: #333;
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: block;
+    transition: all 0.2s ease;
 }
 
-.deen-whatsapp-float:hover {
-    color: #fff;
-    transform: translateY(-3px) scale(1.03);
-    box-shadow: 0 16px 34px rgba(37, 211, 102, 0.42);
+.custom-dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa;
+    color: #D16655;
+    padding-left: 20px;
 }
 
-/* =========================
-   MODAL FIX (IMPORTANT)
-========================= */
-.modal {
-    z-index: 20000 !important;
+/* Empêcher les parents de couper le menu */
+.deen-navbar,
+.deen-main-header,
+.container,
+.row,
+.col,
+.input-group {
+    overflow: visible !important;
+}
+  /* Actions (Hover des cercles) */
+  .deen-action-btn {
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .deen-action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08) !important;
+  }
+
+  /* Menu Mobile Zone Récurrente */
+  .vs-menu-area {
+      background: #ffffff !important;
+      box-shadow: 5px 0 30px rgba(0,0,0,0.1);
+      transition: all 0.4s ease;
+  }
+  .vs-mobile-menu ul li a {
+      padding: 10px 0;
+      transition: color 0.2s ease;
+  }
+  .vs-mobile-menu ul li a:hover {
+      color: #D16655 !important;
+  }
+  .btn-danger-soft {
+      background-color: rgba(220, 53, 69, 0.08);
+      border: none;
+  }
+  .btn-danger-soft:hover {
+      background-color: rgba(220, 53, 69, 0.15);
+  }
+
+  /* Flottant WhatsApp */
+  .deen-whatsapp-float {
+      position: fixed;
+      left: 24px;
+      bottom: 24px;
+      width: 54px;
+      height: 54px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background-color: #25d366;
+      color: #fff;
+      font-size: 28px;
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3);
+      z-index: 9999;
+      text-decoration: none;
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .deen-whatsapp-float:hover {
+      color: #fff;
+      transform: scale(1.08) translateY(-4px);
+      box-shadow: 0 12px 28px rgba(37, 211, 102, 0.45);
+  }
+
+  /* Effets et Utilitaires */
+  .transition-all { transition: all 0.2s ease-in-out; }
+  .hover-scale:hover { transform: scale(1.02); }
+  .hover-opacity-100:hover { opacity: 1 !important; }
+  .shadow-xs { box-shadow: 0 2px 5px rgba(0,0,0,0.02); }
+
+  /* Animations Dropdown Bootstrap */
+  .animate-fade-in {
+      animation: navFadeIn 0.2s ease-out;
+  }
+  @keyframes navFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Rendu d'adaptation Tablettes & Mobiles */
+  @media (max-width: 991.98px) {
+      body {
+          padding-top: 85px !important;
+      }
+      .deen-main-header {
+          padding-top: 6px !important;
+          padding-bottom: 6px !important;
+      }
+      .deen-header-logo {
+          max-height: 52px !important;
+      }
+  }
+  @media (max-width: 575.98px) {
+      body {
+          padding-top: 74px !important;
+      }
+      .deen-header-logo {
+          max-height: 45px !important;
+      }
+  }
+  .user-dropdown {
+  position: relative;
+  display: inline-block;
 }
 
-.modal-backdrop {
-    z-index: 19990 !important;
+.user-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: calc(100% + 10px);
+  background: #fff;
+  min-width: 180px;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  padding: 8px 0;
+  z-index: 9999;
 }
 
-/* ✅ FIX SCROLL MOBILE MODAL (TON PROBLÈME) */
-@media (max-width: 576px) {
-
-    /* IMPORTANT : on laisse le modal centré */
-    #authModal .modal-dialog {
-        margin: 1.5rem;
-    }
-
-    /* Le contenu reste limité en hauteur */
-    #authModal .modal-content {
-        max-height: calc(100vh - 3rem);
-        overflow: hidden;
-        border-radius: 16px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    /* Zone scroll uniquement ici */
-    #authModal .modal-body {
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
+.user-menu.show {
+  display: block;
 }
 
-/* =========================
-   TAB AUTH
-========================= */
-#authTab .nav-link {
-    color: #6c757d;
-}
-#authModal .modal-content {
-    max-width: 95%;
-    margin: auto;
+.user-menu a {
+  display: block;
+  padding: 8px 15px;
+  color: #333;
+  text-decoration: none;
 }
 
-#authTab .nav-link.active {
-    background-color: var(--theme-color) !important;
-    color: white !important;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+.user-menu a:hover {
+  background: #f5f5f5;
 }
+  </style>
 
-/* =========================
-   FORM
-========================= */
-.modal-content {
-    transition: all 0.3s ease-in-out;
-}
-
-.form-control:focus {
-    background-color: #fff !important;
-    border: 1px solid var(--theme-color) !important;
-}
-
-/* =========================
-   RESPONSIVE TABLET
-========================= */
-@media (max-width: 991.98px) {
-
-    body {
-        padding-top: 100px !important;
-    }
-
-    .vs-menu-wrapper {
-        position: fixed !important;
-    }
-
-    .deen-topbar {
-        overflow-x: auto;
-        overflow-y: hidden;
-        white-space: nowrap;
-        scrollbar-width: thin;
-    }
-
-    .deen-topbar .container,
-    .deen-topbar .row {
-        width: max-content;
-        max-width: none;
-        flex-wrap: nowrap;
-    }
-
-    .deen-topbar-info,
-    .deen-topbar-actions {
-        display: flex;
-        align-items: center;
-    }
-
-    .deen-main-header {
-        padding-top: 8px !important;
-        padding-bottom: 8px !important;
-    }
-
-    .deen-header-logo {
-        max-height: 52px !important;
-    }
-
-    .deen-action-btn {
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px;
-        font-size: 14px;
-    }
-
-    .deen-action-btn .badge {
-        font-size: 10px;
-        min-width: 17px;
-        height: 17px;
-        padding: 3px 5px;
-    }
-
-    .vs-menu-area {
-        max-height: 100vh;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .mobile-logo {
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        background: #fff;
-        padding: 10px 16px;
-    }
-
-    .vs-mobile-menu {
-        max-height: calc(100vh - 95px);
-        overflow-y: auto;
-    }
-
-    .deen-mobile-actions {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin: 18px 16px 8px;
-        padding: 14px;
-        border-top: 1px solid rgba(0, 0, 0, 0.08);
-        text-align: left;
-    }
-}
-
-/* =========================
-   SMALL MOBILE
-========================= */
-@media (max-width: 575.98px) {
-
-    body {
-        padding-top: 88px !important;
-    }
-
-    .deen-topbar {
-        padding-top: 5px !important;
-        padding-bottom: 5px !important;
-    }
-
-    .deen-topbar .small {
-        font-size: 11px;
-    }
-
-    .deen-header-logo {
-        max-height: 46px !important;
-    }
-
-    .deen-action-btn {
-        width: 34px !important;
-        height: 34px !important;
-        min-width: 34px;
-    }
-
-    .deen-whatsapp-float {
-        width: 48px;
-        height: 48px;
-        font-size: 26px;
-    }
-}
-</style>
-
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <!-- JavaScript CDN Scripts -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script> 
-  <script src="assets/js/index.js"></script>
+  <script src="/assets/js/index.js"></script>
 
-<script>
-    {% if app.user %}
-        window.USER_LOGGED_IN = true;
-    {% else %}
-        window.USER_LOGGED_IN = false;
-    {% endif %}
+  <!-- Traitement Dynamique d'affichage interactif Twig -->
+  <script>
+      {% if app.user %}
+          window.USER_LOGGED_IN = true;
+      {% else %}
+          window.USER_LOGGED_IN = false;
+      {% endif %}
 
-    document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener("DOMContentLoaded", function () {
 
-        {% if app.flashes('login_error') is not empty %}
-            let authModal = new bootstrap.Modal(document.getElementById('authModal'));
-            authModal.show();
-        {% endif %}
+    const dropdown = document.querySelector(".dropdown");
+    const toggle = document.querySelector(".dropdown-toggle");
 
+    if (!dropdown || !toggle) return;
+
+    // toggle manuel propre (optionnel)
+    toggle.addEventListener("click", function (e) {
+        e.stopPropagation();
     });
-</script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
 
-    {% if app.session.flashBag.has('login_error') %}
-
-        let authModal = new bootstrap.Modal(
-            document.getElementById('authModal'),
-            {
-                backdrop: 'static',
-                keyboard: false
-            }
-        );
-
-        authModal.show();
-
-    {% endif %}
+    // fermer si clic extérieur
+    document.addEventListener("click", function () {
+        const menu = dropdown.querySelector(".dropdown-menu");
+        if (menu) menu.classList.remove("show");
+    });
 
 });
-</script>
-{{ include('components/modal_auth.html.twig') }}
+
+        document.addEventListener('DOMContentLoaded', function () {
+          {% if app.flashes('login_error') is not empty %}
+              let authModal = new bootstrap.Modal(document.getElementById('authModal'));
+              authModal.show();
+          {% endif %}
+          
+          // Gérer le toggle du sous-menu catégories sur Mobile
+          const catToggle = document.querySelector('.menu-item-has-children > a');
+          if (catToggle) {
+              catToggle.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  const subMenu = this.nextElementSibling;
+                  if (subMenu) {
+                      $(subMenu).slideToggle(200);
+                  }
+              });
+          }
+        });
+        // Dropdown Catégories Desktop
+const categoryButton = document.getElementById('desktopCategoryDropdown');
+const categoryMenu = document.getElementById('desktopCategoryMenu');
+
+if (categoryButton && categoryMenu) {
+
+    // Ouvrir / fermer
+    categoryButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        categoryMenu.classList.toggle('show');
+    });
+
+    // Empêcher fermeture si clic dans le menu
+    categoryMenu.addEventListener('click', function (e) {
+        e.stopPropagation();
+    });
+
+    // Fermer si clic en dehors
+    document.addEventListener('click', function (e) {
+        if (
+            !categoryButton.contains(e.target) &&
+            !categoryMenu.contains(e.target)
+        ) {
+            categoryMenu.classList.remove('show');
+        }
+    });
+
+    // Fermer avec Échap
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+            categoryMenu.classList.remove('show');
+        }
+    });
+}
+document.addEventListener("DOMContentLoaded", function () {
+
+    const dropdown = document.querySelector(".user-dropdown");
+    if (!dropdown) return;
+
+    const toggle = dropdown.querySelector(".user-toggle");
+    const menu = dropdown.querySelector(".user-menu");
+
+    // toggle open/close
+    toggle.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        menu.classList.toggle("show");
+    });
+
+    // clic dans le menu ne ferme pas
+    menu.addEventListener("click", function (e) {
+        e.stopPropagation();
+    });
+
+    // clic dehors → fermer
+    document.addEventListener("click", function () {
+        menu.classList.remove("show");
+    });
+
+    // ESC → fermer
+    document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape") {
+            menu.classList.remove("show");
+        }
+    });
+});
+  </script>
+
+  {{ include('components/modal_auth.html.twig') }}
 </body>
 </html>

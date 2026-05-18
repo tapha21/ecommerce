@@ -1,481 +1,356 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Utilisateurs | Admin{% endblock %}
+{% block title %}Utilisateurs | DeenAdmin{% endblock %}
 
 {% block body %}
 <div class="container-fluid py-4">
 
     <!-- HEADER -->
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="fw-bold">Gestion des utilisateurs</h2>
-
-        <a class="btn btn-dark"
-            data-bs-toggle="modal"
-            data-bs-target="#createUserModal">
-                + Ajouter un utilisateur
-        </a>
-    </div>
-
-    <!-- FILTRES -->
-    <div class="card mb-3 p-3 shadow-sm border-0">
-        <div class="row g-2">
-
-            <!-- SEARCH -->
-            <div class="col-md-6">
-                <input type="text"
-                       id="searchUser"
-                       class="form-control"
-                       placeholder="Rechercher nom, email, téléphone...">
-            </div>
-
-            <!-- ROLE -->
-            <div class="col-md-3">
-                <select id="filterRole" class="form-select">
-
-                    <option value="">Tous les rôles</option>
-
-                    {% set rolesList = [] %}
-
-                    {% for u in users %}
-                        {% for role in u.roles %}
-
-                            {% if role not in rolesList %}
-
-                                {% set rolesList = rolesList|merge([role]) %}
-
-                                <option value="{{ role|lower }}">
-                                    {{ role }}
-                                </option>
-
-                            {% endif %}
-
-                        {% endfor %}
-                    {% endfor %}
-
-                </select>
-            </div>
-
+    <div class="row align-items-center g-3 mb-4">
+        <div class="col-12 col-sm-auto">
+            <h2 class="fw-bold m-0 text-dark" style="letter-spacing: -0.5px;">Gestion des utilisateurs</h2>
+            <p class="text-muted small mb-0">Administrez les comptes, modifiez les rôles et gérez les accès</p>
+        </div>
+        <div class="col-12 col-sm text-sm-end">
+            <button class="btn btn-dark rounded-pill px-4 fw-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#createUserModal" style="font-size: 13px; height: 42px; letter-spacing: 0.5px;">
+                <i class="fa-solid fa-user-plus me-2"></i>Ajouter un utilisateur
+            </button>
         </div>
     </div>
 
-    <!-- TABLE -->
-    <div class="card shadow-sm border-0">
+    <!-- 🔎 FILTRES DE RECHERCHE -->
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+        <div class="card-body p-3">
+            <div class="row g-2">
+                <!-- SEARCH -->
+                <div class="col-12 col-md-8">
+                    <div class="input-group">
+                        <span class="input-group-text border-0 bg-light rounded-start-pill ps-3 text-secondary">
+                            <i class="fa-solid fa-magnifying-glass opacity-50"></i>
+                        </span>
+                        <input type="text" id="searchUser" class="form-control border-0 bg-light rounded-end-pill px-3" placeholder="Rechercher par nom, email, téléphone, adresse..." style="height: 42px; font-size: 14px;">
+                    </div>
+                </div>
 
-        <div class="table-responsive">
-
-            <table class="table align-middle" id="userTable">
-
-                <thead class="table-light">
-                    <tr>
-                        <th>Utilisateur</th>
-                        <th>Téléphone</th>
-                        <th>Email</th>
-                        <th>Adresse</th>
-                        <th>Rôle</th>
-                        <th class="text-center">Actions</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-
-                {% for u in users %}
-
-                    <tr class="user-row"
-
-                        data-name="{{ (u.nom ~ ' ' ~ u.prenom)|lower }}"
-                        data-phone="{{ u.telephone|default('')|lower }}"
-                        data-email="{{ u.email|default('')|lower }}"
-                        data-address="{{ u.adresse|default('')|lower }}"
-                        data-role="{{ u.roles|join(' ')|lower }}"
-                    >
-
-                        <!-- USER -->
-                        <td>
-                            <div class="fw-bold">
-                                {{ u.nom }} {{ u.prenom }}
-                            </div>
-
-                            <small class="text-muted">
-                                ID : #{{ u.id }}
-                            </small>
-                        </td>
-
-                        <!-- PHONE -->
-                        <td>
-                            {{ u.telephone }}
-                        </td>
-
-                        <!-- EMAIL -->
-                        <td>
-                            {{ u.email }}
-                        </td>
-
-                        <!-- ADDRESS -->
-                        <td>
-                            {{ u.adresse }}
-                        </td>
-
-                        <!-- ROLE -->
-                        <td>
-
+                <!-- ROLE -->
+                <div class="col-12 col-md-4">
+                    <select id="filterRole" class="form-select border-0 bg-light rounded-pill px-3" style="height: 42px; font-size: 14px;">
+                        <option value="">Tous les rôles</option>
+                        {% set rolesList = [] %}
+                        {% for u in users %}
                             {% for role in u.roles %}
-
-                                {% if role == 'ROLE_ADMIN' %}
-
-                                    <span class="badge bg-dark">
-                                        Admin
-                                    </span>
-
-                                {% elseif role == 'ROLE_USER' %}
-
-                                    <span class="badge bg-primary">
-                                        User
-                                    </span>
-
-                                {% else %}
-
-                                    <span class="badge bg-secondary">
-                                        {{ role }}
-                                    </span>
-
+                                {% if role not in rolesList %}
+                                    {% set rolesList = rolesList|merge([role]) %}
+                                    <option value="{{ role|lower }}">{{ role }}</option>
                                 {% endif %}
-
                             {% endfor %}
-
-                        </td>
-
-                        <!-- ACTIONS -->
-                        <td class="text-center">
-
-                             <button class="btn btn-sm btn-primary"
-                           onclick='openEditModal({
-                            id: {{ u.id }},
-                            nom: {{ u.nom|json_encode|raw }},
-                            prenom: {{ u.prenom|json_encode|raw }},
-                            email: {{ u.email|json_encode|raw }},
-                            telephone: {{ u.telephone|json_encode|raw }},
-                            adresse: {{ u.adresse|json_encode|raw }}
-                        })'>
-                        Edit
-                    </button>
-
-                            <a href="{{ path('admin_user_delete', {id: u.id}) }}"
-                                class="btn btn-sm btn-danger"
-                                onclick="return confirm('Supprimer cet utilisateur ?')">
-                                    Delete
-                                </a>
-
-                        </td>
-
-                    </tr>
-
-                {% endfor %}
-
-                </tbody>
-
-            </table>
-
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
         </div>
-
-        <!-- PAGINATION -->
-        <div class="card-footer bg-white border-0">
-
-            <nav>
-                <ul class="pagination justify-content-center mb-0"
-                    id="pagination">
-                </ul>
-            </nav>
-
-        </div>
-
     </div>
 
+    <!-- TABLEAU DES UTILISATEURS -->
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <div class="table-responsive-custom">
+                <table class="table align-middle mb-0" id="userTable">
+                    <thead>
+                        <tr class="text-secondary border-bottom bg-light">
+                            <th class="ps-4 py-3" style="width: 25%;">Utilisateur</th>
+                            <th class="py-3" style="width: 15%;">Téléphone</th>
+                            <th class="py-3" style="width: 20%;">Email</th>
+                            <th class="py-3" style="width: 20%;">Adresse</th>
+                            <th class="py-3" style="width: 10%;">Rôle</th>
+                            <th class="py-3 text-center pe-4" style="width: 10%;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for u in users %}
+                            <tr class="user-row border-bottom-light"
+                                data-name="{{ (u.nom ~ ' ' ~ u.prenom)|lower }}"
+                                data-phone="{{ u.telephone|default('')|lower }}"
+                                data-email="{{ u.email|default('')|lower }}"
+                                data-address="{{ u.adresse|default('')|lower }}"
+                                data-role="{{ u.roles|join(' ')|lower }}">
+
+                                <!-- USER -->
+                                <td class="ps-4" data-label="Utilisateur">
+                                    <div class="d-flex align-items-center gap-3 text-start grid-mobile-align">
+                                        <div class="avatar-placeholder rounded-circle d-flex align-items-center justify-content-center fw-bold text-uppercase text-custom-color">
+                                            {{ u.nom|slice(0,1) }}{{ u.prenom|slice(0,1) }}
+                                        </div>
+                                        <div>
+                                            <div class="fw-bold text-dark" style="font-size: 15px;">{{ u.nom }} {{ u.prenom }}</div>
+                                            <small class="text-muted">ID : #{{ u.id }}</small>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <!-- PHONE -->
+                                <td data-label="Téléphone" class="text-secondary fw-medium">
+                                    {{ u.telephone|default('---') }}
+                                </td>
+
+                                <!-- EMAIL -->
+                                <td data-label="Email" class="text-dark">
+                                    {{ u.email }}
+                                </td>
+
+                                <!-- ADDRESS -->
+                                <td data-label="Adresse" class="text-secondary text-truncate-mobile" style="max-width: 200px;">
+                                    {{ u.adresse|default('---') }}
+                                </td>
+
+                                <!-- ROLE -->
+                                <td data-label="Rôle">
+                                    {% for role in u.roles %}
+                                        {% if role == 'ROLE_ADMIN' %}
+                                            <span class="badge rounded-pill bg-dark text-white px-2.5 py-1" style="font-size: 11px; font-weight: 600;">Admin</span>
+                                        {% elseif role == 'ROLE_USER' %}
+                                            <span class="badge rounded-pill bg-light text-dark border px-2.5 py-1" style="font-size: 11px; font-weight: 600;">User</span>
+                                        {% else %}
+                                            <span class="badge rounded-pill bg-secondary text-white px-2.5 py-1" style="font-size: 11px; font-weight: 600;">{{ role }}</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+
+                                <!-- ACTIONS -->
+                                <td data-label="Actions" class="text-sm-center pe-sm-4">
+                                    <div class="d-flex justify-content-end justify-content-sm-center align-items-center gap-1.5">
+                                        <button class="btn btn-icon-action btn-edit" title="Modifier"
+                                            onclick='openEditModal({
+                                                id: {{ u.id }},
+                                                nom: {{ u.nom|json_encode|raw }},
+                                                prenom: {{ u.prenom|json_encode|raw }},
+                                                email: {{ u.email|json_encode|raw }},
+                                                telephone: {{ u.telephone|json_encode|raw }},
+                                                adresse: {{ u.adresse|json_encode|raw }}
+                                            })'>
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                        <a href="{{ path('admin_user_delete', {id: u.id}) }}" class="btn btn-icon-action btn-delete" onclick="return confirm('Supprimer cet utilisateur ?')" title="Supprimer">
+                                            <i class="fa-solid fa-trash-can"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% else %}
+                            <tr>
+                                <td colspan="6" class="text-center py-5 text-muted">
+                                    <i class="fa-solid fa-users-slash fs-2 mb-3 opacity-20"></i>
+                                    <p class="mb-0">Aucun utilisateur enregistré pour le moment.</p>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Message de filtrage vide -->
+            <div id="noResultsMessage" class="text-center py-5 text-muted d-none">
+                <i class="fa-solid fa-magnifying-glass fs-2 mb-3 opacity-20"></i>
+                <p class="mb-0 fw-medium">Aucun utilisateur ne correspond à vos critères de recherche.</p>
+            </div>
+        </div>
+
+        <!-- FOOTER PAGINATION -->
+        <div class="card-footer bg-white border-0 py-4">
+            <nav>
+                <ul class="pagination justify-content-center mb-0 gap-1" id="pagination"></ul>
+            </nav>
+        </div>
+    </div>
 </div>
-<!-- CREATE USER MODAL -->
-<div class="modal fade" id="createUserModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
+
+<!-- MODAL : CRÉATION -->
+<div class="modal fade" id="createUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4">
+            <div class="modal-header border-bottom-light px-4">
+                <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-circle-plus me-2 text-custom-color"></i>Nouvel Utilisateur</h5>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+            </div>
 
             <form method="post" action="{{ path('admin_user_create') }}">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Ajouter un utilisateur</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary mb-1">Nom</label>
+                            <input name="user[nom]" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary mb-1">Prénom</label>
+                            <input name="user[prenom]" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary mb-1">Adresse email</label>
+                            <input name="user[email]" type="email" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary mb-1">Téléphone</label>
+                            <input name="user[telephone]" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary mb-1">Rôle d'accès</label>
+                            <select name="user[roles]" class="form-select border-0 bg-light rounded-3 px-3" style="height: 44px;">
+                                <option value='["ROLE_USER"]'>Utilisateur (Standard)</option>
+                                <option value='["ROLE_ADMIN"]'>Administrateur</option>
+                            </select>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary mb-1">Adresse postale / physique</label>
+                            <input name="user[adresse]" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary mb-1">Mot de passe initial</label>
+                            <input name="user[password]" type="password" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;" required>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="modal-body">
-
-                    <input name="user[nom]" class="form-control mb-2" placeholder="Nom" required>
-                    <input name="user[prenom]" class="form-control mb-2" placeholder="Prénom" required>
-
-                    <input name="user[email]" type="email" class="form-control mb-2" placeholder="Email" required>
-
-                    <input name="user[telephone]" class="form-control mb-2" placeholder="Téléphone">
-                    <input name="user[adresse]" class="form-control mb-2" placeholder="Adresse">
-
-                    <input name="user[password]" type="password" class="form-control mb-2" placeholder="Mot de passe" required>
-
-                    <select name="user[roles]" class="form-control mb-2">
-                        <option value='["ROLE_USER"]'>User</option>
-                        <option value='["ROLE_ADMIN"]'>Admin</option>
-                    </select>
-
+                <div class="modal-footer border-0 px-4 pb-4 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill fw-semibold px-4" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-custom-primary rounded-pill fw-bold px-4">Créer le compte</button>
                 </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-dark">Créer</button>
-                </div>
-
             </form>
-
         </div>
     </div>
 </div>
 
-<!-- EDIT USER MODAL -->
-<div class="modal fade" id="editUserModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
+<!-- MODAL : MODIFICATION -->
+<div class="modal fade" id="editUserModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow rounded-4">
+            <div class="modal-header border-bottom-light px-4">
+                <h5 class="modal-title fw-bold text-dark"><i class="fa-solid fa-pen-to-square me-2 text-custom-color"></i>Modifier l'utilisateur</h5>
+                <button type="button" class="btn-close shadow-none" data-bs-dismiss="modal"></button>
+            </div>
 
             <form method="post" id="editUserForm">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">Modifier utilisateur</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <div class="modal-body p-4">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary mb-1">Nom</label>
+                            <input name="nom" id="edit_nom" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label small fw-bold text-secondary mb-1">Prénom</label>
+                            <input name="prenom" id="edit_prenom" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary mb-1">Adresse email</label>
+                            <input name="email" id="edit_email" type="email" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;" required>
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary mb-1">Téléphone</label>
+                            <input name="telephone" id="edit_phone" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label small fw-bold text-secondary mb-1">Adresse</label>
+                            <input name="adresse" id="edit_address" class="form-control border-0 bg-light rounded-3 px-3" style="height: 44px;">
+                        </div>
+                    </div>
                 </div>
-
-                <div class="modal-body">
-
-                    <input name="nom" id="edit_nom" class="form-control mb-2">
-                    <input name="prenom" id="edit_prenom" class="form-control mb-2">
-                    <input name="email" id="edit_email" class="form-control mb-2">
-                    <input name="telephone" id="edit_phone" class="form-control mb-2">
-                    <input name="adresse" id="edit_address" class="form-control mb-2">
-
+                <div class="modal-footer border-0 px-4 pb-4 pt-0">
+                    <button type="button" class="btn btn-light rounded-pill fw-semibold px-4" data-bs-dismiss="modal">Annuler</button>
+                    <button type="submit" class="btn btn-custom-primary rounded-pill fw-bold px-4">Enregistrer</button>
                 </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-primary">Modifier</button>
-                </div>
-
             </form>
-
         </div>
     </div>
 </div>
 
-<!-- JS -->
+<!-- 📦 JAVASCRIPT FILTRAGE & PAGINATION -->
 <script>
-
 document.addEventListener('DOMContentLoaded', () => {
-
     const searchInput = document.getElementById('searchUser');
     const roleFilter = document.getElementById('filterRole');
-
     const rows = Array.from(document.querySelectorAll('.user-row'));
-
     const pagination = document.getElementById('pagination');
+    const noResultsMessage = document.getElementById('noResultsMessage');
 
     let currentPage = 1;
-
     const perPage = 10;
 
-    // NORMALIZE
     function normalize(str) {
-
-        return (str || '')
-            .toLowerCase()
-            .normalize('NFD')
-            .replace(/[\u0300-\u036f]/g, '');
-
+        return (str || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').trim();
     }
 
-    // FILTER USERS
     function getFilteredRows() {
-
         const search = normalize(searchInput.value);
-
-        const role = roleFilter.value;
+        const role = roleFilter.value.toLowerCase();
 
         return rows.filter(row => {
-
-            const name = normalize(row.dataset.name);
-
-            const phone = normalize(row.dataset.phone);
-
-            const email = normalize(row.dataset.email);
-
-            const address = normalize(row.dataset.address);
-
-            const rowRole = row.dataset.role;
-
-            let matchSearch = true;
-
-            let matchRole = true;
-
-            // SEARCH
-            if (search) {
-
-                matchSearch =
-                    name.includes(search) ||
-                    phone.includes(search) ||
-                    email.includes(search) ||
-                    address.includes(search);
-
-            }
-
-            // ROLE
-            if (role) {
-
-                matchRole = rowRole.includes(role);
-
-            }
-
-            return matchSearch && matchRole;
-
+            if (search && !normalize(`${row.dataset.name} ${row.dataset.phone} ${row.dataset.email} ${row.dataset.address}`).includes(search)) return false;
+            if (role && !row.dataset.role.includes(role)) return false;
+            return true;
         });
-
     }
 
-    // RENDER TABLE
     function renderTable() {
-
         const filteredRows = getFilteredRows();
 
-        rows.forEach(row => {
-            row.style.display = 'none';
-        });
-
-        const start = (currentPage - 1) * perPage;
-
-        const end = start + perPage;
-
-        filteredRows
-            .slice(start, end)
-            .forEach(row => {
-                row.style.display = '';
-            });
-
-        renderPagination(filteredRows.length);
-
-    }
-
-    // PAGINATION
-    function renderPagination(totalItems) {
-
-        pagination.innerHTML = '';
-
-        const totalPages = Math.ceil(totalItems / perPage);
-
-        // PREVIOUS
-        const prev = document.createElement('li');
-
-        prev.className =
-            'page-item ' + (currentPage === 1 ? 'disabled' : '');
-
-        prev.innerHTML =
-            `<a class="page-link" href="#">«</a>`;
-
-        prev.addEventListener('click', e => {
-
-            e.preventDefault();
-
-            if (currentPage > 1) {
-
-                currentPage--;
-
-                renderTable();
-
-            }
-
-        });
-
-        pagination.appendChild(prev);
-
-        // PAGES
-        for (let i = 1; i <= totalPages; i++) {
-
-            const li = document.createElement('li');
-
-            li.className =
-                'page-item ' +
-                (i === currentPage ? 'active' : '');
-
-            li.innerHTML =
-                `<a class="page-link" href="#">${i}</a>`;
-
-            li.addEventListener('click', e => {
-
-                e.preventDefault();
-
-                currentPage = i;
-
-                renderTable();
-
-            });
-
-            pagination.appendChild(li);
-
+        if (filteredRows.length === 0 && rows.length > 0) {
+            noResultsMessage.classList.remove('d-none');
+            pagination.innerHTML = '';
+            rows.forEach(row => row.style.display = 'none');
+            return;
+        } else {
+            noResultsMessage.classList.add('d-none');
         }
 
-        // NEXT
-        const next = document.createElement('li');
+        const start = (currentPage - 1) * perPage;
+        const end = start + perPage;
 
-        next.className =
-            'page-item ' +
-            (currentPage === totalPages || totalPages === 0
-                ? 'disabled'
-                : '');
+        rows.forEach(row => row.style.display = 'none');
+        filteredRows.slice(start, end).forEach(row => row.style.display = '');
 
-        next.innerHTML =
-            `<a class="page-link" href="#">»</a>`;
+        renderPagination(filteredRows.length);
+    }
 
-        next.addEventListener('click', e => {
+    function renderPagination(totalItems) {
+        pagination.innerHTML = '';
+        const totalPages = Math.ceil(totalItems / perPage);
+        if (totalPages <= 1) return;
 
-            e.preventDefault();
+        for (let i = 1; i <= totalPages; i++) {
+            const li = document.createElement('li');
+            li.className = `page-item ${i === currentPage ? 'active' : ''}`;
+            
+            const a = document.createElement('a');
+            a.className = `page-link border-0 mx-0.5 rounded-3 px-3 py-2 fw-semibold ${i === currentPage ? 'btn-active-page text-white' : 'bg-light text-dark'}`;
+            a.href = '#';
+            a.textContent = i;
 
-            if (currentPage < totalPages) {
-
-                currentPage++;
-
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                currentPage = i;
                 renderTable();
+            });
 
-            }
-
-        });
-
-        pagination.appendChild(next);
-
+            li.appendChild(a);
+            pagination.appendChild(li);
+        }
     }
 
-    // RESET PAGE
     function resetAndRender() {
-
         currentPage = 1;
-
         renderTable();
-
     }
 
-    // EVENTS
     searchInput.addEventListener('input', resetAndRender);
-
     roleFilter.addEventListener('change', resetAndRender);
 
-    // INIT
     renderTable();
-
 });
 
-</script>
-<script>
 function openEditModal(user) {
-
     document.getElementById('edit_nom').value = user.nom;
     document.getElementById('edit_prenom').value = user.prenom;
     document.getElementById('edit_email').value = user.email;
-    document.getElementById('edit_phone').value = user.telephone;
-    document.getElementById('edit_address').value = user.adresse;
+    document.getElementById('edit_phone').value = user.telephone || '';
+    document.getElementById('edit_address').value = user.adresse || '';
 
     document.getElementById('editUserForm').action = "/auth/edit/" + user.id;
 
@@ -483,4 +358,61 @@ function openEditModal(user) {
 }
 </script>
 
+<!-- 🎨 STYLES CSS PERSONNALISÉS -->
+<style>
+    /* UTILS THÈME COULEUR COHÉRENTE : #BD7579 */
+    .text-custom-color { color: #BD7579 !important; }
+    .btn-custom-primary { background-color: #BD7579 !important; color: #ffffff !important; border: none; }
+    .btn-custom-primary:hover { background-color: #a86266 !important; }
+    .btn-active-page { background-color: #BD7579 !important; }
+    
+    .form-control:focus, .form-select:focus { 
+        background-color: #ffffff !important; 
+        border: 1px solid #BD7579 !important; 
+        box-shadow: 0 0 0 3px rgba(189, 117, 121, 0.15) !important; 
+    }
+
+    /* AVATAR GENERATION PLACEHOLDER */
+    .avatar-placeholder {
+        width: 42px; height: 42px; background-color: #fdf3f3; border: 1px solid #f5dbdc;
+        font-size: 14px; letter-spacing: 0.5px; display: inline-flex;
+    }
+
+    /* BOUTONS ACTIONS ACCENTUÉS */
+    .btn-icon-action {
+        width: 32px; height: 32px; display: inline-flex; align-items: center; justify-content: center;
+        border-radius: 50%; font-size: 13px; border: 1px solid #e2e8f0; background-color: #ffffff; transition: all 0.2s ease;
+    }
+    .btn-edit { color: #BD7579; background-color: #fdf3f3; border-color: #f5dbdc; }
+    .btn-edit:hover { background-color: #BD7579; color: #ffffff; }
+    .btn-delete { color: #dc3545; background-color: #fde8e8; border-color: #f9d5d5; }
+    .btn-delete:hover { background-color: #dc3545; color: #ffffff; }
+
+    /* STRUCTURES ET LIENS LIGHT */
+    .card { border: none !important; }
+    .border-bottom-light { border-bottom: 1px solid #f1f5f9; }
+
+    /* RESPONSIVE STRUCTURE MOBILE CARDS */
+    @media (max-width: 575.98px) {
+        .table-responsive-custom table, 
+        .table-responsive-custom thead, 
+        .table-responsive-custom tbody, 
+        .table-responsive-custom th, 
+        .table-responsive-custom td, 
+        .table-responsive-custom tr { display: block; }
+        .table-responsive-custom thead { display: none; }
+        .table-responsive-custom tr {
+            padding: 1.25rem 1rem; margin: 1rem; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 16px;
+        }
+        .table-responsive-custom td {
+            text-align: right; padding: 0.6rem 0 !important; display: flex; justify-content: space-between; align-items: center; border: none !important;
+        }
+        .table-responsive-custom td::before {
+            content: attr(data-label); font-weight: 700; text-transform: uppercase; font-size: 11px; color: #64748b;
+        }
+        .table-responsive-custom td.ps-4 { padding-left: 0 !important; }
+        .grid-mobile-align { width: 100%; justify-content: flex-end; }
+        .text-truncate-mobile { text-align: right; max-width: 180px !important; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    }
+</style>
 {% endblock %}

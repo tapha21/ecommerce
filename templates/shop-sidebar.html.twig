@@ -23,152 +23,177 @@
   </div>
 </div>
 
-<section class="books-layout1 shop-catalog-section space-top space-extra-bottom">
+<section class="shop-catalog-section py-5 mb-5 mb-lg-0">
     <div class="container">
+
         <div class="row g-4">
-            
-           <div class="col-xl-3 col-lg-4 order-2 order-lg-1">
-    <aside class="sidebar-area shop-sidebar">
 
-        {# 🔎 RECHERCHE + FILTRE INTELLIGENT #}
-        <div class="widget widget_search shop-search-widget wow animate__fadeInUp" data-wow-delay="0.2s">
-            <h3 class="widget_title title-shep text-sm">Trouver un article</h3>
+            <!-- =========================
+                 SIDEBAR (RESPONSIVE CLEAN)
+            ========================== -->
+            <div class="col-12 col-lg-4 col-xl-3 order-2 order-lg-1">
 
-            <form method="get" action="{{ path('app_shop') }}" class="search-form-container position-relative">
-                    <div class="search-form position-relative">
+                <aside class="shop-sidebar">
 
-                        <input type="text"
-                            id="smartProductSearch"
-                            name="q"
-                            value="{{ currentSearch }}"
-                            class="form-control border-0 bg-light p-3 shadow-none"
-                            placeholder="Rechercher ici..."
-                            autocomplete="off"
-                            style="border-radius: 8px;">
+                    <!-- 🔎 SEARCH -->
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-body">
 
-                        {# garder catégorie sélectionnée #}
-                        <input type="hidden" name="cat" value="{{ currentCategory }}">
-                        <input type="hidden" name="section" value="{{ currentSection }}">
-                        <input type="hidden" name="category_name" value="{{ currentCategoryName }}">
+                            <h6 class="fw-bold mb-3">Trouver un article</h6>
 
-                        <button type="submit"
-                                class="position-absolute end-0 top-50 translate-middle-y border-0 bg-transparent me-3">
-                            <i class="far fa-search" style ="color: var(--theme-color)"></i>
-                        </button>
+                            <form method="get" action="{{ path('app_shop') }}">
+                                <div class="input-group">
 
+                                    <input type="text"
+                                           id="smartProductSearch"
+                                           name="q"
+                                           value="{{ currentSearch }}"
+                                           class="form-control bg-light border-0"
+                                           placeholder="Rechercher...">
+
+                                    <input type="hidden" name="cat" value="{{ currentCategory }}">
+                                    <input type="hidden" name="section" value="{{ currentSection }}">
+                                    <input type="hidden" name="category_name" value="{{ currentCategoryName }}">
+
+                                    <button class="btn" style="color: #D16655;" type="submit">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+
+                                </div>
+                            </form>
+
+                        </div>
                     </div>
-            </form>
-        </div>
 
-        {# 📂 CATEGORIES DYNAMIQUES #}
-        <div class="widget widget_categories wow animate__fadeInUp" data-wow-delay="0.4s">
-            <h3 class="widget_title title-shep text-sm">Filtres</h3>
+                    <!-- 📌 FILTRES (ACCORDÉON MOBILE) -->
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-body">
 
-            <ul>
+                            <button class="btn w-100 text-start fw-bold d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#filterSection">
+                                Filtres
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
 
-                {# TOUS LES PRODUITS #}
-                <li>
-                  <a href="{{ path('app_shop', { q: currentSearch }) }}"
-                    class="{{ currentCategory is empty and currentSection is empty and currentCategoryName is empty ? 'fw-bold' : '' }}"
-                    style="{{ currentCategory is empty and currentSection is empty and currentCategoryName is empty ? 'color: var(--theme-color);' : '' }}">
-                        Tous les produits
-                  </a>
-                </li>
+                            <div class="collapse show mt-3" id="filterSection">
 
-                <li>
-                    <a href="{{ path('app_shop', { section: 'phares', q: currentSearch }) }}"
-                       class="{{ currentSection == 'phares' ? 'fw-bold' : '' }}"
-                       style="{{ currentSection == 'phares' ? 'color: var(--theme-color);' : '' }}">
-                        Produits phares
-                    </a>
-                </li>
+                                <ul class="list-group list-group-flush">
 
-                <li>
-                    <a href="{{ path('app_shop', { section: 'promotions', q: currentSearch }) }}"
-                       class="{{ currentSection == 'promotions' ? 'fw-bold' : '' }}"
-                       style="{{ currentSection == 'promotions' ? 'color: var(--theme-color);' : '' }}">
-                        Promotions
-                    </a>
-                </li>
+                                    <li class="list-group-item border-0 px-0">
+                                        <a href="{{ path('app_shop', { q: currentSearch }) }}"
+                                           class="text-decoration-none d-block {{ currentSection is empty ? 'fw-bold ' : 'text-dark' }}" style="color: #D16655;">
+                                            Tous les produits
+                                        </a>
+                                    </li>
 
-                <li>
-                    <a href="{{ path('app_shop', { section: 'nouveautes', q: currentSearch }) }}"
-                       class="{{ currentSection == 'nouveautes' ? 'fw-bold' : '' }}"
-                       style="{{ currentSection == 'nouveautes' ? 'color: var(--theme-color);' : '' }}">
-                        Nouveautés
-                    </a>
-                </li>
+                                    <li class="list-group-item border-0 px-0">
+                                        <a href="{{ path('app_shop', { section: 'phares', q: currentSearch }) }}"
+                                           class="text-decoration-none d-block {{ currentSection == 'phares' ? 'fw-bold ' : 'text-dark' }}" style="color: #D16655;">
+                                            Produits phares
+                                        </a>
+                                    </li>
 
-                <li>
-                    <a href="{{ path('app_shop', { section: 'best_sellers', q: currentSearch }) }}"
-                       class="{{ currentSection == 'best_sellers' ? 'fw-bold' : '' }}"
-                       style="{{ currentSection == 'best_sellers' ? 'color: var(--theme-color);' : '' }}">
-                        Best sellers
-                    </a>
-                </li>
+                                    <li class="list-group-item border-0 px-0">
+                                        <a href="{{ path('app_shop', { section: 'promotions', q: currentSearch }) }}"
+                                           class="text-decoration-none d-block {{ currentSection == 'promotions' ? 'fw-bold ' : 'text-dark' }}" style="color: #D16655;">
+                                            Promotions
+                                        </a>
+                                    </li>
 
-            </ul>
-        </div>
+                                    <li class="list-group-item border-0 px-0">
+                                        <a href="{{ path('app_shop', { section: 'nouveautes', q: currentSearch }) }}"
+                                           class="text-decoration-none d-block {{ currentSection == 'nouveautes' ? 'fw-bold ' : 'text-dark' }}" style="color: #D16655;">
+                                            Nouveautés
+                                        </a>
+                                    </li>
 
-        {# 📂 CATEGORIES DYNAMIQUES #}
-        <div class="widget widget_categories wow animate__fadeInUp" data-wow-delay="0.4s">
-            <h3 class="widget_title title-shep text-sm">Rayons</h3>
+                                    <li class="list-group-item border-0 px-0">
+                                        <a href="{{ path('app_shop', { section: 'best_sellers', q: currentSearch }) }}"
+                                           class="text-decoration-none d-block {{ currentSection == 'best_sellers' ? 'fw-bold ' : 'text-dark' }}" style="color: #D16655;">
+                                            Best sellers
+                                        </a>
+                                    </li>
 
-            <ul>
+                                </ul>
 
-                {# LISTE DES CATEGORIES #}
-                {% for cat in categories %}
-                    <li>
-                        <a href="{{ path('app_shop', {
-                            cat: cat.id,
-                            q: currentSearch
-                        }) }}"
-                           class="{{ currentCategory == cat.id ? 'fw-bold' : '' }}"
-                           style="{{ currentCategory == cat.id ? 'color: var(--theme-color);' : '' }}"
-                           >
-                            {{ cat.nom }}
-                        </a>
-                    </li>
-                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
 
-            </ul>
-        </div>
+                    <!-- 📂 CATEGORIES -->
+                    <div class="card border-0 shadow-sm">
 
-        </aside>
-    </div>
+                        <div class="card-body">
 
-           <div class="col-xl-9 col-lg-8 order-1 order-lg-2">
+                            <button class="btn w-100 text-start fw-bold d-flex justify-content-between align-items-center"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#catSection">
+                                Rayons
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
 
-    <div class="shop-results-bar mb-4">
-        <span id="shopResultCount">{{ products|length }}</span>
-        produit{{ products|length > 1 ? 's' : '' }} trouvé{{ products|length > 1 ? 's' : '' }}
-    </div>
+                            <div class="collapse show mt-3" id="catSection">
 
-    <div class="row g-4" id="product-list">
+                                <ul class="list-group list-group-flush">
 
-        {% for product in products %}
+                                    {% for cat in categories %}
+                                        <li class="list-group-item border-0 px-0">
+                                            <a href="{{ path('app_shop', { cat: cat.id, q: currentSearch }) }}"
+                                               class="text-decoration-none d-block {{ currentCategory == cat.id ? 'fw-bold ' : 'text-dark' }}" style="color: #D16655;">
+                                                {{ cat.nom }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
 
-        {% include 'components/product_card.html.twig' with { 'product': product } %}
+                                </ul>
 
+                            </div>
 
-        {% endfor %}
+                        </div>
+                    </div>
 
-    </div>
-
-    <div id="emptyShopResults" class="shop-empty-results text-center py-5 d-none">
-        <i class="fa-solid fa-magnifying-glass mb-3"></i>
-        <h5 class="fw-bold">Aucun produit trouvé</h5>
-        <p class="text-muted mb-0">Essayez un autre mot-clé ou changez de filtre.</p>
-    </div>
-
-    <!-- PAGINATION -->
-    <div class="vs-pagination pt-4 d-flex justify-content-center">
-        <ul class="pagination-list d-flex list-unstyled gap-2" id="pagination"></ul>
-    </div>
-
-    </div>
+                </aside>
             </div>
+
+            <!-- =========================
+                 CONTENT (PRODUCTS)
+            ========================== -->
+            <div class="col-12 col-lg-8 col-xl-9 order-1 order-lg-2">
+
+                <!-- HEADER -->
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="fw-semibold">
+                        <span id="shopResultCount">{{ products|length }}</span>
+                        produit{{ products|length > 1 ? 's' : '' }}
+                    </span>
+                </div>
+
+                <!-- PRODUCTS -->
+                <div class="row g-4" id="product-list">
+
+                    {% for product in products %}
+                        {% include 'components/product_card.html.twig' with { product: product } %}
+                    {% endfor %}
+
+                </div>
+
+                <!-- EMPTY -->
+                <div id="emptyShopResults" class="text-center py-5 d-none">
+                    <i class="fa fa-search fa-2x mb-3"></i>
+                    <h6>Aucun produit trouvé</h6>
+                    <p class="text-muted">Essayez un autre filtre</p>
+                </div>
+
+                <!-- PAGINATION -->
+                <div class="d-flex justify-content-center mt-4">
+                    <ul class="pagination gap-2" id="pagination"></ul>
+                </div>
+
+            </div>
+
         </div>
+    </div>
 </section>
 
 {{ include('footer.html.twig') }}

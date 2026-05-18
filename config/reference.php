@@ -950,6 +950,14 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     dump_destination?: scalar|Param|null, // A stream URL where dumps should be written to. // Default: null
  *     theme?: "dark"|"light"|Param, // Changes the color of the dump() output when rendered directly on the templating. "dark" (default) or "light". // Default: "dark"
  * }
+ * @psalm-type WebProfilerConfig = array{
+ *     toolbar?: bool|array{ // Profiler toolbar configuration
+ *         enabled?: bool|Param, // Default: false
+ *         ajax_replace?: bool|Param, // Replace toolbar on AJAX requests // Default: false
+ *     },
+ *     intercept_redirects?: bool|Param, // Default: false
+ *     excluded_ajax_paths?: scalar|Param|null, // Default: "^/((index|app(_[\\w]+)?)\\.php/)?_wdt"
+ * }
  * @psalm-type TwigConfig = array{
  *     form_themes?: list<scalar|Param|null>,
  *     globals?: array<string, array{ // Default: []
@@ -982,14 +990,6 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     mailer?: array{
  *         html_to_text_converter?: scalar|Param|null, // A service implementing the "Symfony\Component\Mime\HtmlToTextConverter\HtmlToTextConverterInterface". // Default: null
  *     },
- * }
- * @psalm-type WebProfilerConfig = array{
- *     toolbar?: bool|array{ // Profiler toolbar configuration
- *         enabled?: bool|Param, // Default: false
- *         ajax_replace?: bool|Param, // Replace toolbar on AJAX requests // Default: false
- *     },
- *     intercept_redirects?: bool|Param, // Default: false
- *     excluded_ajax_paths?: scalar|Param|null, // Default: "^/((index|app(_[\\w]+)?)\\.php/)?_wdt"
  * }
  * @psalm-type StimulusConfig = array{
  *     controller_paths?: list<scalar|Param|null>,
@@ -1532,8 +1532,8 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
  *         debug?: DebugConfig,
- *         twig?: TwigConfig,
  *         web_profiler?: WebProfilerConfig,
+ *         twig?: TwigConfig,
  *         stimulus?: StimulusConfig,
  *         turbo?: TurboConfig,
  *         twig_extra?: TwigExtraConfig,
@@ -1562,8 +1562,9 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         framework?: FrameworkConfig,
  *         doctrine?: DoctrineConfig,
  *         doctrine_migrations?: DoctrineMigrationsConfig,
- *         twig?: TwigConfig,
+ *         debug?: DebugConfig,
  *         web_profiler?: WebProfilerConfig,
+ *         twig?: TwigConfig,
  *         stimulus?: StimulusConfig,
  *         turbo?: TurboConfig,
  *         twig_extra?: TwigExtraConfig,

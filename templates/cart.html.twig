@@ -23,101 +23,193 @@
       </div>
     </div>
   </div>
-  <!-- Cart Area Start-->
-<div class="vs-cart-wrapper deen-cart-wrapper py-5 mb-5 pb-5">
+<!--==============================
+    Cart Area
+  ============================== -->
+  <div class="vs-cart-wrapper deen-cart-wrapper py-5 mb-5">
     <div class="container">
+      <div class="row g-4">
 
-        <div class="row g-4">
-
-            <!-- LISTE PANIER -->
-            <div class="col-lg-8">
-                <div class="card deen-cart-card border-0 shadow-sm">
-                    <div class="deen-cart-heading d-none d-md-grid">
-                        <span>Produit</span>
-                        <span>Quantité</span>
-                        <span>Total</span>
-                        <span></span>
-                    </div>
-                    <div id="cart-container" class="list-group list-group-flush">
-                                
-                    </div>
-                    
-                </div>
-
-                <div class="mt-4">
-                    <a href="{{ path('app_shop') }}" class="deen-cart-back text-decoration-none fw-bold">
-                        <i class="fas fa-arrow-left me-2"></i>Continuer mes achats
-                    </a>
-                </div>
+        <!-- LISTE PANIER -->
+        <div class="col-lg-8">
+          <div class="card deen-cart-card border-0 shadow-sm rounded-4 overflow-hidden">
+            <!-- En-tête masqué sur mobile, visible sur PC -->
+            <div class="deen-cart-heading d-none d-md-grid p-3 text-muted fw-bold small bg-light border-bottom text-uppercase" style="letter-spacing: 0.5px;">
+              <div>Produit</div>
+              <div class="text-center">Quantité</div>
+              <div class="text-center">Total</div>
+              <div></div>
             </div>
-
-            <!-- RESUME -->
-            <div class="col-lg-4">
-                <div class="card deen-cart-summary border-0 shadow-sm p-4">
-                    <h5 class="fw-bold mb-4">Résumé de commande</h5>
-
-                    <ul class="list-group list-group-flush mb-4">
-                        <li class="list-group-item d-flex justify-content-between px-0 border-0">
-                            <span>Sous-total</span>
-                            <span id="cart-subtotal" class="fw-bold">0 FCFA</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between px-0 pt-3 border-0">
-                            <strong>Total</strong>
-                            <strong id="cart-total" style="color:var(--theme-color)">0 FCFA</strong>
-                        </li>
-                    </ul>
-
-                    <a href="{{ path('checkout_page') }}" class="deen-checkout-btn btn text-white w-100 fw-bold">
-                        PASSER LA COMMANDE
-                    </a>
-                </div>
+            
+            <div id="cart-container" class="list-group list-group-flush p-3 bg-white">
+              <!-- Géré dynamiquement par renderCart() -->
             </div>
+          </div>
 
+          <div class="mt-4">
+            <a href="{{ path('app_shop') }}" class="deen-cart-back text-decoration-none fw-bold transition-all d-inline-flex align-items-center">
+              <i class="fas fa-arrow-left me-2"></i>Continuer mes achats
+            </a>
+          </div>
         </div>
-    </div>
-</div>
-  <!-- Cart Area End-->
-  <!-- Cta Area -->
-{{ include('footer.html.twig') }}
 
-  <!--********************************
-			Code End  Here 
-	******************************** -->
+        <!-- RÉSUMÉ DE LA COMMANDE -->
+        <div class="col-lg-4">
+          <div class="card deen-cart-summary border-0 shadow-sm p-4 rounded-4 position-sticky" style="top: 110px;">
+            <h5 class="fw-bold mb-4 border-bottom pb-3">Résumé de commande</h5>
+
+            <ul class="list-group list-group-flush mb-4">
+              <li class="list-group-item d-flex justify-content-between px-0 border-0 bg-transparent">
+                <span class="text-muted">Sous-total</span>
+                <span id="cart-subtotal" class="fw-bold text-dark">0 FCFA</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between px-0 pt-3 border-0 bg-transparent">
+                <strong class="fs-5">Total</strong>
+                <strong id="cart-total" class="fs-5" style="color: var(--theme-color);">0 FCFA</strong>
+              </li>
+            </ul>
+
+            <a href="{{ path('checkout_page') }}" class="deen-checkout-btn btn text-white w-100 fw-bold py-3 shadow transition-all">
+              PASSER LA COMMANDE <i class="fa-solid fa-chevron-right ms-2 small"></i>
+            </a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  {{ include('footer.html.twig') }}
+
   <!--==============================
-        All Js File
-    ============================== -->
+    Styles Spécifiques au Panier
+  ============================== -->
+  <style>
+    /* Structure Grille Panier pour PC */
+    @media (min-width: 768px) {
+        .deen-cart-heading {
+            display: grid !important;
+            grid-template-columns: 5fr 3fr 2fr 1fr;
+            align-items: center;
+        }
+    }
+
+    /* Style des Cartes d'articles */
+    .cart-item-row {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        border: 1px solid #f0f0f0 !important;
+    }
+    .cart-item-row:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(0,0,0,0.05) !important;
+    }
+
+    /* Boutons Quantité Modernisés */
+    .qty-btn-group .btn {
+        border-color: #dee2e6;
+        background-color: #fff;
+        color: #495057;
+        width: 32px;
+        height: 32px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        transition: all 0.2s ease;
+    }
+    .qty-btn-group .btn:hover {
+        background-color: var(--theme-color);
+        border-color: var(--theme-color);
+        color: #fff;
+    }
+    .qty-count {
+        min-width: 35px;
+        display: inline-block;
+    }
+
+    /* Design des Cartes de Lots */
+    .lot-card {
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 10px 14px;
+        cursor: pointer;
+        background-color: #fff;
+        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        min-width: 110px;
+        text-align: center;
+        position: relative;
+    }
+    .lot-card:hover {
+        border-color: #ced4da;
+        transform: scale(1.02);
+    }
+    .lot-card.active {
+        border-color: var(--theme-color) !important;
+        background-color: rgba(181, 124, 124, 0.04); /* Teinte très légère basée sur votre couleur principale */
+        color: #000;
+    }
+    .lot-card.active::after {
+        content: '✓';
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        width: 18px;
+        height: 18px;
+        background-color: var(--theme-color);
+        color: #fff;
+        border-radius: 50%;
+        font-size: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+    }
+
+    /* Liens et Actions */
+    .deen-cart-back {
+        color: #495057;
+    }
+    .deen-cart-back:hover {
+        color: var(--theme-color);
+    }
+    .deen-checkout-btn {
+        background-color: var(--theme-color);
+        border-radius: 12px;
+        letter-spacing: 0.5px;
+    }
+    .deen-checkout-btn:hover {
+        background-color: #9e6464; /* Assombrissement léger pour l'effet survol */
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(181, 124, 124, 0.3) !important;
+    }
+    
+    .transition-all {
+        transition: all 0.25s ease-in-out;
+    }
+  </style>
+
+  <!--==============================
+    All Js Files
+  ============================== -->
   <!-- Jquery -->
-  <script src="assets/js/index.js"></script>
   <script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
   <!-- Bootstrap -->
   <script src="assets/js/bootstrap.min.js"></script>
-  <!-- Slick Slider -->
+  <!-- Plugins JavaScript standards -->
   <script src="assets/js/slick.min.js"></script>
-  <!-- Magnific Popup -->
   <script src="assets/js/jquery.magnific-popup.min.js"></script>
-  <!-- imagesloaded -->
   <script src="assets/js/imagesloaded.pkgd.min.js"></script>
-  <!-- Isotope Filter -->
   <script src="assets/js/isotope.pkgd.min.js"></script>
-  <!-- Gsap -->
   <script src="assets/js/gsap.min.js"></script>
-  <!-- ScrollTrigger -->
   <script src="assets/js/ScrollTrigger.min.js"></script>
-  <!-- Gsap ScrollTo Plugin -->
   <script src="assets/js/gsap-scroll-to-plugin.js"></script>
-  <!-- Split Text -->
   <script src="assets/js/SplitText.js"></script>
-  <!-- lenis -->
   <script src="assets/js/lenis.min.js"></script>
-  <!-- wow js -->
   <script src="assets/js/wow.min.js"></script>
-  <!-- nice-select -->
   <script src="assets/js/jquery.nice-select.min.js"></script>
-  <!-- nouislider -->
   <script src="assets/js/nouislider.min.js"></script>
-  <!-- Main Js File -->
+  <!-- Main & Custom Logic Js Files (Placés à la fin) -->
   <script src="assets/js/main.js"></script>
-  
+  <script src="assets/js/index.js"></script>
 </body>
-
 </html>
