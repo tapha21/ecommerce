@@ -93,3 +93,7 @@ EXPOSE 80
 # Lancement du serveur Apache
 # --------------------------------------------------
 CMD ["apache2-foreground"]
+
+RUN composer dump-autoload --optimize
+RUN php bin/console cache:clear --env=prod || true
+RUN php bin/console cache:warmup --env=prod || true
